@@ -1,13 +1,30 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import os
+import hashlib
 
 def index(request):
     return render(request, 'Solana/index.html')
 
 def dashboard(request):
+    # teamflag = os.environ.get('TEAMFLAG')
+    teamflag = "teamflag"
     if not request.session.get('is_authenticated'):
         return redirect('index')
-    return render(request, 'Solana/dashboard.html')
+    
+    else:
+        challengeflag = "webchallenge1"
+        
+        # Concatenate challengeflag and teamflag
+        combined_flag = challengeflag + teamflag
+        
+        # Hash the combined flag using SHA-256
+        hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
+        
+        print(hashed_flag)
+        response = render(request, 'Solana/dashboard.html')
+        response.set_cookie('flag', f"CHL{{{hashed_flag}}}", max_age=7*24*60*60)
+        return response
 
 def news(request):
     return render(request, 'Solana/news.html')
