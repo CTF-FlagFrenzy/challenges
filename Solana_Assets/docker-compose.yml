@@ -1,0 +1,20 @@
+
+version: "3"
+
+volumes:
+  my-django-data:
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    volumes:
+    - my-django-data:/media
+
+    working_dir: "/code"
+    
+    ports:
+    - "9000:8000"
+
