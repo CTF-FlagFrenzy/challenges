@@ -10,5 +10,5 @@ WORKDIR /code
 
 EXPOSE 8000
 
-ENTRYPOINT ["python", "django/manage.py"]
+ENTRYPOINT ["python", "manage.py"]
 CMD ["runserver", "0.0.0.0:8000"]
