@@ -4,7 +4,7 @@ Web challenge where you have to get the flag with an cookie which contains a fla
 
 ---
 
-## Concept 
+## Concept
 
 ## Challenge Overview:
 
@@ -37,7 +37,6 @@ Web challenge where you have to get the flag with an cookie which contains a fla
 
 ---
 
-
 ## Attack Paths:
 
     **XSS Attack:** If the application has an XSS vulnerability, the attacker can inject malicious JavaScript to exploit the session of a legitimate user and steal their cookie.
@@ -45,4 +44,3 @@ Web challenge where you have to get the flag with an cookie which contains a fla
     **Session Hijacking:** By figuring out how the session or login mechanism works, the attacker can potentially steal a session or manipulate their session to retrieve the cookie.
 
     **Cookie Replay:** The attacker might try to replay a valid login session and retrieve the flag cookie by inspecting network traffic.
-

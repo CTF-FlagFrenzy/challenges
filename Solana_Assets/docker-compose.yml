@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 volumes:
   my-django-data:
@@ -8,12 +8,11 @@ services:
     build:
       context: .
       dockerfile: django/Dockerfile
-    
+
     volumes:
-    - my-django-data:/media
+      - my-django-data:/media
 
-    working_dir: "/code"
-    
+    working_dir: '/code'
+
     ports:
-    - "8000:8000"
-
+      - '8000:8000'

@@ -1,92 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-900 text-white">
-    <nav class="bg-gradient-to-r from-purple-800 to-teal-600 shadow-md rounded-lg mb-6 p-4 flex justify-between items-center">
-        <ul class="flex space-x-4">
-            <li><a href="{% url 'index' %}" class="text-white hover:text-gray-300 transition duration-300">Home</a></li>
-            <li><a href="{% url 'dashboard' %}" class="text-white hover:text-gray-300 transition duration-300">Dashboard</a></li>
-            <li><a href="{% url 'news' %}" class="text-white hover:text-gray-300 transition duration-300">News</a></li>
-        </ul>
-        <div class="flex items-center space-x-2">
-            <span class="text-white font-bold">Solana Assets</span>
-            <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana Logo" class="h-8 w-8">
-        </div>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-900 text-white">
+    <nav
+      class="bg-gradient-to-r from-purple-800 to-teal-600 shadow-md rounded-lg mb-6 p-4 flex justify-between items-center"
+    >
+      <ul class="flex space-x-4">
+        <li>
+          <a
+            href="{% url 'index' %}"
+            class="text-white hover:text-gray-300 transition duration-300"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'dashboard' %}"
+            class="text-white hover:text-gray-300 transition duration-300"
+            >Dashboard</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'news' %}"
+            class="text-white hover:text-gray-300 transition duration-300"
+            >News</a
+          >
+        </li>
+      </ul>
+      <div class="flex items-center space-x-2">
+        <span class="text-white font-bold">Solana Assets</span>
+        <img
+          src="https://cryptologos.cc/logos/solana-sol-logo.png"
+          alt="Solana Logo"
+          class="h-8 w-8"
+        />
+      </div>
     </nav>
     <div class="container mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-6">Dashboard</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="md:col-span-2">
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">Solana Chart</h2>
-                    <div class="h-96 bg-gray-700 rounded-lg">
-                        <!-- Solana chart embedded using an iframe -->
-                        <iframe src="https://www.tradingview.com/widgetembed/?frameElementId=tradingview_12345&symbol=SOLUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Etc/UTC&studies_overrides={}&overrides={}" width="100%" height="100%" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
-                    </div>
-                </div>
+      <h1 class="text-3xl font-bold text-center mb-6">Dashboard</h1>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2">
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Solana Chart</h2>
+            <div class="h-96 bg-gray-700 rounded-lg">
+              <!-- Solana chart embedded using an iframe -->
+              <iframe
+                src="https://www.tradingview.com/widgetembed/?frameElementId=tradingview_12345&symbol=SOLUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Etc/UTC&studies_overrides={}&overrides={}"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                allowtransparency="true"
+                scrolling="no"
+              ></iframe>
             </div>
-            <div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
-                    <h2 class="text-2xl font-bold mb-4">Random Transactions</h2>
-                    <ul class="divide-y divide-gray-700">
-                        <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">Transaction 1: 0.5 SOL</li>
-                        <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">Transaction 2: 1.2 SOL</li>
-                        <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">Transaction 3: 0.8 SOL</li>
-                        <!-- Add more transactions as needed -->
-                    </ul>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">Wallet Worth</h2>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                            <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana Logo" class="h-12 w-12">
-                        </div>
-                        <div>
-                            <p class="text-lg font-medium text-gray-400">Current Wallet Worth</p>
-                            <p class="text-4xl font-bold text-teal-400 animate-pulse">15.3 SOL</p>
-                        </div>
-                    </div>
-                </div>
+          </div>
+        </div>
+        <div>
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-bold mb-4">Random Transactions</h2>
+            <ul class="divide-y divide-gray-700">
+              <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">
+                Transaction 1: 0.5 SOL
+              </li>
+              <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">
+                Transaction 2: 1.2 SOL
+              </li>
+              <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">
+                Transaction 3: 0.8 SOL
+              </li>
+              <!-- Add more transactions as needed -->
+            </ul>
+          </div>
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Wallet Worth</h2>
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img
+                  src="https://cryptologos.cc/logos/solana-sol-logo.png"
+                  alt="Solana Logo"
+                  class="h-12 w-12"
+                />
+              </div>
+              <div>
+                <p class="text-lg font-medium text-gray-400">
+                  Current Wallet Worth
+                </p>
+                <p class="text-4xl font-bold text-teal-400 animate-pulse">
+                  15.3 SOL
+                </p>
+              </div>
             </div>
-            <div class="md:col-span-2">
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">Polkadot Chart</h2>
-                    <div class="h-96 bg-gray-700 rounded-lg">
-                        <!-- Polkadot chart embedded using an iframe -->
-                        <iframe src="https://www.tradingview.com/widgetembed/?frameElementId=tradingview_67890&symbol=DOTUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Etc/UTC&studies_overrides={}&overrides={}" width="100%" height="100%" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
-                    </div>
-                </div>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Polkadot Chart</h2>
+            <div class="h-96 bg-gray-700 rounded-lg">
+              <!-- Polkadot chart embedded using an iframe -->
+              <iframe
+                src="https://www.tradingview.com/widgetembed/?frameElementId=tradingview_67890&symbol=DOTUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Etc/UTC&studies_overrides={}&overrides={}"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                allowtransparency="true"
+                scrolling="no"
+              ></iframe>
             </div>
-            <div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
-                    <h2 class="text-2xl font-bold mb-4">Random Transactions</h2>
-                    <ul class="divide-y divide-gray-700">
-                        <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">Transaction 1: 2.3 DOT</li>
-                        <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">Transaction 2: 1.1 DOT</li>
-                        <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">Transaction 3: 0.9 DOT</li>
-                        <!-- Add more transactions as needed -->
-                    </ul>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">Wallet Worth</h2>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                            <img src="https://cryptologos.cc/logos/polkadot-new-dot-logo.png" alt="Polkadot Logo" class="h-12 w-12">
-                        </div>
-                        <div>
-                            <p class="text-lg font-medium text-gray-400">Current Wallet Worth</p>
-                            <p class="text-4xl font-bold text-teal-400 animate-pulse">10.7 DOT</p>
-                        </div>
-                    </div>
-                </div>
+          </div>
+        </div>
+        <div>
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-bold mb-4">Random Transactions</h2>
+            <ul class="divide-y divide-gray-700">
+              <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">
+                Transaction 1: 2.3 DOT
+              </li>
+              <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">
+                Transaction 2: 1.1 DOT
+              </li>
+              <li class="py-2 px-4 hover:bg-gray-700 rounded-lg">
+                Transaction 3: 0.9 DOT
+              </li>
+              <!-- Add more transactions as needed -->
+            </ul>
+          </div>
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Wallet Worth</h2>
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img
+                  src="https://cryptologos.cc/logos/polkadot-new-dot-logo.png"
+                  alt="Polkadot Logo"
+                  class="h-12 w-12"
+                />
+              </div>
+              <div>
+                <p class="text-lg font-medium text-gray-400">
+                  Current Wallet Worth
+                </p>
+                <p class="text-4xl font-bold text-teal-400 animate-pulse">
+                  10.7 DOT
+                </p>
+              </div>
             </div>
-            </div>
-            </div>
-            </div>
-            </body>
-            </html>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
