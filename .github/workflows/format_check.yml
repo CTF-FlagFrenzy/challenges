@@ -6,9 +6,9 @@ on:
       - main
   pull_request:
     branches:
-      - main
+      - all
   schedule:
-    - cron: '0 0 * * *' # Daily at midnight
+    - cron: '0 0 * * *'
 
 jobs:
   format-check:
