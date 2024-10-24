@@ -1,6 +1,5 @@
 import hashlib
 import logging
-import os
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -10,7 +9,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
 def index(request):
     trollflag = "Its not that easy buddy"
-    heashed_trolledflag = hashlib.sha256(trollflag.encode()).hexdigest()
+    hashlib.sha256(trollflag.encode()).hexdigest()
     response = render(request, "Solana/index.html")
     for cookie in request.COOKIES:
         response.delete_cookie(cookie)

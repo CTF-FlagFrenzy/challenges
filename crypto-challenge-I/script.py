@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-from dotenv import load_dotenv
-import random
-import os
 import hashlib
+import os
+import random
+
+from dotenv import load_dotenv
+
 print("Running startup script...")
 
 
