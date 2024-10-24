@@ -7,11 +7,11 @@ import random
 
 load_dotenv()
 
-teamkey = os.getenv("TEAMKEY")
+team_key = os.getenv("TEAMKEY")
 challenge_key = os.getenv("CHALLENGE")
-combined_flag = challenge_key + teamkey
+combined_flag = challenge_key + team_key
 hashed_flag = f"FF{{{hashlib.md5(combined_flag.encode()).hexdigest()}}}"
-print(f"Team Key: {teamkey}")
+print(f"Team Key: {team_key}")
 print(f"Challenge Key: {challenge_key}")
 print(f"Flag: {hashed_flag}")
 
