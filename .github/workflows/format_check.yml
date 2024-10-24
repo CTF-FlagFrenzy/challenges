@@ -1,84 +1,41 @@
-﻿name: Format Check
+﻿name: Format and Code Quality Check
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - all
-  schedule:
-    - cron: '0 0 * * *'
+on: [push, pull_request]
 
 jobs:
-  format-check:
+  lint-and-format:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          node-version: '18'
+          python-version: '3.8'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black isort
 
-      - name: Ensure Prettier is executable
-        run: chmod +x ./node_modules/.bin/prettier
+      - name: Run flake8
+        run: |
+          flake8 .
 
-      - name: Run Prettier Check
-        run: npx prettier --check .
+      - name: Run black and fix issues
+        run: |
+          black .
 
-      - name: Run Prettier Write
-        run: npx prettier --write .
+      - name: Run isort and fix issues
+        run: |
+          isort .
 
       - name: Commit changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-          git commit -m 'chore: format code with Prettier' || echo "No changes to commit"
-        if: success()
-
-      - name: Push changes
-        run: git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: success()
-
-      - name: Check for uncommitted changes
-        run: git diff --exit-code
-        shell: bash
-
-  require-approval:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request_target'
-
-    steps:
-      - name: Require approval
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const { context, github } = require('@actions/github');
-            const issues = await github.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-            });
-            const now = new Date();
-            issues.data.forEach(async (issue) => {
-              const lastUpdated = new Date(issue.updated_at);
-              const daysSinceLastUpdate = (now - lastUpdated) / (1000 * 60 * 60 * 24);
-              if (daysSinceLastUpdate > 7) {
-                await github.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  body: 'This issue has been open for more than 7 days without interaction. Please take a look.',
-                });
-              }
-            });
+          git commit -m "Auto-format code with black and isort" || echo "No changes to commit"
+          git push
