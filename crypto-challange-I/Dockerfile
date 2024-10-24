@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y python3
 # Copy the startup script and Python script
 COPY ./start.sh /usr/local/bin/start.sh
 COPY ./script.py /usr/local/bin/script.py
-
+COPY ./requirements.txt /usr/local/bin/requirements.txt
+COPY ./apache2.conf /etc/apache2/apache2.conf
 # Make the startup script executable
 RUN chmod +x /usr/local/bin/start.sh
 
