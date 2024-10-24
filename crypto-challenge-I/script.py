@@ -19,8 +19,6 @@ print("Running startup script...")
 # Add your startup logic here
 
 
-
-
 def caesar_cipher(text, shift):
     """
     Encrypts a string using the Caesar cipher.
@@ -37,7 +35,7 @@ def caesar_cipher(text, shift):
     for char in text:
         if char.isalpha():
             # Determine if the character is uppercase or lowercase
-            start = ord('A') if char.isupper() else ord('a')
+            start = ord("A") if char.isupper() else ord("a")
             # Shift the character and wrap around using modulo
             encrypted_char = chr((ord(char) - start + shift) % 26 + start)
             encrypted_text.append(encrypted_char)
@@ -45,12 +43,13 @@ def caesar_cipher(text, shift):
             # Non-alphabetic characters are added as is
             encrypted_text.append(char)
 
-    return ''.join(encrypted_text)
+    return "".join(encrypted_text)
+
 
 random_shift = random.randint(1, 25)
 
 # Example usage
-encrypted_text = caesar_cipher(hashed_flag, shift = random_shift)
+encrypted_text = caesar_cipher(hashed_flag, shift=random_shift)
 
 
 html_content = f"""
