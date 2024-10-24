@@ -7,4 +7,4 @@ services:
       - '7070:80'
     environment:
       - TEAMKEY=team1
-      - CHALLANGEKEY=heheheha
+      - CHALLENGE=heheheha
