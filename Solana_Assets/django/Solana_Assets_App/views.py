@@ -34,7 +34,7 @@ def dashboard(request):
         response = render(request, 'Solana/dashboard.html')
         for cookie in request.COOKIES:
             response.delete_cookie(cookie)        
-        response.set_cookie('Flag', f"TH{{{hashed_flag}}}", max_age=7*24*60*60)
+        response.set_cookie('Flag', f"FF{{{hashed_flag}}}", max_age=7*24*60*60)
 
         return response
 
@@ -63,7 +63,7 @@ def wrong(request):
     trollflag2 = "try /files"
     for cookie in request.COOKIES:
         response.delete_cookie(cookie)
-    response.set_cookie('Flag', f"{trollflag2}" )
+    response.set_cookie('Flag', f"FF{{{trollflag2}}}" )
     return response
 
 def files(request):
