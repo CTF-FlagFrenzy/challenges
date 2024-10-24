@@ -3,6 +3,7 @@ print("Running startup script...")
 from dotenv import load_dotenv
 import os
 import hashlib
+import random
 
 load_dotenv()
 
@@ -46,8 +47,10 @@ def caesar_cipher(text, shift):
 
     return ''.join(encrypted_text)
 
+random_shift = random.randint(1, 25)
+
 # Example usage
-encrypted_text = caesar_cipher(hashed_flag, shift = 4)
+encrypted_text = caesar_cipher(hashed_flag, shift = random_shift)
 
 
 html_content = f"""
