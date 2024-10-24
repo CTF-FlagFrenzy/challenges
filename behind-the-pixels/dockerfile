@@ -1,0 +1,19 @@
+# Basis-Image mit Python und ExifTool
+FROM python:3.9-slim
+
+# Installiere exiftool
+RUN apt-get update && apt-get install -y exiftool
+
+# Setze das Arbeitsverzeichnis
+WORKDIR /app
+
+# Kopiere das Script und das Originalbild in den Container
+COPY script.py .
+COPY master_file.jpg .
+
+# Installiere eventuelle Python-Abhängigkeiten
+# (Falls du zusätzliche Bibliotheken benötigst, z.B. requests, kannst du requirements.txt nutzen)
+# RUN pip install -r requirements.txt
+
+# Starte das Script
+CMD ["python", "script.py"]
