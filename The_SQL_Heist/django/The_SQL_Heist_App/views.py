@@ -1,6 +1,6 @@
 import logging
 
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
