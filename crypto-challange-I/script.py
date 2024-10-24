@@ -47,7 +47,7 @@ def caesar_cipher(text, shift):
     return ''.join(encrypted_text)
 
 # Example usage
-encrypted_text = caesar_cipher(hashed_flag, shift = 23)
+encrypted_text = caesar_cipher(hashed_flag, shift = 4)
 
 
 html_content = f"""
@@ -59,10 +59,7 @@ html_content = f"""
     <title>Flag</title>
 </head>
 <body>
-    <h1>Team Key: {teamkey}</h1>
-    <h1>Challange Key: {challangeKey}</h1>
-    <h1>Flag: {hashed_flag}</h1>
-    <h1>Encrypted Flag: {encrypted_text}</h1>
+    <h1>Some weird text has been found: {encrypted_text}</h1>
 </body>
 </html>
 """
@@ -73,5 +70,3 @@ with open(output_path, "w") as file:
     file.write(html_content)
 
 print(f"HTML file written to {output_path}")
-
-print("Kave is T H I C C")
