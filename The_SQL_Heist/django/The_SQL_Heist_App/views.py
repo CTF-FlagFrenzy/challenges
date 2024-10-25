@@ -24,10 +24,9 @@ def index(request):
             rows = cursor.fetchall()
             for row in rows:
                 articles.append({
-                    'title': row[1],  # Assuming title is the second column
-                    'content': row[2]  # Assuming content is the third column
+                    'title': row[1],  
+                    'content': row[2]  
                 })
-            # Überprüfen Sie, ob die SQL-Injection erfolgreich war
             if "flag" in query:
                 flag = f"FF{{{hashed_flag}}}"
     else:
