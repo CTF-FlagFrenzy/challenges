@@ -34,7 +34,6 @@ def index(request):
     else:
         articles = Article.objects.all()
 
-    # Get 5 random articles for breaking news
     breaking_news = random.sample(list(Article.objects.all()), 5)
 
     return render(
