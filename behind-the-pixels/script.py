@@ -13,7 +13,7 @@ output_file = "nice_holiday_copy.JPG"
 # Funktion zum Auslesen der Original-Flag aus den EXIF-Daten
 def extract_original_flag(file):
     # Verwende den vollständigen Pfad zu exiftool.exe
-    result = subprocess.run([r"C:\Users\ilaria\Downloads\exiftool-12.99_64\exiftool.exe", "-Comment", file], stdout=subprocess.PIPE, text=True)
+    result = subprocess.run(["exiftool", "-Comment", file], stdout=subprocess.PIPE, text=True, check=True)
     
     # Ausgabe sieht typischerweise so aus: "Comment: CTF{original_flag}"
     exif_data = result.stdout
@@ -29,7 +29,7 @@ def extract_original_flag(file):
 # Funktion zum Einbetten der kombinierten Flag in die EXIF-Daten
 def embed_combined_flag(file, flag):
     # Verwende exiftool, um die EXIF-Daten des Bildes zu modifizieren und die kombinierte Flag einzubetten
-    result = subprocess.run([r"C:\Users\ilaria\Downloads\exiftool-12.99_64\exiftool.exe", f"-Comment={flag}", file], stdout=subprocess.PIPE, text=True)
+    result = subprocess.run(["exiftool", f"-Comment={flag}", file], stdout=subprocess.PIPE, text=True, check=True)
     print(result.stdout)
 
 # Kopiere das Originalbild zu einer neuen Datei
