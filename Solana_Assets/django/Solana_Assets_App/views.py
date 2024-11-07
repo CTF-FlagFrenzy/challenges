@@ -1,5 +1,6 @@
 import hashlib
 import logging
+import os
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -20,13 +21,12 @@ def index(request):
 
 def dashboard(request):
     #! This is the flag that you need to get from the environment variables
-    # teamflag = os.environ.get('TEAMFLAG')
-    teamflag = "teamflag"
+    teamflag = os.environ.get('TEAMKEY')
+    challengeflag = os.environ.get('CHALLENGEKEY')
     if not request.session.get("is_authenticated"):
         return redirect("index")
 
     else:
-        challengeflag = "nkN7FPpuB#"
         combined_flag = challengeflag + teamflag
         hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
 
