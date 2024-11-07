@@ -12,11 +12,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
 def index(request):
     query = request.GET.get("q")
-    #! This is the flag that you need to get from the environment variables
-    # teamflag = os.environ.get('TEAMFLAG')
     flag = None
-    teamflag = "teamflag"
-    challengeflag = "nkN7FPpuB#"
+    #! This is the flag that you need to get from the environment variables
+    teamflag = os.environ.get('TEAMKEY')
+    challengeflag = os.environ.get('CHALLENGEKEY')
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
 
