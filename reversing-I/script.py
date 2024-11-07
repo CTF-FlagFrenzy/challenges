@@ -34,7 +34,7 @@ def encrypt_flag(flag, key):
     return encrypted_flag_with_iv
 
 decrypt_func ="""
-def decrypt_flag(funny, HEHEHA):
+def func(funny, HEHEHA):
     funny = base64.b64decode(funny)
     what = funny[:16]
     is_this_aFlag = funny[16:]
