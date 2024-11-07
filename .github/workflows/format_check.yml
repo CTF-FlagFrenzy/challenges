@@ -1,6 +1,9 @@
 ﻿name: Format and Quality Check
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   format-check:
