@@ -1,7 +1,7 @@
 import hashlib
 import logging
-import random
 import os
+import random
 
 from django.db import connection
 from django.shortcuts import render
@@ -15,8 +15,8 @@ def index(request):
     query = request.GET.get("q")
     flag = None
     #! This is the flag that you need to get from the environment variables
-    teamflag = os.environ.get('TEAMKEY')
-    challengeflag = os.environ.get('CHALLENGEKEY')
+    teamflag = os.environ.get("TEAMKEY")
+    challengeflag = os.environ.get("CHALLENGEKEY")
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
 
