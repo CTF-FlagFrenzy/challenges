@@ -92,7 +92,7 @@ def {words[0]}({words[1]}, {words[2]}):
 secured_flag = encrypt_flag(hashed_flag, EncryptionKey)
 
 #write all of the script to a file dynamically
-with open ("obfuscated.py", "wb") as f:
+with open ("/usr/local/apache2/htdocs/obfuscated.py", "wb") as f:
     import_statements = """import base64
 import random
 import os
@@ -105,3 +105,23 @@ from cryptography.hazmat.backends import default_backend
     f.write(import_statements.encode())
     f.write(strencfunc.encode())
     f.write(hint.encode())
+
+
+html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download File</title>
+</head>
+<body>
+    <a href="obfuscated.py" download="obfuscated.py">Download obfuscated.py</a>
+</body>
+</html>
+"""
+
+# Write HTML content to a file
+output_path = "/usr/local/apache2/htdocs/index.html"
+with open(output_path, "w") as file:
+    file.write(html_content)
+
+print(f"HTML file written to {output_path}")
