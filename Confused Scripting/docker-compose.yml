@@ -6,5 +6,5 @@ services:
     ports:
       - '7070:80'
     environment:
-      - TEAMKEY=team1
-      - CHALLENGEKEY=heheheha
+      - TEAMKEY=team2
+      - CHALLENGEKEY=test

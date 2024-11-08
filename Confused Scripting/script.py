@@ -3,8 +3,11 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.backends import default_backend
 
-team_key = "Team1"
-challenge_key = "reversing-I"
+
+
+
+team_key = os.getenv("TEAMKEY")
+challenge_key = os.getenv("CHALLENGEKEY")
 combined_flag = challenge_key + team_key
 hashed_flag = f"FF{{{hashlib.md5(combined_flag.encode()).hexdigest()}}}"
 
