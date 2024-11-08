@@ -1,10 +1,11 @@
-import base64, random, hashlib, os
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives import padding
+import base64
+import hashlib
+import os
+import random
+
 from cryptography.hazmat.backends import default_backend
-
-
-
+from cryptography.hazmat.primitives import padding
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 team_key = os.getenv("TEAMKEY")
 challenge_key = os.getenv("CHALLENGEKEY")
@@ -14,38 +15,149 @@ hashed_flag = f"FF{{{hashlib.md5(combined_flag.encode()).hexdigest()}}}"
 print(f"Flag: {hashed_flag}")
 
 
-#a list of names, that will be hashed and used as names for functions and variables
+# a list of names, that will be hashed and used as names for functions and variables
 words = [
-    "apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew",
-    "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry",
-    "strawberry", "tangerine", "ugli", "vanilla", "watermelon", "xigua", "yellowfruit",
-    "zucchini", "apricot", "blackberry", "blueberry", "cantaloupe", "clementine",
-    "dragonfruit", "grapefruit", "guava", "jackfruit", "kumquat", "lime", "lychee",
-    "mandarin", "mulberry", "olive", "passionfruit", "peach", "pear", "persimmon",
-    "pineapple", "plum", "pomegranate", "starfruit", "tamarind", "tomato", "avocado",
-    "bilberry", "boysenberry", "currant", "damson", "feijoa", "gooseberry", "jabuticaba",
-    "jambul", "jujube", "longan", "loquat", "medlar", "miraclefruit", "mulberry",
-    "nance", "pawpaw", "pitanga", "pitaya", "plantain", "rambutan", "redcurrant",
-    "salak", "soursop", "surinamcherry", "tamarillo", "whitecurrant", "yuzu",
-    "ackee", "akee", "ambarella", "babaco", "bignay", "breadfruit", "burdekinplum",
-    "calamondin", "canistel", "capulincherry", "carambola", "cherimoya", "chico",
-    "cupuacu", "durian", "genip", "grumichama", "ilama", "imbe", "jocote", "kaki",
-    "kepel", "langsat", "lucuma", "mamey", "mamoncillo", "marang", "marula", "matoa",
-    "mombin", "monstera", "muscadine", "naranjilla", "noni", "pandanus", "pequi",
-    "pulasan", "santol", "sapodilla", "sapotilla", "soursop", "tamarind", "tangelo",
-    "tangor", "ugli", "voavanga", "wampi", "whitecurrant", "yangmei", "yumberry",
-    "ziziphus"
+    "apple",
+    "banana",
+    "cherry",
+    "date",
+    "elderberry",
+    "fig",
+    "grape",
+    "honeydew",
+    "kiwi",
+    "lemon",
+    "mango",
+    "nectarine",
+    "orange",
+    "papaya",
+    "quince",
+    "raspberry",
+    "strawberry",
+    "tangerine",
+    "ugli",
+    "vanilla",
+    "watermelon",
+    "xigua",
+    "yellowfruit",
+    "zucchini",
+    "apricot",
+    "blackberry",
+    "blueberry",
+    "cantaloupe",
+    "clementine",
+    "dragonfruit",
+    "grapefruit",
+    "guava",
+    "jackfruit",
+    "kumquat",
+    "lime",
+    "lychee",
+    "mandarin",
+    "mulberry",
+    "olive",
+    "passionfruit",
+    "peach",
+    "pear",
+    "persimmon",
+    "pineapple",
+    "plum",
+    "pomegranate",
+    "starfruit",
+    "tamarind",
+    "tomato",
+    "avocado",
+    "bilberry",
+    "boysenberry",
+    "currant",
+    "damson",
+    "feijoa",
+    "gooseberry",
+    "jabuticaba",
+    "jambul",
+    "jujube",
+    "longan",
+    "loquat",
+    "medlar",
+    "miraclefruit",
+    "mulberry",
+    "nance",
+    "pawpaw",
+    "pitanga",
+    "pitaya",
+    "plantain",
+    "rambutan",
+    "redcurrant",
+    "salak",
+    "soursop",
+    "surinamcherry",
+    "tamarillo",
+    "whitecurrant",
+    "yuzu",
+    "ackee",
+    "akee",
+    "ambarella",
+    "babaco",
+    "bignay",
+    "breadfruit",
+    "burdekinplum",
+    "calamondin",
+    "canistel",
+    "capulincherry",
+    "carambola",
+    "cherimoya",
+    "chico",
+    "cupuacu",
+    "durian",
+    "genip",
+    "grumichama",
+    "ilama",
+    "imbe",
+    "jocote",
+    "kaki",
+    "kepel",
+    "langsat",
+    "lucuma",
+    "mamey",
+    "mamoncillo",
+    "marang",
+    "marula",
+    "matoa",
+    "mombin",
+    "monstera",
+    "muscadine",
+    "naranjilla",
+    "noni",
+    "pandanus",
+    "pequi",
+    "pulasan",
+    "santol",
+    "sapodilla",
+    "sapotilla",
+    "soursop",
+    "tamarind",
+    "tangelo",
+    "tangor",
+    "ugli",
+    "voavanga",
+    "wampi",
+    "whitecurrant",
+    "yangmei",
+    "yumberry",
+    "ziziphus",
 ]
 
 EncryptionKey = os.urandom(16)
 
-#hash a string, until the first character is a string
-#this is because using a int as a first letter of a function makes python cry
+
+# hash a string, until the first character is a string
+# this is because using a int as a first letter of a function makes python cry
 def create_md5_hash(text):
-    hashed =  hashlib.md5(text.encode()).hexdigest()
+    hashed = hashlib.md5(text.encode()).hexdigest()
     while hashed[0].isdigit():
         hashed = hashlib.md5(hashed.encode()).hexdigest()
     return hashed
+
 
 # create a list of hashed words
 words = [create_md5_hash(word) for word in words]
@@ -53,7 +165,8 @@ words = [create_md5_hash(word) for word in words]
 # shuffle the words to ensure that every file is unique
 random.shuffle(words)
 
-#the function that is encrypting the flag
+
+# the function that is encrypting the flag
 def encrypt_flag(flag, key):
     iv = os.urandom(16)
     key = key
@@ -65,7 +178,8 @@ def encrypt_flag(flag, key):
     encrypted_flag_with_iv = base64.b64encode(iv + encrypted_flag).decode()
     return encrypted_flag_with_iv
 
-#the function that is decrypting the flag, used for debug or solution
+
+# the function that is decrypting the flag, used for debug or solution
 def decrypt(encrypted_text, key):
     encrypted_data = base64.b64decode(encrypted_text)
     iv = encrypted_data[:16]
@@ -77,7 +191,9 @@ def decrypt(encrypted_text, key):
     flag = unpadder.update(padded_flag) + unpadder.finalize()
     return flag.decode()
 
-# the encryption function, but converted to be filled with random names for maximum confusion
+
+# the encryption function, but converted to be filled with random names
+# for maximum confusion
 strencfunc = f"""
 def {words[0]}({words[1]}, {words[2]}):
     {words[3]} = {os.urandom(16)}
@@ -91,11 +207,11 @@ def {words[0]}({words[1]}, {words[2]}):
     return {words[9]}
 """
 
-#the flag but encrypted using the encryption function
+# the flag but encrypted using the encryption function
 secured_flag = encrypt_flag(hashed_flag, EncryptionKey)
 
-#write all of the script to a file dynamically
-with open ("/usr/local/apache2/htdocs/obfuscated.py", "wb") as f:
+# write all of the script to a file dynamically
+with open("/usr/local/apache2/htdocs/obfuscated.py", "wb") as f:
     import_statements = """import base64
 import random
 import os
