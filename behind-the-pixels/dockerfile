@@ -1,15 +1,11 @@
-# Basis-Image mit Python und ExifTool
 FROM python:3.9-slim
 
-# Installiere exiftool
-RUN apt-get update && apt-get install -y exiftool
+RUN apt-get update && apt-get install -y exiftool && pip install flask
 
-# Setze das Arbeitsverzeichnis und erstelle es, falls es nicht existiert
 WORKDIR /app
+RUN ls -l /app
 
-# Kopiere das Script und das Originalbild in den Container
 COPY script.py .
 COPY nice_holiday.JPG .
 
-# Starte das Script
 CMD ["python", "script.py"]
