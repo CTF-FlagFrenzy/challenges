@@ -1,6 +1,8 @@
 # The SQL Heist
 
-Web challenge where you have to exploit a search function in order to get the flag **Level**:Easy
+Web challenge where you have to exploit a search function to retrieve the flag.  
+**Level**: Easy
+
 
 
 ## Challenge Overview:
@@ -40,7 +42,8 @@ services:
 
 ### Web Application:
 
-Write 1 or 2 sentences about the code
+This HTML code defines a layout for displaying articles and breaking news in a grid format, with a footer that remains fixed at the bottom of the page. If a flag is set, it is displayed in a fixed position at the bottom-right of the screen.
+
 
 ```html
     <main class="container mx-auto p-4 grid grid-cols-3 gap-4">
@@ -80,16 +83,15 @@ Write 1 or 2 sentences about the code
 ```
 
 
-### SQL Injection backend
+### SQL Injection Backend Overview
 
-Write some details about the code below
-
+The code provided demonstrates a potential vulnerability related to **SQL injection**. It handles a user search query to fetch articles from a database. Here's an analysis of the code and the security concerns:
 
 ```python
 def index(request):
-    query = request.GET.get("q")
+    query = request.GET.get("q")  # Retrieves the search query from the GET request
     flag = None
-    #! This is the flag that you need to get from the environment variables
+    # The flag is retrieved from environment variables and is dynamically generated
     teamflag = os.environ.get("TEAMKEY")
     challengeflag = os.environ.get("CHALLENGEKEY")
     combined_flag = challengeflag + teamflag
@@ -104,7 +106,7 @@ def index(request):
             rows = cursor.fetchall()
             for row in rows:
                 articles.append({"title": row[1], "content": row[2]})
-            if "flag" in query:
+            if "flag" in query:  # If the query contains the word 'flag', it will show the flag
                 flag = f"FF{{{hashed_flag}}}"
     else:
         articles = Article.objects.all()
@@ -117,6 +119,7 @@ def index(request):
         {"articles": articles, "flag": flag, "breaking_news": breaking_news},
     )
 ```
+
 
 ## Technical guideline
 

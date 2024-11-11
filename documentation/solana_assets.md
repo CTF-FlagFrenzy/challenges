@@ -1,19 +1,21 @@
 # Solana Assest
 
-Web challenge where you have to get the flag with an cookie which contains a flag **Level**:Easy
-
+Web challenge where you must retrieve the flag from a cookie that contains it.  
+**Level**: Easy
 
 ## Challenge Overview:
 
-  - The attacker needs to retrieve a flag from a web application. The flag is stored in a cookie named flag, but it is dynamically generated. The attacker has to perform actions on the web application to get access to the flag stored in the cookie.
+  - The attacker needs to retrieve a flag from a web application. The flag is stored in a cookie named `flag`, but it is dynamically generated. The attacker must perform specific actions within the web application to gain access to the flag stored in the cookie.
 
-  - The challenge includes typical security protections, like HTTP-only cookies or obfuscation, that the attacker needs to bypass.
+  - The challenge includes typical security protections, such as HTTP-only cookies and obfuscation, which the attacker must bypass.
+
 
 ---
 
 ### Dockerfile
 
-Starting off with the docker-compose file, this file start the challenge container to use it for the CTF, 
+Starting with the `docker-compose` file, this file starts the challenge container to set up the environment for the CTF.
+
 
 ```yml
 version: '3'
@@ -42,16 +44,18 @@ services:
 
 ### Web Application:
 
-  A simple web app with two pages:
-  Login Page (/login): Users can log in with a specific username (admin) and password.
-  Dashboard Page (/dashboard): Once logged in, users are directed to the dashboard, andacookie named flag is set. The cookie contains the dynamically generated flag, but it'snotimmediately accessible through client-side JavaScript (i.e., it's set as HTTP-only).
+A simple web app with two pages:
+- **Login Page** (`/login`): Users can log in with a specific username (`admin`) and password.
+- **Dashboard Page** (`/dashboard`): Once logged in, users are directed to the dashboard, and a cookie named `flag` is set. This cookie contains the dynamically generated flag, but it is not immediately accessible through client-side JavaScript (as it is set as HTTP-only).
+
 
 ### Cookie Properties:
 
-  The flag cookie should have the following properties:
-  HTTP-only: Prevents access to the flag via JavaScript.
-  Secure: Ensures that the cookie is only sent over HTTPS.
-  Dynamic: The flag is unique per session, generated during the login process.
+The `flag` cookie has the following properties:
+- **HTTP-only**: Prevents access to the flag via JavaScript.
+- **Secure**: Ensures the cookie is only sent over HTTPS.
+- **Dynamic**: The flag is unique per session and is generated during the login process.
+
 
 ```python
     def dashboard(request):
@@ -92,7 +96,9 @@ services:
 
 - [Docker-compose Windows installation](https://docs.docker.com/compose/install/)
 
-After you installed docker and docker-compose you need to pull the repository via cli using this command.
+After installing Docker and Docker Compose, pull the repository via the CLI using the following command:
+
+
 
 ```
 git pull https://github.com/CTF-FlagFrenzy/challenges.git
@@ -104,7 +110,7 @@ Then you navigate to the root of the `Solana Assests` challenge and type the fol
 docker-compose up
 ```
 
-You can see all running container with `docker ps`.
+Now you can see all running container with `docker ps`.
 
 **HAVE FUN**
 
