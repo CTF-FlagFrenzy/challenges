@@ -1,7 +1,10 @@
 # CTF Web-Challenge | Solana Assets Writeup: Easy Level
 
 ## Challenge Overview
-In this challenge, the attacker needs to exploit a vulnerability in the website's search functionality to retrieve a hidden flag. This challenge tests basic SQL injection techniques and understanding of how poorly sanitized input fields can be used for exploitation.
+ The SQL Heist challenge revolves around exploiting a vulnerable search functionality within a web application to retrieve sensitive data. 
+ The web app allows users to search for articles using a query, but the query is directly inserted into an SQL statement without proper sanitization, 
+ making it susceptible to SQL injection attacks.
+ The challenge focuses on understanding and exploiting SQL injection vulnerabilities to gain unauthorized access to the flag stored within the system.
 
 ## Steps to Solve
 

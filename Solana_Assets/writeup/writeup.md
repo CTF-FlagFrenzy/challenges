@@ -2,7 +2,9 @@
 
 ## Challenge Overview
 
-In this challenge, we were tasked with solving a basic web flag hunt. Use basic knowledge to find your way to the flag
+  - The attacker needs to retrieve a flag from a web application. The flag is stored in a cookie named `flag`, but it is dynamically generated. The attacker must perform specific actions within the web application to gain access to the flag stored in the cookie.
+
+  - The challenge includes typical security protections, such as HTTP-only cookies and obfuscation, which the attacker must bypass.
 
 ## Steps to Solve
 
