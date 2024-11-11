@@ -11,4 +11,4 @@
 > |:--------: | :--------: | :------: | :----: | :-----------: | :-----: | :----: |
 > | Solana_Assets | Easy | Web-challenge | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/documentation/solana_assets.md) |  [zVSciy](https://github.com/zVSciy) | X |
 > | The_SQL_Heist | Easy | Web-challenge | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/documentation/The_SQL_Heist.md) | [zVSciy](https://github.com/zVSciy) | X |
-
+> | Security_Maths | Medium | Others | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Security_Maths/Technical_Guide_SecurityMaths.md) | [kingdanxi](https://github.com/kingdanxi) | X |
