@@ -7,7 +7,10 @@ Web challenge where you have to exploit a search function to retrieve the flag.
 
 ## Challenge Overview:
 
- write some challenge overview
+ The SQL Heist challenge revolves around exploiting a vulnerable search functionality within a web application to retrieve sensitive data. 
+ The web app allows users to search for articles using a query, but the query is directly inserted into an SQL statement without proper sanitization, 
+ making it susceptible to SQL injection attacks.
+ The challenge focuses on understanding and exploiting SQL injection vulnerabilities to gain unauthorized access to the flag stored within the system.
 
 ---
 

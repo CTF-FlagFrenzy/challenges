@@ -98,8 +98,6 @@ The `flag` cookie has the following properties:
 
 After installing Docker and Docker Compose, pull the repository via the CLI using the following command:
 
-
-
 ```
 git pull https://github.com/CTF-FlagFrenzy/challenges.git
 ```
