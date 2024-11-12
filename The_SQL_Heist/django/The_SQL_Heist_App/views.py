@@ -1,5 +1,6 @@
 import hashlib
 import logging
+import os
 import random
 
 from django.db import connection
@@ -12,11 +13,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
 def index(request):
     query = request.GET.get("q")
-    #! This is the flag that you need to get from the environment variables
-    # teamflag = os.environ.get('TEAMFLAG')
     flag = None
-    teamflag = "teamflag"
-    challengeflag = "nkN7FPpuB#"
+    #! This is the flag that you need to get from the environment variables
+    teamflag = os.environ.get("TEAMKEY")
+    challengeflag = os.environ.get("CHALLENGEKEY")
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
 
@@ -34,7 +34,6 @@ def index(request):
     else:
         articles = Article.objects.all()
 
-    # Get 5 random articles for breaking news
     breaking_news = random.sample(list(Article.objects.all()), 5)
 
     return render(
