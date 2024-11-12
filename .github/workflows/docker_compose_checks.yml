@@ -1,3 +1,11 @@
+
+name: Docker Compose Testing
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
 jobs:
   docker-test:
     runs-on: ubuntu-latest
