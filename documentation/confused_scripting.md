@@ -1,4 +1,4 @@
-# Solana Assest
+# Confused Scripting
 
 A hard challenge for the advanced reverse engineers
 **Level**: Hard

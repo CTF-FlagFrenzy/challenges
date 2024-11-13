@@ -1,4 +1,4 @@
-# Solana Assest
+# Ceasar Cipher
 
 Introductory challaenge into cryptography  
 **Level**: Easy
