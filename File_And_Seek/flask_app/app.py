@@ -1,14 +1,14 @@
-from flask import Flask, send_from_directory
+from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "Welcome to the CTF challenge! Find the hidden file."
+    return render_template('index.html')
 
-@app.route('/hidden/HaveFun.json')
-def hidden_file(filename):
-    return send_from_directory('hidden', filename)
+@app.route('/HaveFun.json')
+def hidden_file():
+    return send_from_directory('hidden', 'HaveFun.json')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

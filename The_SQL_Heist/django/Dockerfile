@@ -1,5 +1,3 @@
-# Dockerfile for Cisco Configurator 2.0
-
 FROM python:3
 
 COPY django/requirements.txt ./
