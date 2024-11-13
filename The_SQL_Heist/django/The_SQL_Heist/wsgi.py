@@ -1,5 +1,5 @@
 """
-WSGI config for Solana_Assets project.
+WSGI config for The_SQL_Heist project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Solana_Assets.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "The_SQL_Heist.settings")
 
 application = get_wsgi_application()

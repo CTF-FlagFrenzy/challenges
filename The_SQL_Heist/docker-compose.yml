@@ -16,7 +16,7 @@ services:
 
     ports:
       - '8000:8000'
-
+      
     environment:
       - TEAMKEY=XXXXXXX
-      - CHALLENGEKEY=R^@LgvG5QD
+      - CHALLENGEKEY=NQ^D@zd$q6
