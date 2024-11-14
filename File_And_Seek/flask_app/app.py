@@ -2,13 +2,16 @@ from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/HaveFun.json')
+
+@app.route("/HaveFun.json")
 def hidden_file():
-    return send_from_directory('hidden', 'HaveFun.json')
+    return send_from_directory("hidden", "HaveFun.json")
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
