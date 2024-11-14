@@ -27,20 +27,11 @@ jobs:
 
     - name: Find all docker-compose.yml files and run tests
       run: |
-        dirs=()
         for dir in $(find . -name 'docker-compose.yml' -exec dirname {} \;); do
           echo "Running docker-compose in $dir"
           cd $dir
           docker-compose up --build -d
           docker-compose ps
-          dirs+=("$dir")
-          cd -
-        done
-
-        # Bring down all containers at the end
-        for dir in "${dirs[@]}"; do
-          echo "Bringing down docker-compose in $dir"
-          cd $dir
           docker-compose down
           cd -
         done
