@@ -2,13 +2,13 @@ services:
   exiftool-service:
     build:
       context: .  # Verweist auf das aktuelle Verzeichnis
-      dockerfile: Dockerfile
+      dockerfile: challenge/Dockerfile
     container_name: exiftool_container
     volumes:
       - .:/app  # Mountet das aktuelle Verzeichnis in das Container-Verzeichnis /app
     restart: "no"  # Optionale Einstellung; der Container wird nach dem Skriptende nicht neu gestartet
 
   file-server:
-    build: .
+    build: challenge/
     ports:
-      - "5000:5000"
+      - "8006:5000"
