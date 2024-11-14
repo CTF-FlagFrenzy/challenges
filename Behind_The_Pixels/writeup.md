@@ -11,7 +11,7 @@ In this challenge, you were tasked to find the flag within a picture. Use basic 
 
 3. **Locate the flag**
     - Once ExifTool displays the metadata, closely examine each field, particularly any fields that appear unusual or hold unexpected content. Look for a field labeled Comment, as this is where the flag is hidden.
-    ![alt text](image.png)
+    ![alt text](./media/image.png)
 
 ## Tools Used
 - ExifTool: Acomprehensive tool for viewing and editing metadata within files.

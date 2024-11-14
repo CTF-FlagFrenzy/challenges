@@ -13,7 +13,7 @@
     - Begin by accessing the challenge page and examining its features to identify potential vulnerabilities. In this case, a search function is available, which may be vulnerable to injection attacks.
     - The attacker investigates the search box by inputting various entries to see how the application responds. This kind of exploration often reveals clues about potential weaknesses in how input data is processed.
     
-    ![Screenshot of search function](image.png)
+    ![Screenshot of search function](./media/image.png)
 
 2. **Exploit the Search Function**
 
@@ -31,7 +31,7 @@
 
     - The attacker notes down the flag displayed in the popup and successfully completes the challenge.
     
-    ![alt text](image-1.png)
+    ![alt text](./media/image-1.png)
 
 ## Tools Used
 

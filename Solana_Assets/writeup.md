@@ -15,26 +15,26 @@
    `Username: Leon`
    `Password: Admin123`
 
-   ![alt text](image.png)
+   ![alt text](./media/image.png)
 
 2. **Determine the cookie**:
 
    - Next, we needed to use the web tools again but now we have to read the content of a cookie.
      `/files`
 
-   ![alt text](image-1.png)
+   ![alt text](./media/image-1.png)
 
 3. **Get new credentials**:
 
    - On the `/files` you should see a new pair of credentials. Use them to enter the crypto dashboard.
 
-   ![alt text](image-2.png)
+   ![alt text](./media/image-2.png)
 
 4. **Finally get the real flag**
 
    - In the final stage you need to read the cookie content and enter the flag on the web application
 
-   ![alt text](image-3.png)
+   ![alt text](./media/image-3.png)
 
 ## Tools Used
 
