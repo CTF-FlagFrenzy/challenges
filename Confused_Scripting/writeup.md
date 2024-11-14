@@ -1,4 +1,4 @@
-# CTF Web-Challenge | Solana Assests Writeup: Easy Level
+# CTF Web-Challenge | Confused Scripting Writeup: Easy Level
 
 ## Challenge Overview
 
