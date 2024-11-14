@@ -9,6 +9,6 @@ services:
     restart: "no"  # Optionale Einstellung; der Container wird nach dem Skriptende nicht neu gestartet
 
   file-server:
-    build: .
+    build: challenge/
     ports:
       - "8006:5000"
