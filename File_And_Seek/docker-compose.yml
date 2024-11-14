@@ -10,7 +10,7 @@ services:
       dockerfile: flask_app/Dockerfile
 
     ports:
-      - '5000:5000'
+      - '8003:8003'
 
     environment:
       - TEAMKEY=XXXXXXX
