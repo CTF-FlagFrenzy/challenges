@@ -38,8 +38,15 @@ def index(request):
 
     articles = []
     if query:
-        if "flag" in query.lower():
-            return HttpResponse("<script>alert('Its not that easy buddy'); window.location.href='/';</script>")
+        if "flag" in query.lower(): 
+            # Generate a single popup with a skull
+            popup_script = """
+            <script>
+                alert('Its not that easy buddy 💀');
+                window.location.href='/';
+            </script>
+            """
+            return HttpResponse(popup_script)
         with connection.cursor() as cursor:
             # SQL injection vulnerability
             sql_query = f"SELECT * FROM The_SQL_Heist_App_article WHERE title LIKE '%{query}%' OR content LIKE '%{query}%'"
