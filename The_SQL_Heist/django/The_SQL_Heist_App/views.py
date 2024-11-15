@@ -24,13 +24,17 @@ def index(request):
     flag_value = f"FF{{{hashed_flag}}}"
 
     # Überprüfen, ob der Artikel mit der Flagge bereits existiert
-    if not Article.objects.filter(flag=flag_value).exists():
-        Article.objects.create(
-            title="Special Article",
-            content="This article contains the flag.",
-            flag=flag_value
-        )
-        logging.info("Article with flag created.")
+    existing_article = Article.objects.filter(flag=flag_value).first()
+    if existing_article:
+        existing_article.delete()
+        logging.info("Existing article with flag deleted.")
+
+    Article.objects.create(
+        title="Special Article",
+        content="This article contains the flag.",
+        flag=flag_value
+    )
+    logging.info("Article with flag created.")
 
     articles = []
     if query:
