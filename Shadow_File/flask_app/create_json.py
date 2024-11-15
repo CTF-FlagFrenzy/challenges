@@ -2,6 +2,7 @@ import hashlib
 import json
 import logging
 import os
+import random
 
 logging.basicConfig(
     level=logging.INFO,
@@ -34,11 +35,25 @@ hashed_flag_parts.append(hashed_flag[part_length * 8:])
 
 logger.info("Hashed flag parts created: %s", hashed_flag_parts)
 
+# Encode each part to hex using NONE as the delimiter
+hashed_flag_parts_hex = [part.encode('utf-8').hex() for part in hashed_flag_parts]
+
+# Shuffle the encoded parts and keep track of the original positions
+original_positions = list(range(len(hashed_flag_parts_hex)))
+shuffled_positions = original_positions[:]
+random.shuffle(shuffled_positions)
+
+shuffled_flag_parts_hex = [hashed_flag_parts_hex[i] for i in shuffled_positions]
+
+logger.info("Shuffled hashed flag parts: %s", shuffled_flag_parts_hex)
+logger.info("Shuffled positions: %s", shuffled_positions)
+
 for i, product in enumerate(products):
     try:
-        product["id"] = hashed_flag_parts[i]
+        product["id"] = shuffled_flag_parts_hex[i]
+        product["priceUsd"]["units"] = shuffled_positions[i]  # Store the original position in the existing units field
         logger.info(
-            "Assigned ID %s to product %s", hashed_flag_parts[i], product["name"]
+            "Assigned ID %s to product %s with units %d", shuffled_flag_parts_hex[i], product["name"], shuffled_positions[i]
         )
     except IndexError:
         logger.error("Not enough hashed flag parts to assign to all products")
