@@ -21,7 +21,7 @@
     - The attacker uses the following SQL injection payload in the search box:
       
       ```sql
-      flag' OR '1'='1' --
+      ' OR '1'='1' --
       ```
       
       - **Explanation**: This payload works by ending the initial SQL query string, injecting a true statement (`'1'='1'`), and then commenting out the rest of the query using `--`. This effectively bypasses the usual logic of the search query, causing it to return more results than intended, including the hidden flag.
