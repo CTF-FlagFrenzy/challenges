@@ -1,9 +1,7 @@
+# models.py
 from django.db import models
-
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
-
-    def __str__(self):
-        return self.title
+    flag = models.CharField(max_length=64, blank=True, null=True)  # Neues Feld für die Flagge

@@ -5,6 +5,7 @@ import random
 
 from django.db import connection
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from .models import Article
 
@@ -14,23 +15,37 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 def index(request):
     query = request.GET.get("q")
     flag = None
-    #! This is the flag that you need to get from the environment variables
-    teamflag = os.environ.get("TEAMKEY")
-    challengeflag = os.environ.get("CHALLENGEKEY")
+
+    # Flag generieren
+    teamflag = os.environ.get("TEAMKEY", "TEAMKEY")
+    challengeflag = os.environ.get("CHALLENGEKEY", "CHALLENGEKEY")
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
+    flag_value = f"FF{{{hashed_flag}}}"
+
+    # Überprüfen, ob der Artikel mit der Flagge bereits existiert
+    if not Article.objects.filter(flag=flag_value).exists():
+        Article.objects.create(
+            title="Special Article",
+            content="This article contains the flag.",
+            flag=flag_value
+        )
+        logging.info("Article with flag created.")
 
     articles = []
     if query:
+        if "flag" in query.lower():
+            return HttpResponse("<script>alert('Its not that easy buddy'); window.location.href='/';</script>")
         with connection.cursor() as cursor:
-            cursor.execute(
-                f"SELECT * FROM The_SQL_Heist_App_article WHERE title LIKE '%{query}%' OR content LIKE '%{query}%'"
-            )
+            # SQL injection vulnerability
+            sql_query = f"SELECT * FROM The_SQL_Heist_App_article WHERE title LIKE '%{query}%' OR content LIKE '%{query}%'"
+            logging.info(f"Executing SQL query: {sql_query}")
+            cursor.execute(sql_query)
             rows = cursor.fetchall()
             for row in rows:
                 articles.append({"title": row[1], "content": row[2]})
-            if "flag" in query:
-                flag = f"FF{{{hashed_flag}}}"
+                if row[3]:  # Überprüfe, ob das Flag-Feld nicht leer ist
+                    flag = row[3]
     else:
         articles = Article.objects.all()
 
