@@ -1,4 +1,4 @@
-# CTF Web-Challenge | Solana Assests Writeup: Easy Medium
+# CTF Web-Challenge | File And Seek Writeup: Medium
 
 ## Challenge Overview
 

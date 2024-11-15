@@ -1,0 +1,103 @@
+{
+    "products": [
+        {
+            "id": "535551674e444935",
+            "name": "Bitcoin Paper Wallet (pack of 20)",
+            "description": "Securely store your Bitcoin with these paper wallets.",
+            "picture": "/static/img/products/bitcoin_paper_wallet.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 50
+            },
+            "categories": ["crypto", "security"]
+        },
+        {
+            "id": "535551674f446733",
+            "name": "Ethereum Hardware Wallet",
+            "description": "Keep your Ethereum safe with this hardware wallet.",
+            "picture": "/static/img/products/ethereum_hardware_wallet.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 100
+            },
+            "categories": ["crypto", "security"]
+        },
+        {
+            "id": "535551674d546330",
+            "name": "Crypto Trading Guide",
+            "description": "Learn how to trade cryptocurrencies with this comprehensive guide.",
+            "picture": "/static/img/products/crypto_trading_guide.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 25
+            },
+            "categories": ["crypto", "education"]
+        },
+        {
+            "id": "535551674f544135",
+            "name": "Blockchain T-Shirt",
+            "description": "Show your love for blockchain technology with this stylish t-shirt.",
+            "picture": "/static/img/products/blockchain_tshirt.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 20
+            },
+            "categories": ["crypto", "apparel"]
+        },
+        {
+            "id": "535551674d7a4935",
+            "name": "Crypto Miner Air Freshener",
+            "description": "Keep your mining rig smelling fresh with this air freshener.",
+            "picture": "/static/img/products/crypto_miner_air_freshener.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 5
+            },
+            "categories": ["crypto", "accessories"]
+        },
+        {
+            "id": "535551674d544133",
+            "name": "Crypto Flavored Mouthwash",
+            "description": "Freshen your breath with a hint of crypto.",
+            "picture": "/static/img/products/crypto_flavored_mouthwash.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 10
+            },
+            "categories": ["crypto", "personal care"]
+        },
+        {
+            "id": "535551674e546731",
+            "name": "Crypto Themed Trousers",
+            "description": "Stylish trousers with a crypto theme.",
+            "picture": "/static/img/products/crypto_trousers.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 60
+            },
+            "categories": ["crypto", "apparel"]
+        },
+        {
+            "id": "535551674d545135",
+            "name": "Crypto Meme T-Shirt",
+            "description": "Wear your favorite crypto memes with pride.",
+            "picture": "/static/img/products/crypto_meme_tshirt.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 25
+            },
+            "categories": ["crypto", "apparel"]
+        },
+        {
+            "id": "535551674e6a4133",
+            "name": "Crypto Mining Guide",
+            "description": "Learn how to mine cryptocurrencies with this detailed guide.",
+            "picture": "/static/img/products/crypto_mining_guide.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 30
+            },
+            "categories": ["crypto", "education"]
+        }
+    ]
+}
