@@ -4,8 +4,8 @@ import os
 import random
 
 from django.db import connection
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 
 from .models import Article
 
@@ -29,13 +29,13 @@ def index(request):
     Article.objects.create(
         title="Special Article",
         content="This article contains the flag.",
-        flag=flag_value
+        flag=flag_value,
     )
     logging.info("Article with flag created.")
 
     articles = []
     if query:
-        if "flag" in query.lower(): 
+        if "flag" in query.lower():
             # Generate a single popup with a skull
             popup_script = """
             <script>
@@ -52,7 +52,7 @@ def index(request):
             rows = cursor.fetchall()
             for row in rows:
                 articles.append({"title": row[1], "content": row[2]})
-                if row[3]: # Check if flag is set
+                if row[3]:  # Check if flag is set
                     flag = row[3]
     else:
         articles = Article.objects.all()
