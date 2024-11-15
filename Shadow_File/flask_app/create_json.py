@@ -36,7 +36,7 @@ hashed_flag_parts.append(hashed_flag[part_length * 8:])
 logger.info("Hashed flag parts created: %s", hashed_flag_parts)
 
 # Encode each part to hex using NONE as the delimiter
-hashed_flag_parts_hex = [part.encode('utf-8').hex() for part in hashed_flag_parts]
+hashed_flag_parts_hex = [part.encode("utf-8").hex() for part in hashed_flag_parts]
 
 # Shuffle the encoded parts and keep track of the original positions
 original_positions = list(range(len(hashed_flag_parts_hex)))
@@ -51,9 +51,14 @@ logger.info("Shuffled positions: %s", shuffled_positions)
 for i, product in enumerate(products):
     try:
         product["id"] = shuffled_flag_parts_hex[i]
-        product["priceUsd"]["units"] = shuffled_positions[i]  # Store the original position in the existing units field
+        product["priceUsd"]["units"] = shuffled_positions[
+            i
+        ]  # Store the original position in the existing units field
         logger.info(
-            "Assigned ID %s to product %s with units %d", shuffled_flag_parts_hex[i], product["name"], shuffled_positions[i]
+            "Assigned ID %s to product %s with units %d",
+            shuffled_flag_parts_hex[i],
+            product["name"],
+            shuffled_positions[i],
         )
     except IndexError:
         logger.error("Not enough hashed flag parts to assign to all products")
