@@ -15,15 +15,12 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 def index(request):
     query = request.GET.get("q")
     flag = None
-
-    # Flag generieren
     teamflag = os.environ.get("TEAMKEY", "TEAMKEY")
     challengeflag = os.environ.get("CHALLENGEKEY", "CHALLENGEKEY")
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
     flag_value = f"FF{{{hashed_flag}}}"
 
-    # Überprüfen, ob der Artikel mit der Flagge bereits existiert
     existing_article = Article.objects.filter(flag=flag_value).first()
     if existing_article:
         existing_article.delete()
@@ -55,7 +52,7 @@ def index(request):
             rows = cursor.fetchall()
             for row in rows:
                 articles.append({"title": row[1], "content": row[2]})
-                if row[3]:  # Überprüfe, ob das Flag-Feld nicht leer ist
+                if row[3]: # Check if flag is set
                     flag = row[3]
     else:
         articles = Article.objects.all()
