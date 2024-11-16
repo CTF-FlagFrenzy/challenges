@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 def index(request):
     query = request.GET.get("q")
     flag = None
-    teamflag = os.environ.get("TEAMKEY", "TEAMKEY")
-    challengeflag = os.environ.get("CHALLENGEKEY", "CHALLENGEKEY")
+    teamflag = os.environ.get("TEAMKEY")
+    challengeflag = os.environ.get("CHALLENGEKEY")
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
     flag_value = f"FF{{{hashed_flag}}}"

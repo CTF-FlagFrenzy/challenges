@@ -7,4 +7,5 @@
 > | Ceasar_Cypher | Webserver | 8005 |
 > | Behind_The_Pixels | Fileserver | 8006 |
 > | Shadow_File | Webserver | 8007 |
+> | Pixel_Spy | Webserver | 8008 |
 
