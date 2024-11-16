@@ -1,6 +1,7 @@
-import os
 import hashlib
 import logging
+import os
+
 import piexif
 
 logging.basicConfig(
@@ -25,9 +26,9 @@ else:
 
 # Define the paths
 base_dir = os.path.dirname(os.path.abspath(__file__))
-image_path = os.path.join(base_dir, 'hacker.jpg')
-static_dir = os.path.join(base_dir, 'static')
-modified_image_path = os.path.join(static_dir, 'image_with_flag.jpg')
+image_path = os.path.join(base_dir, "hacker.jpg")
+static_dir = os.path.join(base_dir, "static")
+modified_image_path = os.path.join(static_dir, "image_with_flag.jpg")
 
 # Load the existing image
 if not os.path.exists(image_path):
@@ -40,7 +41,14 @@ try:
 except ValueError as e:
     if str(e) == "doesnot have exif":
         logger.info("Image does not have EXIF data, creating new EXIF data.")
-        exif_dict = {"0th": {}, "Exif": {}, "GPS": {}, "Interop": {}, "1st": {}, "thumbnail": None}
+        exif_dict = {
+            "0th": {},
+            "Exif": {},
+            "GPS": {},
+            "Interop": {},
+            "1st": {},
+            "thumbnail": None,
+        }
     else:
         raise
 
@@ -55,4 +63,7 @@ if not os.path.exists(static_dir):
 # Save the modified image with metadata
 piexif.insert(exif_bytes, image_path, modified_image_path)
 
-logger.info("Flag successfully added to the image metadata and saved as: %s", modified_image_path)
+logger.info(
+    "Flag successfully added to the image metadata and saved as: %s",
+    modified_image_path,
+)
