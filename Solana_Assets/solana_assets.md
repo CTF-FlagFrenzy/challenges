@@ -113,7 +113,7 @@ Now you can see all running container with `docker ps`.
 **HAVE FUN**
 
 > [!NOTE]
-> If you have any problems solving this challenge you can find a full guide [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Solana_Assets/writeup/writeup.md)
+> If you have any problems solving this challenge you can find a full guide [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Solana_Assets/writeup.md)
 
 
 
