@@ -14,8 +14,8 @@
 > | Security_Maths | Medium | Others | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Security_Maths/Technical_Guide_SecurityMaths.md) | [kingdanxi](https://github.com/kingdanxi) | X |
 > | Ceasar_Cypher | Easy | Cryptography | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Ceasar_Cipher/ceasar_cipher.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Confused_Scripting | Hard | Reversing | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Confused_Scripting/confused_scripting.md) | [KaveXD](https://github.com/KaveXD) | X |
-> | File_And_Seek | Medium | Web-challenge | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/File_And_Seek.md) | [zVSciy](https://github.com/zVSciy) | X |
-> | Pixel_Spy | Easy | Forensics | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Pixel_Spy/Pixel_Spy.md) | [zVSciy](https://github.com/zVSciy) | X |
-> | Shadow_File | Hard | Steganography; Web-challenge | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/Shadow_File.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | File_And_Seek | Medium | Web-challenge | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/File_And_Seek.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | Pixel_Spy | Easy | Forensics | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Pixel_Spy/Pixel_Spy.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | Shadow_File | Hard | Steganography, Web-challenge | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/Shadow_File.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Behind_The_Pixels | Medium | Forensics | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Behind_The_Pixels/behind_the_pixels.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 
