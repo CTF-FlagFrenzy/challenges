@@ -3,9 +3,11 @@ SecurityMaths is a challenge that combines knowledge from mathematics, systems e
 
 ## Challenge Description
 Prof. Schmidt’s coordinates to his favourite holiday destination were stolen. Unfortunately, he separated them into three pieces (due to security policies :p) which makes finding them quite difficult. However, the thief left some hints about their locations. Now it's your turn to find them! 
-- The student's favourite eating location
-- This place is quite interesting, but sadly, experiments are rather rare
+- The student's favourite eating location.
+- This place is quite interesting, but sadly, experiments are rather rare.
 - "Das ist aber SCHADE!"
+
+Which location do the coordinates refer to?
 
 ---
 
