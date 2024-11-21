@@ -5,7 +5,7 @@ SecurityMaths is a challenge that combines knowledge from mathematics, systems e
 Prof. Schmidt’s coordinates to his favourite holiday destination were stolen. Unfortunately, he separated them into three pieces (due to security policies :p) which makes finding them quite difficult. However, the thief left some hints about their locations. Now it's your turn to find them! 
 - The student's favourite eating location
 - This place is quite interesting, but sadly, experiments are rather rare
-- That's a "SHAME"!
+- "Das ist aber SCHADE!"
 
 ---
 
@@ -18,7 +18,7 @@ This technical guideline explains all necessary steps in order to provide the Se
 3. Place the three pieces according to the locations that are provided with the hints in the description. In this case:
    -  School cafeteria
    -  Physics laboratory
-   -  Agreement with RAM
+   -  Agreement with RAM (Student must communicate with RAM: "Das ist aber SCHADE!")
 
 **HAVE FUN**
 
