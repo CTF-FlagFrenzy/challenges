@@ -54,12 +54,6 @@ jobs:
   #       sudo apt-get update
   #       sudo apt-get install -y docker-compose
 
-  #   - name: Connect to VPN
-  #     run: |
-  #       sudo apt-get install -y openvpn
-  #       echo "${{ secrets.VPN_CONFIG }}" > vpnconfig.ovpn
-  #       sudo openvpn --config vpnconfig.ovpn --daemon
-
   #   - name: Log in to Private Docker Registry
   #     uses: docker/login-action@v2
   #     with:

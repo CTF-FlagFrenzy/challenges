@@ -1,0 +1,16 @@
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+jobs:
+  repo-stats:
+    name: repostats
+    runs-on: ubuntu-latest
+    steps:
+      - name: run-ghrs
+        uses: jgehrcke/github-repo-stats@RELEASE
+        with:
+          repository: CTF-FlagFrenzy/challenges
+          ghtoken: ${{ secrets.ghrs_github_api_token }}
+          output_path: documentation/repo-stats.json

@@ -2,7 +2,7 @@
 
 ## Challenge Overview
 
-  - This is a new website created by some students from HTL Mössingerstraße, use a Linux tool to find a hidden file. The file contains some information about crypto take a good look. In the id section of every crypto coin one part of the flag is there.
+  - This is a new website created by some students from HTL Mössingerstraße, use a tool to find a hidden file. The file contains some information about crypto take a good look. In the id section of every crypto coin one part of the flag is there.
 
 ## Steps to Solve
 
