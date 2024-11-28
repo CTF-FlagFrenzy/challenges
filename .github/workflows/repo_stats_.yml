@@ -1,3 +1,5 @@
+name: Repo Stats
+
 on:
   schedule:
     - cron: "0 0 * * *"
