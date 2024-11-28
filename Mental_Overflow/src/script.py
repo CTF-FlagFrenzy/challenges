@@ -39,6 +39,9 @@ if current_length + len(reset_code) > line_length:
     brainfuck_script += "\n"
 brainfuck_script += reset_code
 
+# Remove the last 5 characters from the Brainfuck script
+brainfuck_script = brainfuck_script[:-5]
+
 # Ensure the download directory exists
 download_dir = os.path.join("download")
 os.makedirs(download_dir, exist_ok=True)
