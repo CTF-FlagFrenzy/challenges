@@ -9,7 +9,7 @@ COPY . /code
 WORKDIR /code
 
 # Ensure the script is executable
-RUN chmod +x script.py
+RUN chmod +x src/script.py
 
 # Set the entrypoint to run script.py
-ENTRYPOINT ["python", "script.py"]
+ENTRYPOINT ["python", "src/script.py"]
