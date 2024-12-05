@@ -2,10 +2,11 @@
 
 ## Rules for commiting
 
-- Do not commit directly on to the main branch
+- Do not commit directly on to the main branch (except minor changes to markdown files)
 - Do not merge without a pull request
 - At least 1 other person has to approve the pull request, preferably 2
 - Dont forget to contact someone to review the pull request by assigning them to the pr or writing them on discord
+- For full rules look at 08_Quality-Manual.docx - 3.2 Code Management 
 
 > | Challenge | Difficulty | Category | Status | Documentation | Authors | Solves |
 > |:--------: | :--------: | :------: | :----: | :-----------: | :-----: | :----: |
