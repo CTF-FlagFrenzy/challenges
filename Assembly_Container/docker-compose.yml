@@ -1,0 +1,7 @@
+services:
+  alpine:
+    build:
+      context: ./Alpine
+      dockerfile: Dockerfile
+    container_name: alpine_server
+    command: ["sh", "-c", "while true; do sleep 3600; done"]
