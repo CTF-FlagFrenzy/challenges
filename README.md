@@ -21,4 +21,4 @@
 > | Behind_The_Pixels | Medium | Forensics | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Behind_The_Pixels/behind_the_pixels.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Profile_Prodigy | Easy | OSINT | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Time_Travelers_Hunt | Medium | OSINT | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
-> > | Git_Secrets:_Layers_of_Discovery | Easy | OSINT | 10% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
+> | Git_Secrets:_Layers_of_Discovery | Easy | OSINT | 10% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
