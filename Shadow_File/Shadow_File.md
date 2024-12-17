@@ -2,7 +2,7 @@
 
 ## Challenge Overview
 
-In this challenge, participants need to find a hidden file within a web application. The hidden file contains information about various products, and each product's ID section contains a part of the flag. The challenge involves using web tools and techniques to locate and assemble the flag.
+In this challenge, a hidden file must be found within a web application by participants. The hidden file contains information about various products, and each product's ID section holds a part of the flag. However, the flag parts are encoded and shuffled. The units field contains the information needed for the correct order. The challenge involves the use of web tools and techniques to locate and assemble the flag.
 
 ### Docker Compose
 
