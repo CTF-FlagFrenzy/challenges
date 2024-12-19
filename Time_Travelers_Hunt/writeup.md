@@ -2,7 +2,7 @@
 
 ## Challenge Overview
 
-In this challenge a broken link to an old website, that no longer exists, is provided. Participants must use the Wayback Machine or another archival tool to retrieve a past snapshot of the website www.faketimemachine.rf.gd, where a hint to the real website is hidden. This challenge is split into three parts.
+    In this challenge a broken link to an old website, that no longer exists, is provided. Participants must use the Wayback Machine or another archival tool to retrieve a past snapshot of the website www.faketimemachine.rf.gd, where a hint to the real website is hidden. This challenge is split into three parts.
 
 ## Steps to Solve
 
@@ -87,3 +87,16 @@ In this challenge a broken link to an old website, that no longer exists, is pro
   - In the file there are a lot of random letters, numbers and symbols. To find the flag Strg + F is used.
 
     ![alt text](media/image-12.png)]
+
+## Tools used
+
+  - archive.org
+  - Kali Linux
+  - JohnTheRipper
+  - dirbuster
+  - Photoshop
+  - CyberChef
+
+## Conclusion
+
+In this challenge the participant has to use various tools to get to the goal. It is important to know them, because they're a must in the IT.
