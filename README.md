@@ -19,4 +19,7 @@
 > | Pixel_Spy | Easy | Forensics | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Pixel_Spy/Pixel_Spy.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Shadow_File | Hard | Steganography, Web-challenge | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/Shadow_File.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Behind_The_Pixels | Medium | Forensics | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Behind_The_Pixels/behind_the_pixels.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
-
+> | Profile_Prodigy | Easy | OSINT | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
+> | Time_Travelers_Hunt | Medium | OSINT | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
+> | Git_Secrets:_Layers_of_Discovery | Easy | OSINT | 10% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
+> | Mental_Overflow | Medium | Reverse-engineering | 95% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Mental_Overflow/Mental_Overflow.md) | [zVSciy](https://github.com/zVSciy) | X |
