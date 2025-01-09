@@ -47,8 +47,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ['https://web.ctf.htl-villach.at']
-CSRF_TRUSTED_ORIGINS = ['https://ct.ctf.htl-villach.at']
+CSRF_TRUSTED_ORIGINS = [f'https://{i}solana-assets.webapp-flagfrenzy.at' for i in range(1, 101)]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
