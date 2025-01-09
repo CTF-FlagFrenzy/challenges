@@ -13,8 +13,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-@app.route('/<team_id>')
-def team_page(team_id):
+@app.route('/')
+def index():
     client_ip = request.remote_addr
     logger.info("Index page accessed by IP: %s", client_ip)
     subprocess.run(["python", "flask_app/create_txt.py"])
@@ -26,32 +26,23 @@ def team_page(team_id):
 #! First flag (index page)
     if combined_flag:
         hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
-        logger.info("Flag successfully created and hashed for team %s: %s", team_id, hashed_flag)
+        logger.info(f"Flag successfully created and hashed {hashed_flag}")
     else:
-        logger.error(
-            "Failed to create flag. Ensure TEAMKEY and CHALLENGEKEY are set in environment variables."
-        )
+        logger.error("Failed to create flag. Ensure TEAMKEY and CHALLENGEKEY are set in environment variables.")
         hashed_flag = "FLAG_NOT_DEFINED"
 
 #! Second flag (robots.txt)
     if combined_flag:
         hashed_flag_2 = "FF{" + hashlib.sha256(combined_flag_2.encode()).hexdigest() + "}"
-        logger.info("Flag successfully created and hashed for team %s: %s", team_id, hashed_flag_2)
+        logger.info(f"Flag successfully created and hashed {hashed_flag_2}")
     else:
         logger.error(
             "Failed to create flag. Ensure TEAMKEY and CHALLENGEKEY are set in environment variables."
         )
         hashed_flag = "FLAG_NOT_DEFINED"
 
-    return f"Welcome to the page for team {team_id}! Your flags are: {hashed_flag} and {hashed_flag_2}"
-
-@app.route('/')
-def index():
-    team_id = os.getenv('TEAM_ID', 'default_team')
-    hashed_team_id = hashlib.sha256(team_id.encode()).hexdigest()
-    client_ip = request.remote_addr
-    logger.info("Index page accessed by IP: %s", client_ip)
-    return redirect(url_for('team_page', team_id=hashed_team_id))
+    logger.info(f"Your flags are: {hashed_flag} and {hashed_flag_2}")
+    return render_template("index.html")
 
 @app.route("/robots.txt")
 def hidden_file():
