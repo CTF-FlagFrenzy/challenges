@@ -43,7 +43,6 @@ def dashboard(request):
 def news(request):
     return render(request, "Solana/news.html")
 
-
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]

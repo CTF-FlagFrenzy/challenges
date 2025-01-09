@@ -47,6 +47,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = ['https://web.ctf.htl-villach.at']
+CSRF_TRUSTED_ORIGINS = ['https://ct.ctf.htl-villach.at']
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # Application definition
 
