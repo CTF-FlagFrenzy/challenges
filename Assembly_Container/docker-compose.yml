@@ -5,3 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: alpine_server
     command: ["sh", "-c", "while true; do sleep 3600; done"]
+    #mount the dev folder into the container into /app/dev
+    volumes:
+      - ./dev:/app/dev
+    ports:
+      - "1069:69"
