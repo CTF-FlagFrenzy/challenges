@@ -18,9 +18,12 @@ def index():
     client_ip = request.remote_addr
     logger.info("Index page accessed by IP: %s", client_ip)
     subprocess.run(["python", "flask_app/create_txt.py"])
-    challengeflag = os.environ.get("CHALLENGEKEY")
-    challengeflag_2 = os.environ.get("CHALLENGEKEY_2")
-    teamflag = os.environ.get("TEAMKEY")
+    # challengeflag = os.environ.get("CHALLENGEKEY")
+    # challengeflag_2 = os.environ.get("CHALLENGEKEY_2")
+    # teamflag = os.environ.get("TEAMKEY")
+    challengeflag = "flag1"
+    challengeflag_2 = "flag2"
+    teamflag = "flag3"
     combined_flag = challengeflag + teamflag
     combined_flag_2 = challengeflag_2 + teamflag
 #! First flag (index page)
