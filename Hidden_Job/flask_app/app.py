@@ -2,9 +2,10 @@ import os
 import hashlib
 import logging
 import subprocess
-from flask import Flask, redirect, url_for, render_template, send_from_directory, request
+from flask import Flask, redirect, url_for, render_template, send_from_directory, request, session
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -12,45 +13,50 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger(__name__)
+combined_flag = ""
 
 @app.route('/')
 def index():
     client_ip = request.remote_addr
     logger.info("Index page accessed by IP: %s", client_ip)
     subprocess.run(["python", "flask_app/create_txt.py"])
-    # challengeflag = os.environ.get("CHALLENGEKEY")
-    # challengeflag_2 = os.environ.get("CHALLENGEKEY_2")
-    # teamflag = os.environ.get("TEAMKEY")
-    challengeflag = "flag1"
-    challengeflag_2 = "flag2"
-    teamflag = "flag3"
+    challengeflag = os.environ.get("CHALLENGEKEY")
+    teamflag = os.environ.get("TEAMKEY")
     combined_flag = challengeflag + teamflag
-    combined_flag_2 = challengeflag_2 + teamflag
-#! First flag (index page)
     if combined_flag:
         hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
         logger.info(f"Flag successfully created and hashed {hashed_flag}")
     else:
         logger.error("Failed to create flag. Ensure TEAMKEY and CHALLENGEKEY are set in environment variables.")
         hashed_flag = "FLAG_NOT_DEFINED"
+    return render_template("index.html", logged_in=session.get('logged_in'), hashed_flag=hashed_flag)
 
-#! Second flag (robots.txt)
-    if combined_flag:
-        hashed_flag_2 = "FF{" + hashlib.sha256(combined_flag_2.encode()).hexdigest() + "}"
-        logger.info(f"Flag successfully created and hashed {hashed_flag_2}")
-    else:
-        logger.error(
-            "Failed to create flag. Ensure TEAMKEY and CHALLENGEKEY are set in environment variables."
-        )
-        hashed_flag = "FLAG_NOT_DEFINED"
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == 'Admin' and password == 'N3tzw3rkTechNik':
+            session['logged_in'] = True
+            return redirect(url_for('index'))
+        else:
+            return "Invalid credentials", 401
+    return render_template('index.html')
 
-    logger.info(f"Your flags are: {hashed_flag} and {hashed_flag_2}")
-    return render_template("index.html")
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('index'))
 
-@app.route("/robots.txt")
-def hidden_file():
-    import os
+@app.route('/download/ProjectDelta.exe')
+def download_project_delta():
+    return send_from_directory(os.path.join(app.root_path, "download"), "ProjectDelta.exe")
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+@app.route('/<combined_flag>/robots.txt')
+def hidden_file(combined_flag):
     return send_from_directory(os.path.join(app.root_path, "hidden"), "robots.txt")
 
 if __name__ == '__main__':
