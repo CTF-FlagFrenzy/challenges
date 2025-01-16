@@ -1,8 +1,4 @@
 #!/bin/sh
-echo "ALERT"
->&2 echo "ALERT"
-touch /app/successfull
-
 cd /uploads
 # compile
 nasm -f elf64 assembly-script.asm -o script.o
