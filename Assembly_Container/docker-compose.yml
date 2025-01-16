@@ -1,12 +1,16 @@
 services:
   alpine:
+    network_mode: bridge
     build:
       context: ./Alpine
       dockerfile: Dockerfile
+    environment:
+      - KEY_FlagFrenzy=/uploads/assembly-script.asm
     container_name: alpine_server
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
-    #mount the dev folder into the container into /app/dev
     volumes:
-      - ./dev:/var/www/localhost/htdocs/
+      - ./dev/:/uploads/
     ports:
-      - "1069:69"
+      - "3000:3000"
+    command: /bin/sh /app/entrypoint.sh
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
