@@ -11,4 +11,4 @@ services:
   file-server:
     build: challenge/
     ports:
-      - "8006:5000"
+      - "80:80"
