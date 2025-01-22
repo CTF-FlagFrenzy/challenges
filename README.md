@@ -18,6 +18,6 @@
 > | Pixel_Spy | Easy | Forensics | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Pixel_Spy/Pixel_Spy.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Shadow_File | Hard | Steganography, Web-challenge | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/Shadow_File.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Behind_The_Pixels | Medium | Forensics | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Behind_The_Pixels/behind_the_pixels.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
-> | Hidden_Job | Medium | Web-challenge/Reversing | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy) [Kingdanxi](https://github.com/kingdanxi) | X |
+> | Hidden_Job | Medium | Web-challenge/Reversing | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy), [Kingdanxi](https://github.com/kingdanxi) | X |
 
 
