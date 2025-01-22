@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .vip-feature {
+            position: relative;
+        }
+        .vip-feature::after {
+            content: "VIP";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: gold;
+            color: black;
+            padding: 2px 5px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 0 0 0 5px;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            color: black; /* Ensure text is visible */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="bg-gray-800 p-4 flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Job Portal</h1>
+        {% if logged_in %}
+            <span class="text-yellow-500">Welcome, Admin</span>
+            <a href="{{ url_for('logout') }}" class="p-2 bg-red-600 rounded">Logout</a>
+        {% else %}
+            <button class="p-2 bg-blue-600 rounded" onclick="openLoginModal()">Login</button>
+        {% endif %}
+    </header>
+    <main class="p-4">
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Search Jobs</h2>
+            <form class="flex space-x-4">
+                <input type="text" placeholder="Job title, keywords, or company" class="w-full p-2 rounded bg-gray-700 text-white">
+                <input type="text" placeholder="Location" class="w-full p-2 rounded bg-gray-700 text-white">
+                <button type="submit" class="p-2 bg-blue-600 rounded">Search</button>
+            </form>
+        </section>
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Recent Jobs</h2>
+            <div class="space-y-4">
+                <div class="p-4 bg-gray-800 rounded vip-feature" onclick="openModal()">
+                    <h3 class="text-xl font-bold">Software Engineer</h3>
+                    <p class="text-gray-400">Company XYZ - New York, NY</p>
+                    <p class="mt-2">You may try robots.txt</p>
+                </div>
+                <div class="p-4 bg-gray-800 rounded vip-feature" onclick="openModal()">
+                    <h3 class="text-xl font-bold">Product Manager</h3>
+                    <p class="text-gray-400">Company ABC - San Francisco, CA</p>
+                    <p class="mt-2">You need the flag, which you will find here, to obtain the next one...</p>
+                </div>
+                <div class="p-4 bg-gray-800 rounded vip-feature" onclick="openModal()">
+                    <h3 class="text-xl font-bold">Data Scientist</h3>
+                    <p class="text-gray-400">Company DEF - Austin, TX</p>
+                    <p class="mt-2">Perhaps /robots.txt is not the full URL...</p>
+                </div>
+                <div class="p-4 bg-gray-800 rounded vip-feature" onclick="openModal()">
+                    <h3 class="text-xl font-bold">UX Designer</h3>
+                    <p class="text-gray-400">Company GHI - Seattle, WA</p>
+                    <p class="mt-2">Thats enough help...</p>
+                </div>
+                <div class="p-4 bg-gray-800 rounded vip-feature" onclick="openModal()">
+                    <h3 class="text-xl font-bold">Marketing Specialist</h3>
+                    <p class="text-gray-400">Company JKL - Chicago, IL</p>
+                    <p class="mt-2">This website features a concealed URL where the new flag can be found...</p>
+                </div>
+                <div class="p-4 bg-gray-800 rounded vip-feature" onclick="openModal()">
+                    <h3 class="text-xl font-bold">Sales Manager</h3>
+                    <p class="text-gray-400">Company MNO - Miami, FL</p>
+                    <p class="mt-2">Netzwerktechnik on TOP</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="vipModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>VIP Feature Purchase</h2>
+            {% if logged_in %}
+                <p>Flag: {{ hashed_flag }}</p>
+            {% else %}
+                <p>To access this VIP feature, please complete the purchase.</p>
+                <button class="p-2 bg-blue-600 rounded">Purchase</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login</h2>
+            <form method="POST" action="{{ url_for('login') }}">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="w-full p-2 rounded bg-gray-700 text-white mb-4">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="w-full p-2 rounded bg-gray-700 text-white mb-4">
+                <button type="submit" class="p-2 bg-blue-600 rounded">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("vipModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("vipModal").style.display = "none";
+        }
+
+        function openLoginModal() {
+            document.getElementById("loginModal").style.display = "block";
+        }
+
+        function closeLoginModal() {
+            document.getElementById("loginModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("vipModal")) {
+                closeModal();
+            }
+            if (event.target == document.getElementById("loginModal")) {
+                closeLoginModal();
+            }
+        }
+    </script>
+</body>
+</html>

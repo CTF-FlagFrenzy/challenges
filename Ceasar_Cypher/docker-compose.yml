@@ -7,4 +7,4 @@ services:
       - '8005:80'
     environment:
       - TEAMKEY=team1
-      - CHALLENGE=heheheha
+      - CHALLENGE=U#9!pk^DV5

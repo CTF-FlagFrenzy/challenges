@@ -1,0 +1,19 @@
+version: '3'
+
+volumes:
+  my-django-data:
+
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: flask_app/Dockerfile
+
+    ports:
+      - '8010:5000'
+
+    environment:
+      - TEAMKEY=XXXXXXX
+      - TEAM_ID=XXXXXXX
+      - CHALLENGEKEY=#74q$j&zcB
+      - CHALLENGEKEY2=R2LQXpy^Us
