@@ -23,6 +23,6 @@
 > | Time_Travelers_Hunt | Medium | OSINT | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Git_Secrets:_Layers_of_Discovery | Easy | OSINT | 10% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Mental_Overflow | Medium | Reverse-engineering | 95% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Mental_Overflow/Mental_Overflow.md) | [zVSciy](https://github.com/zVSciy) | X |
-> | Hidden_Job | Medium | Web-challenge/Reversing | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy), [Kingdanxi](https://github.com/kingdanxi) | X |
+> | Hidden_Job | Medium | Web-challenge/Reversing | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy) [Kingdanxi](https://github.com/kingdanxi) | X |
 
 
