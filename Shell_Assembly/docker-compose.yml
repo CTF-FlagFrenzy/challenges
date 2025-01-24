@@ -1,11 +1,11 @@
 services:
   alpine:
-    network_mode: bridge
     build:
       context: ./Alpine
       dockerfile: Dockerfile
     environment:
-      - KEY_FlagFrenzy=/uploads/assembly-script.asm
+      - KEY_FlagFrenzy=/uploads/assembly-script.asm #the file upload user
+      - STATIC_FLAG="FF{5155e13add408c374b3b26bbbbb3d8a7}"
     container_name: alpine_server
     volumes:
       - ./dev/:/uploads/
