@@ -20,4 +20,20 @@ curl -XPOST -F 'data=@script.asm' localhost:3000/upload?key=FlagFrenzy
 ```
 
 3. **Search for the flag**
-The flag is inside the environment parameters.
+The flag is inside the environment parameters.  
+```sh
+/ # printenv 
+NODE_VERSION=14.21.3
+HOSTNAME=20da255c7947
+YARN_VERSION=1.22.19
+SHLVL=1
+HOME=/root
+OLDPWD=/code
+KEY_FlagFrenzy=/uploads/assembly-script.asm
+STATIC_FLAG="FF{5155e13add408c374b3b26bbbbb3d8a7}"
+TERM=xterm
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/
+NODE_ENV=production
+```
+
