@@ -1,11 +1,11 @@
-import os, hashlib
+import hashlib
+import os
 
-from typing import Union
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
-from dotenv import load_dotenv
 
-if os.environ.get("TEAMKEY") == None:
+if os.environ.get("TEAMKEY") is None:
     load_dotenv()
 
 team_key = os.getenv("TEAMKEY")
@@ -18,7 +18,7 @@ print(f"Flag: {hashed_flag}")
 
 
 def checksumming(message, checksum_interval=3):
-    if(checksum_interval < 1):
+    if checksum_interval < 1:
         print("Checksum interval must be at least 2")
         return
 
@@ -26,24 +26,28 @@ def checksumming(message, checksum_interval=3):
     charIdx = 1
     for char in message:
         chached_char = char
-        #every third character gets checksummed. This means that its unicode value is combined with the unicode value of the 2 characters before it and then the result gets printed instead of the original character
+        # every third character gets checksummed. This means that its unicode
+        # value is combined with the unicode value of the 2 characters before it
+        # and then the result gets printed instead of the original character
         if charIdx % checksum_interval == 0:
-            #get unicode sum of the current and the 2 before
-            sum = getStringUnicodeSum(message[charIdx-checksum_interval:charIdx])
-            #convert unicode to char
+            # get unicode sum of the current and the 2 before
+            sum = getStringUnicodeSum(message[charIdx - checksum_interval: charIdx])
+            # convert unicode to char
             chached_char = chr(sum)
             print(sum)
         charIdx += 1
         result_message += chached_char
     return result_message
 
-def getStringUnicodeSum(characters =""):
-    if(characters == None or characters == ""):
+
+def getStringUnicodeSum(characters=""):
+    if characters is None or characters == "":
         return 0
     sum = 0
     for character in characters:
         sum += ord(character)
     return sum
+
 
 def convertToUnicode(message):
     unicode_message = ""
@@ -51,8 +55,9 @@ def convertToUnicode(message):
         unicode_message += str(ord(char)) + " "
     return unicode_message
 
+
 def undoChecksumming(message, checksum_interval=3):
-    if(checksum_interval < 1):
+    if checksum_interval < 1:
         print("Checksum interval must be at least 2")
         return
     result_message = ""
@@ -60,17 +65,21 @@ def undoChecksumming(message, checksum_interval=3):
     for char in message:
         chached_char = char
         if charIdx % checksum_interval == 0:
-            #get unicode sum of the current and the 2 before
-            sum = getStringUnicodeSum(char) - getStringUnicodeSum(message[charIdx-checksum_interval:charIdx-1])
-            #convert unicode to char
+            # get unicode sum of the current and the 2 before
+            sum = getStringUnicodeSum(char) - getStringUnicodeSum(
+                message[charIdx - checksum_interval: charIdx - 1]
+            )
+            # convert unicode to char
             chached_char = chr(sum)
         charIdx += 1
         result_message += chached_char
     return result_message
-    
 
 
-result = checksumming(hashed_flag, 4) #this describes the difficultiy of the checksumming, higher numbers do less modifications, therefore making it easier to figure out the algorithm
+# this describes the difficultiy of the checksumming, higher numbers do
+# less modifications, therefore making it easier to figure out the
+# algorithm
+result = checksumming(hashed_flag, 4)
 print(result)
 result_unicode = convertToUnicode(result)
 result_reverted = undoChecksumming(result, 4)
