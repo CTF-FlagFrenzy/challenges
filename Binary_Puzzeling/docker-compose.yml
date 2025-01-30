@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  challenge:
+    container_name: binary-puzzeling
+    build: .
+    ports:
+      - '8005:80'
+    environment:
+      - TEAMKEY=team1
+      - CHALLENGE=k^kpB2Y99nKwhjex8!G1Mpw7cb!gEMtfa@kuPj*dzn%yqu65P^6RhnPtUZsQF0g&
+      - DEBUG="False"
