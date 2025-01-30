@@ -1,0 +1,3 @@
+pycw
+pydub
+python-zbase32
