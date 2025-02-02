@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  challenge:
+    container_name: corrupted-file
+    build: .
+    ports:
+      - '80:80'
+    environment:
+      - TEAMKEY=team1
+      - CHALLENGE=eAtjp$#@qTp%eYkjJ6VyGS0bTg*jggxdHf0paK^qu$*m$8@WXt
+      - DEBUG="False"
