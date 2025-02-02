@@ -8,5 +8,5 @@ services:
       - '80:80'
     environment:
       - TEAMKEY=team1
-      - CHALLENGE=eAtjp$#@qTp%eYkjJ6VyGS0bTg*jggxdHf0paK^qu$*m$8@WXt
+      - CHALLENGE=Cupped0-Many7
       - DEBUG="False"
