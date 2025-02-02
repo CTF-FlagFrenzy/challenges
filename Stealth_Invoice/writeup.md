@@ -1,0 +1,1 @@
+# CTF Forensics | Stealth Invoice Writeup: Medium Level
