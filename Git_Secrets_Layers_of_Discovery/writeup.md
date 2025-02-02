@@ -27,7 +27,8 @@ A strange commit appeared in the PhantomCode repository. Rumors say it contains 
 git log --grep=FF{
 ```
 - The command filters the commit history and displays only messages containing `FF{`, revealing the flag.
- ![alt text](media/commit-message.png)
+
+![alt text](media/commit-message.png)
 
 ### Part 2 - Deleted File
 
@@ -41,11 +42,16 @@ A crucial file once existed in the repository but was mysteriously deleted. What
 git log --diff-filter=D --summary
 ```
 - Identify the deleted file's name and note its hash.
- ![alt text](media/deleted-files.png)
+
+![alt text](media/deleted-files.png)
+
 - Going to the repository online, you can search for the hash and have a look at the deleted file.
- ![alt text](media/deleted-files2.png)
+
+![alt text](media/deleted-files2.png)
+
 - If have a look at the commit before this one you don't have to decrypt the message by yourself.
- ![alt text](media/deleted-files3.png)
+
+![alt text](media/deleted-files3.png)
 
 ### Part 3 - Git Tag
 
@@ -58,7 +64,9 @@ Not all secrets are erased—some are cleverly hidden in plain sight. PhantomCoe
 ```bash
 git tag
 ```
- ![alt text](media/git-tag.png)
+
+![alt text](media/git-tag.png)
+
 - Inspect each tag's message using:
 ```bash
 git show v1.0
@@ -67,7 +75,8 @@ git show v1.1
 ...
 ```
 - One of these tag messages contains the flag.
- ![alt text](media/git-tag2.png)
+
+![alt text](media/git-tag2.png)
 
 ### Part 4 - Fake Account
 
@@ -81,9 +90,13 @@ Someone has been tampering with the repository—an unknown user who shouldn’t
 git shortlog -s -n
 ```
 - Identify any suspicious or unknown commit authors.
- ![alt text](media/fake-account.png)
+
+![alt text](media/fake-account.png)
+
 - View commits made by a specific author to get the email address of the fake user.
- ![alt text](media/fake-account2.png)
+
+![alt text](media/fake-account2.png)
+
 - Submit the extracted email address as the flag.
 
 ## Conclusion
