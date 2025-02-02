@@ -65,10 +65,10 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/download/ProjectDelta.exe")
+@app.route("/download/ProjectDelta.zip")
 def download_project_delta():
     return send_from_directory(
-        os.path.join(app.root_path, "download"), "ProjectDelta.exe"
+        os.path.join(app.root_path, "download"), "ProjectDelta.zip"
     )
 
 
