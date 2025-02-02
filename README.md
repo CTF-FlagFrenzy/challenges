@@ -26,5 +26,5 @@
 > | Hidden_Job | Medium | Web-challenge/Reversing | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy) [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Binary_Puzzeling | Medium | Cryptography | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Binary_Puzzeling/Binary_Puzzeling.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Checking_Encryption | Hard | Cryptography | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Checking_Encryption/Checking_Encryption.md) | [KaveXD](https://github.com/KaveXD) | X |
-> | Shell_Assembly | Medium | Cryptography | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shell_Assembly/Shell_Assembly.md) | [KaveXD](https://github.com/KaveXD) | X |
+> | Shell_Assembly | Medium | Reverse Engineering | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shell_Assembly/Shell_Assembly.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Corrupted_File | Medium | Reverse Engineering | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Corrupted_File/Corrupted_File.md) | [KaveXD](https://github.com/KaveXD) | X |
