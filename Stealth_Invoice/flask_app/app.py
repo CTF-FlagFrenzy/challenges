@@ -1,13 +1,13 @@
-from flask import Flask, send_from_directory
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.lib import colors
-
-import fitz 
 import base64
 import hashlib
-import os
 import logging
+import os
+
+import fitz
+from flask import Flask, send_from_directory
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,6 +15,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger(__name__)
+
 
 def caesar_cipher(text, shift):
     result = ""
@@ -27,6 +28,7 @@ def caesar_cipher(text, shift):
         else:
             result += char
     return result
+
 
 def create_invoice_pdf(output_filename, flag):
     c = canvas.Canvas(output_filename, pagesize=letter)
@@ -54,11 +56,7 @@ def create_invoice_pdf(output_filename, flag):
     c.drawString(500, height - 200, "Total")
 
     # Table content
-    items = [
-        ("Widget A", 2, 50.00),
-        ("Widget B", 1, 75.00),
-        ("Widget C", 3, 20.00)
-    ]
+    items = [("Widget A", 2, 50.00), ("Widget B", 1, 75.00), ("Widget C", 3, 20.00)]
 
     y = height - 220
     for item in items:
@@ -85,12 +83,13 @@ def create_invoice_pdf(output_filename, flag):
     c.save()
     logger.info(f"Basic PDF with first flag created successfully.")
 
+
 def embed_file_in_pdf(pdf_path, textfile_path, output_pdf_path):
-     # Open the existing PDF
+    # Open the existing PDF
     pdf_document = fitz.open(pdf_path)
 
     # Read the content of the text file
-    with open(textfile_path, 'rb') as file:
+    with open(textfile_path, "rb") as file:
         file_content = file.read()
 
     # Embed the text file in the PDF
@@ -99,6 +98,7 @@ def embed_file_in_pdf(pdf_path, textfile_path, output_pdf_path):
     # Save the modified PDF to a new file
     pdf_document.save(output_pdf_path)
     logger.info(f"Embedded text file into PDF file successfully")
+
 
 def create_pdf_full():
 
@@ -112,7 +112,9 @@ def create_pdf_full():
     hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
     logger.info(f"Flag in PDF successfully created and hashed {hashed_flag}")
 
-    hashed_flag_two = "FF{" + hashlib.sha256(combined_flag_two.encode()).hexdigest() + "}"
+    hashed_flag_two = (
+        "FF{" + hashlib.sha256(combined_flag_two.encode()).hexdigest() + "}"
+    )
     logger.info(f"Flag in text file successfully created and hashed {hashed_flag_two}")
 
     invoice_pdf = "flask_app/download/first.pdf"
@@ -131,7 +133,9 @@ def create_pdf_full():
     output_pdf = "flask_app/download/stealth_invoice.pdf"
     embed_file_in_pdf(invoice_pdf, text_file, output_pdf)
 
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def download_pdf():
@@ -139,6 +143,7 @@ def download_pdf():
         os.path.join(app.root_path, "download"), "stealth_invoice.pdf"
     )
 
+
 if __name__ == "__main__":
     create_pdf_full()
-    app.run(host='0.0.0.0', port=80)
+    app.run(host="0.0.0.0", port=80)
