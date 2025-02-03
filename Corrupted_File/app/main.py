@@ -21,19 +21,19 @@ if debug:
     print(f"Challenge Key: {challenge_key}")
     print(f"Flag: {hashed_flag}")
 
-#create a text file with the flag
-with open ("flag.txt", "w") as f:
+# create a text file with the flag
+with open("flag.txt", "w") as f:
     f.write(hashed_flag)
 
-#compress the file to a tar.gz file
-with tarfile.open("document", 'w:gz') as tar:
+# compress the file to a tar.gz file
+with tarfile.open("document", "w:gz") as tar:
     tar.add("flag.txt")
 
-#replace the first two bytes from the archive from 0x1f 0x8b to 0x00 0x00 to hide the file type
-#makes it practically impossible without altering the bytes back
-with open("document", 'r+b') as f:
+# replace the first two bytes from the archive from 0x1f 0x8b to 0x00 0x00 to hide the file type
+# makes it practically impossible without altering the bytes back
+with open("document", "r+b") as f:
     f.seek(0)  # Move to the beginning of the file
-    f.write(b'\x00\x00')  # Write the new bytes
+    f.write(b"\x00\x00")  # Write the new bytes
 
 
 app = FastAPI()
@@ -42,6 +42,6 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     file_path = "document"
-    #send some additional headers because firefox can't be normal
-    headers = {'Content-Disposition': 'attachment; filename="document"'}
+    # send some additional headers because firefox can't be normal
+    headers = {"Content-Disposition": 'attachment; filename="document"'}
     return FileResponse(file_path, headers=headers)
