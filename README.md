@@ -10,19 +10,19 @@
 
 > | Challenge | Difficulty | Category | Flags | Status | Documentation | Authors | Solves |
 > |:--------: | :--------: | :------: | :------: | :----: | :-----------: | :-----: | :----: |
-> | Solana_Assets | Easy | Web-challenge | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Solana_Assets/solana_assets.md) |  [zVSciy](https://github.com/zVSciy) | X |
-> | The_SQL_Heist | Easy | Web-challenge | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/The_SQL_Heist/The_SQL_Heist.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | Solana_Assets | Easy | Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Solana_Assets/solana_assets.md) |  [zVSciy](https://github.com/zVSciy) | X |
+> | The_SQL_Heist | Easy | Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/The_SQL_Heist/The_SQL_Heist.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Security_Maths | Medium | Others | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Security_Maths/Technical_Guide_SecurityMaths.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Ceasar_Cypher | Easy | Cryptography | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Ceasar_Cipher/ceasar_cipher.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Confused_Scripting | Hard | Reversing | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Confused_Scripting/confused_scripting.md) | [KaveXD](https://github.com/KaveXD) | X |
-> | File_And_Seek | Medium | Web-challenge | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/File_And_Seek.md) | [zVSciy](https://github.com/zVSciy) | X |
-> | Pixel_Spy | Easy | Forensics | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Pixel_Spy/Pixel_Spy.md) | [zVSciy](https://github.com/zVSciy) | X |
-> | Shadow_File | Hard | Steganography, Web-challenge | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/Shadow_File.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | File_And_Seek | Medium | Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/File_And_Seek.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | Pixel_Spy | Easy | Forensics | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Pixel_Spy/Pixel_Spy.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | Shadow_File | Hard | Steganography, Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/Shadow_File.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Behind_The_Pixels | Medium | Forensics | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Behind_The_Pixels/behind_the_pixels.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Profile_Prodigy | Easy | OSINT | tbd. | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Time_Travelers_Hunt | Medium | OSINT | tbd. | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Git_Secrets: Layers_of_Discovery | Easy | OSINT | tbd. | 10% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
-> | Mental_Overflow | Medium | Reverse-engineering | tbd. | 95% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Mental_Overflow/Mental_Overflow.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | Mental_Overflow | Medium | Reverse-engineering | 1 | 95% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Mental_Overflow/Mental_Overflow.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Hidden_Job | Medium | Web-challenge/Reversing | 4 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy) [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Binary_Puzzeling | Medium | Cryptography | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Binary_Puzzeling/Binary_Puzzeling.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Checking_Encryption | Hard | Cryptography | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Checking_Encryption/Checking_Encryption.md) | [KaveXD](https://github.com/KaveXD) | X |
