@@ -6,7 +6,6 @@ volumes:
 services:
   flask:
     build:
-      context: .
       dockerfile: flask_app/Dockerfile
 
     ports:
