@@ -12,7 +12,7 @@
 > |:--------: | :--------: | :------: | :------: | :----: | :-----------: | :-----: | :----: |
 > | Solana_Assets | Easy | Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Solana_Assets/solana_assets.md) |  [zVSciy](https://github.com/zVSciy) | X |
 > | The_SQL_Heist | Easy | Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/The_SQL_Heist/The_SQL_Heist.md) | [zVSciy](https://github.com/zVSciy) | X |
-> | Security_Maths | Medium | Others | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Security_Maths/Technical_Guide_SecurityMaths.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
+> | Security_Maths | Medium | Others | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Security_Maths/Technical_Guide_SecurityMaths.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Ceasar_Cypher | Easy | Cryptography | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Ceasar_Cipher/ceasar_cipher.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Confused_Scripting | Hard | Reversing | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Confused_Scripting/confused_scripting.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | File_And_Seek | Medium | Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/File_And_Seek.md) | [zVSciy](https://github.com/zVSciy) | X |
