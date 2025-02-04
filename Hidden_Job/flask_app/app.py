@@ -74,7 +74,7 @@ def download_project_delta():
 
 @app.route("/<combined_flag>/robots.txt")
 def hidden_file(combined_flag):
-    return send_from_directory(os.path.join(app.root_path, "hidden"), "robots.txt")
+    return send_from_directory("/code/hidden", "robots.txt")
 
 
 if __name__ == "__main__":
