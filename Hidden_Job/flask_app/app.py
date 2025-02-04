@@ -71,15 +71,10 @@ def download_project_delta():
         os.path.join(app.root_path, "download"), "ProjectDelta.zip"
     )
 
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-
-
 @app.route("/<combined_flag>/robots.txt")
 def hidden_file(combined_flag):
     return send_from_directory(os.path.join(app.root_path, "hidden"), "robots.txt")
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=80)
