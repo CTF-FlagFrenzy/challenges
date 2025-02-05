@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def create_robots_txt():
-    challengeflag_2 = os.environ.get("CHALLENGEKEY_2")
+    challengeflag_2 = "R2LQXpy^Us"
     teamflag = os.environ.get("TEAMKEY")
     download_link = f"/download/ProjectDelta.zip"
     combined_flag_2 = str(challengeflag_2) + str(teamflag)
