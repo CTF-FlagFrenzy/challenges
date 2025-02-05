@@ -5,10 +5,7 @@ services:
       dockerfile: flask_app/Dockerfile
 
     ports:
-      - '80:80'
+      - '8080:80'
 
     environment:
-      - TEAMKEY=XXXXXXX
-      - TEAM_ID=XXXXXXX
-      - CHALLENGEKEY=#oLq3j&ZcF
-      - CHALLENGEKEY2=M9LQXpX^Us
+      - TEAMKEY=XXXXX1

@@ -102,12 +102,12 @@ def embed_file_in_pdf(pdf_path, textfile_path, output_pdf_path):
 
 def create_pdf_full():
 
-    challenge_flag = os.getenv("CHALLENGEKEY")
-    challenge_flag_two = os.getenv("CHALLENGEKEY2")
+    challenge_flag = "#oLq3j&ZcF"
+    challenge_flag_two = "M9LQXpX^Us"
     team_flag = os.getenv("TEAMKEY")
 
-    combined_flag = str(challenge_flag) + str(team_flag)
-    combined_flag_two = str(challenge_flag_two) + str(team_flag)
+    combined_flag = challenge_flag + team_flag
+    combined_flag_two = challenge_flag_two + team_flag
 
     hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
     logger.info(f"Flag in PDF successfully created and hashed {hashed_flag}")
