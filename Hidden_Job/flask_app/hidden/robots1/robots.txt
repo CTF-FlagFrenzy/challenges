@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /
-
-# Flag: FF{ffc0090237cd4031c89e27c69f5c3798db39857c48b1efceb3893ac27fc2ef0f}
