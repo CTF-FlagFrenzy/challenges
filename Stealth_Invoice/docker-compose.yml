@@ -8,4 +8,4 @@ services:
       - '80:80'
 
     environment:
-      - TEAMKEY=XXXXX1
+      - TEAMKEY=XXXXXX
