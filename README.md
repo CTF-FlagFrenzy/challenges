@@ -24,10 +24,10 @@
 > | Git_Secrets: Layers_of_Discovery | Easy | OSINT | tbd. | 10% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Mental_Overflow | Medium | Reverse-engineering | 1 | 95% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Mental_Overflow/Mental_Overflow.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Hidden_Job | Medium | Web-challenge/Reversing | 4 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy) [Kingdanxi](https://github.com/kingdanxi) | X |
-> | Binary_Puzzeling | Medium | Cryptography | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Binary_Puzzeling/Binary_Puzzeling.md) | [KaveXD](https://github.com/KaveXD) | X |
-> | Checking_Encryption | Hard | Cryptography | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Checking_Encryption/Checking_Encryption.md) | [KaveXD](https://github.com/KaveXD) | X |
-> | Shell_Assembly | Medium | Reverse Engineering | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shell_Assembly/Shell_Assembly.md) | [KaveXD](https://github.com/KaveXD) | X |
-> | Corrupted_File | Medium | Reverse Engineering | tbd. | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Corrupted_File/Corrupted_File.md) | [KaveXD](https://github.com/KaveXD) | X |
+> | Binary_Puzzeling | Medium | Cryptography | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Binary_Puzzeling/Binary_Puzzeling.md) | [KaveXD](https://github.com/KaveXD) | X |
+> | Checking_Encryption | Hard | Cryptography | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Checking_Encryption/Checking_Encryption.md) | [KaveXD](https://github.com/KaveXD) | X |
+> | Shell_Assembly | Medium | Reverse Engineering | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shell_Assembly/Shell_Assembly.md) | [KaveXD](https://github.com/KaveXD) | X |
+> | Corrupted_File | Medium | Reverse Engineering | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Corrupted_File/Corrupted_File.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Stealth_Invoice | Medium | Forensics | 2 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Stealth_Invoice/Stealth_Invoice.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | HackTheRack | Expert | Others | 2 | 20% done | [documentation] | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Solana_Bank_Heist | Expert | Others | 1 | 50% done | [documentation] | [zVSciy](https://github.com/zVSciy) | X |
