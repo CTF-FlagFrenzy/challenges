@@ -11,11 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = [
-    f"https://{i}-solana-assets.webapp-flagfrenzy.at" for i in range(1, 101)
-]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
