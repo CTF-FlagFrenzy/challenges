@@ -1,0 +1,17 @@
+networks:
+  encrpytion-forensics:
+
+services:
+  ubuntu-ssh:
+    build:
+      context: .
+      dockerfile: Dockerfile
+   
+    ports:
+      - "8080:22"
+
+    networks:
+      - encrpytion-forensics
+
+    environment:
+      - TEAMKEY=XXXXXXX
