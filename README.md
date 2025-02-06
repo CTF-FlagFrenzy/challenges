@@ -32,3 +32,5 @@
 > | HackTheRack | Expert | Others | 2 | 20% done | [documentation] | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Solana_Bank_Heist | Expert | Blockchain | 1 | Discontinued | [documentation] | [zVSciy](https://github.com/zVSciy) | X |
 > | Hidden_Frequencies | Medium | Steganography/Forensics | 1 | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
+> | Capture_the_Bytes | Medium | Network | 1 | 40% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Capture_the_Bytes/Capture_the_Bytes.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | The_Neverending_Zip | Easy | Others | 1 | 0% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/The_Neverending_Zip/The_Neverending_Zip.md) | [zVSciy](https://github.com/zVSciy) | X |
