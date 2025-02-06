@@ -22,7 +22,7 @@ def index(request):
 def dashboard(request):
     #! This is the flag that you need to get from the environment variables
     teamflag = os.environ.get("TEAMKEY")
-    challengeflag = os.environ.get("CHALLENGEKEY")
+    challengeflag = "R^@LgvG5QD"
     if not request.session.get("is_authenticated"):
         return redirect("index")
 
