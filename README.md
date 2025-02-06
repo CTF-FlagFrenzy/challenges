@@ -30,5 +30,5 @@
 > | Corrupted_File | Medium | Reverse Engineering | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Corrupted_File/Corrupted_File.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Stealth_Invoice | Medium | Forensics | 2 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Stealth_Invoice/Stealth_Invoice.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | HackTheRack | Expert | Others | 2 | 20% done | [documentation] | [Kingdanxi](https://github.com/kingdanxi) | X |
-> | Solana_Bank_Heist | Expert | Others | 1 | Discontinued | [documentation] | [zVSciy](https://github.com/zVSciy) | X |
+> | Solana_Bank_Heist | Expert | Blockchain | 1 | Discontinued | [documentation] | [zVSciy](https://github.com/zVSciy) | X |
 > | Hidden_Frequencies | Medium | Steganography/Forensics | 1 | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
