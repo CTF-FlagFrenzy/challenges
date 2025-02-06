@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 LOGIN_URL = "index"
@@ -46,6 +50,8 @@ SECRET_KEY = "django-insecure-+r4^t++!&gsoz!pw28pke4a^emiw228ne4@cd3&i3hzk8gjrf-
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = ["*"]
 
 
 # Application definition
