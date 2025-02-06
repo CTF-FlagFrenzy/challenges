@@ -9,10 +9,15 @@ if os.environ.get("TEAMKEY") is None:
     load_dotenv()
 
 debug = os.getenv("DEBUG", "False") == "True"
+#! COMMENT THIS OUT
+#! COMMENT THIS OUT
+#! COMMENT THIS OUT
+debug = True
+
 print(debug)
 
 team_key = os.getenv("TEAMKEY")
-challenge_key = os.getenv("CHALLENGE")
+challenge_key = "k^kpB2Y99nKwhjex8!G1Mpw7cb!gEMtfa@kuPj*dzn%yqu65P^6RhnPtUZsQF0g&"
 combined_flag = challenge_key + team_key
 hashed_flag = f"FF{{{hashlib.md5(combined_flag.encode()).hexdigest()}}}"
 if debug:
@@ -69,3 +74,8 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return FileResponse("encoded.txt")
+
+if debug:
+    @app.get("/debug")
+    def read_debug():
+        return FileResponse("debug.txt")
