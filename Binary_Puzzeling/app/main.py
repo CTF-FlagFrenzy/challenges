@@ -75,7 +75,9 @@ app = FastAPI()
 def read_root():
     return FileResponse("encoded.txt")
 
+
 if debug:
+
     @app.get("/debug")
     def read_debug():
         return FileResponse("debug.txt")
