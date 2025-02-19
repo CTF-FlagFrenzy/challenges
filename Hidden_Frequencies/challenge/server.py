@@ -1,10 +1,10 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_file
 
 app = Flask(__name__)
 
 @app.route('/download')
 def download_image():
-    return send_from_directory("static", "challenge_image.png", as_attachment=True)
+    return send_file("hidden_frequencies.bmp", as_attachment=True)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

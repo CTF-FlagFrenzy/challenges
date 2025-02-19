@@ -6,13 +6,13 @@ WORKDIR /app
 
 # Copy necessary files
 COPY server.py .
-COPY challenge_image.png /app/static/
+COPY hidden_frequencies.bmp .
 
 # Install dependencies
 RUN pip install flask
 
 # Expose port 5000
-EXPOSE 8006
+EXPOSE 5000
 
 # Run the server
 CMD ["python", "server.py"]
