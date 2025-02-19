@@ -84,6 +84,6 @@ docker-compose up
 ```
 
 Now you can see all running container with `docker ps`.  
-The webserver should be accessable on the port specified in the docker-compose.
+The webserver should be accessable on the port specified in the docker-compose.yml.
 
 **HAVE FUN**

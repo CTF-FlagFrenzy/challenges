@@ -46,7 +46,7 @@ if combined_flag:
     hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
     print(f"Flag erfolgreich erstellt und gehasht: {hashed_flag}")
     copy_file(original_file, output_file)
-    embed_combined_flag(output_file, combined_flag)
+    embed_combined_flag(output_file, hashed_flag)
     print(f"Kombinierte, gehashte Flag in {output_file} eingebettet.")
 else:
     print("Fehler beim Erstellen der Flag. Stellen Sie sicher, dass TEAMKEY und CHALLENGEKEY in den Umgebungsvariablen festgelegt sind.")
