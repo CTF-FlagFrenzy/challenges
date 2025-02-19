@@ -1,7 +1,7 @@
 version: '3'
 services:
   challenge:
-    build: .
+    build: challenge/
     ports:
       - "8006:5000"
     restart: unless-stopped
