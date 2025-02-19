@@ -6,7 +6,11 @@ Steganography challenge where you have to get the flag from a picture where the 
 
 ## Challenge Overview:
 
-    - In this challenge, we were tasked to find the flag within a picture. Use basic forensic tools to find your way to the flag.
+In this challenge, you were tasked to find the flag within a picture. Good luck!
+
+- Hint 1: Every file has a story to tell; some just need the right tool to read them.
+- Hint 2: Information can be stored where you least expect it—try checking the metadata.
+- Hint 3: Comments aren’t just for conversations; sometimes, they hide secrets.
 
 ---
 
@@ -28,7 +32,7 @@ services:
   file-server:
     build: .
     ports:
-      - "5000:5000"
+      - "8006:5000"
 ```
 
 ### Dockerfile
