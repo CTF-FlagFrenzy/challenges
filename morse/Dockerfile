@@ -8,3 +8,4 @@ RUN sh ./build.sh
 EXPOSE 80
 
 ENTRYPOINT [ "sh", "entry.sh" ]
+
