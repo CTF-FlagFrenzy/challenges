@@ -12,7 +12,7 @@ COPY hidden_frequencies.bmp .
 RUN pip install flask
 
 # Expose port 5000
-EXPOSE 5000
+EXPOSE 80
 
 # Run the server
 CMD ["python", "server.py"]
