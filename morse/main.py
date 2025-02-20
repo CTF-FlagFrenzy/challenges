@@ -1,12 +1,11 @@
 import pycw
 import os
 import hashlib
-import zbase32
 
 challengekey = os.getenv('CHALLANGEKEY')
 teamkey = os.getenv('TEAMKEY')
 
-flaghash = zbase32.encode(hashlib.sha256(('%s%s' % (teamkey, challengekey)).encode()).digest())
+flaghash = hashlib.sha256(('%s%s' % (teamkey, challengekey)).encode()).hexdigest()
 print (flaghash)
 flag = 'FF{%s}' % flaghash
 
