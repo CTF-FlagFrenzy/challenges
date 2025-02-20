@@ -9,4 +9,5 @@ WORKDIR /code
 EXPOSE 80
 
 ENTRYPOINT ["python", "django/manage.py"]
+RUN python django/manage.py migrate
 CMD ["runserver", "0.0.0.0:80"]
