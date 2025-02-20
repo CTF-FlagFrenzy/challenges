@@ -7,4 +7,4 @@ services:
       - '8004:80'
     environment:
       - TEAMKEY=team2
-      - CHALLENGEKEY=test
+      - CHALLENGEKEY=zK^Qg4Sf82

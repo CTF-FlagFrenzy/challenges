@@ -13,8 +13,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Generate flag
-challengeflag = "CHALLENGEKEY"
-teamflag = "TEAMKEY"
+challengeflag = "#8W@3fp5#Y"
+teamflag = os.environ.get("TEAMKEY")
 combined_flag = challengeflag + teamflag
 hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
 logger.info(f"Generated hashed flag: {hashed_flag}")

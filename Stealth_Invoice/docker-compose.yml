@@ -1,0 +1,11 @@
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: flask_app/Dockerfile
+
+    ports:
+      - '80:80'
+
+    environment:
+      - TEAMKEY=XXXXXX
