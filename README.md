@@ -20,7 +20,7 @@
 > | Shadow_File | Hard | Steganography, Web-challenge | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/Shadow_File.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Behind_The_Pixels | Medium | Forensics | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Behind_The_Pixels/behind_the_pixels.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Profile_Prodigy | Easy | OSINT | 3 | 99% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Profile_Prodigy/Profile_Prodigy.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
-> | Time_Travelers_Hunt | Medium | OSINT | 3 | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Time_Travelers_Hunt/Time_Travelers_Hunt.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
+> | Time_Travelers_Hunt | Medium | OSINT | 3 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Time_Travelers_Hunt/Time_Travelers_Hunt.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Git_Secrets: Layers_of_Discovery | Easy | OSINT | 4 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Git_Secrets_Layers_of_Discovery/Git_Secrets_Layers_of_Discovery.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Mental_Overflow | Medium | Reverse-engineering | 1 | 95% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Mental_Overflow/Mental_Overflow.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Hidden_Job | Medium | Web-challenge/Reversing | 4 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Job/Hidden_Job.md) | [zVSciy](https://github.com/zVSciy) [Kingdanxi](https://github.com/kingdanxi) | X |
@@ -31,6 +31,6 @@
 > | Stealth_Invoice | Medium | Forensics | 2 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Stealth_Invoice/Stealth_Invoice.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | HackTheRack | Expert | Others | 2 | 20% done | [documentation] | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Solana_Bank_Heist | Expert | Blockchain | 1 | Discontinued | [documentation] | [zVSciy](https://github.com/zVSciy) | X |
-> | Hidden_Frequencies | Medium | Steganography/Forensics | 1 | 90% done | [documentation] | [IlariaBrown](https://github.com/IlariaBrown) | X |
+> | Hidden_Frequencies | Medium | Steganography/Forensics | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Frequencies/Hidden_Frequencies.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Capture_the_Bytes | Medium | Network | 1 | 40% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Capture_the_Bytes/Capture_the_Bytes.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | The_Neverending_Zip | Easy | Others | 1 | 0% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/The_Neverending_Zip/The_Neverending_Zip.md) | [zVSciy](https://github.com/zVSciy) | X |
