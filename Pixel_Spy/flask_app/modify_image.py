@@ -12,7 +12,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 challengeflag = os.environ.get("CHALLENGEKEY")
-teamflag = os.environ.get("TEAMKEY")
+teamflag = "T1#mXeG24B"
 combined_flag = challengeflag + teamflag if challengeflag and teamflag else None
 
 if combined_flag:

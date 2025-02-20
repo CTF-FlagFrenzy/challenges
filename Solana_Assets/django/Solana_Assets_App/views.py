@@ -4,6 +4,7 @@ import os
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
@@ -22,7 +23,7 @@ def index(request):
 def dashboard(request):
     #! This is the flag that you need to get from the environment variables
     teamflag = os.environ.get("TEAMKEY")
-    challengeflag = os.environ.get("CHALLENGEKEY")
+    challengeflag = "R^@LgvG5QD"
     if not request.session.get("is_authenticated"):
         return redirect("index")
 
@@ -43,7 +44,7 @@ def dashboard(request):
 def news(request):
     return render(request, "Solana/news.html")
 
-
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]

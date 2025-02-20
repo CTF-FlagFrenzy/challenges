@@ -14,4 +14,3 @@ services:
 
     environment:
       - TEAMKEY=XXXXXXX
-      - CHALLENGEKEY=t9gE6@W!Nz
