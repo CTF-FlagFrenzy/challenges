@@ -52,7 +52,7 @@ else:
     print("Fehler beim Erstellen der Flag. Stellen Sie sicher, dass TEAMKEY und CHALLENGEKEY in den Umgebungsvariablen festgelegt sind.")
     hashed_flag = "FLAG_NOT_DEFINED"
 
-@app.route("/image")
+@app.route("/")
 def server_image():
     return send_from_directory(".", output_file, as_attachment=True)
 

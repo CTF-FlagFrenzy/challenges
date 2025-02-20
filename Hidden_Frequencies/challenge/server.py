@@ -2,7 +2,7 @@ from flask import Flask, send_file
 
 app = Flask(__name__)
 
-@app.route('/download')
+@app.route('/')
 def download_image():
     return send_file("hidden_frequencies.bmp", as_attachment=True)
 
