@@ -22,17 +22,19 @@ Starting with the `docker-compose` file, this file starts the challenge containe
 services:
   exiftool-service:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: .  # Verweist auf das aktuelle Verzeichnis
+      dockerfile: challenge/Dockerfile
     container_name: exiftool_container
     volumes:
-      - .:/app
-    restart: "no"
+      - .:/app  # Mountet das aktuelle Verzeichnis in das Container-Verzeichnis /app
+    restart: "no"  # Optionale Einstellung; der Container wird nach dem Skriptende nicht neu gestartet
 
   file-server:
-    build: .
+    build: challenge/
     ports:
-      - "8006:5000"
+      - "80:80"
+    environment:
+      - TEAMKEY=XXXXXXX
 ```
 
 ### Dockerfile
@@ -44,11 +46,11 @@ FROM python:3.9-slim
 
 RUN apt-get update && apt-get install -y exiftool && pip install flask
 
+COPY . app
 WORKDIR /app
 RUN ls -l /app
 
-COPY script.py .
-COPY nice_holiday.JPG .
+EXPOSE 80
 
 CMD ["python", "script.py"]
 ```
@@ -77,13 +79,13 @@ After installing Docker and Docker Compose, pull the repository via the CLI usin
 git pull https://github.com/CTF-FlagFrenzy/challenges.git
 ```
 
-Then you navigate to the folder `Behind_The_Pixels/challenge` and type the following command in the cli.
+Then you navigate to the folder `Behind_The_Pixels/` and type the following command in the cli.
 
 ```
 docker-compose up
 ```
 
 Now you can see all running container with `docker ps`.  
-The webserver should be accessable on the port specified in the docker-compose.yml.
+The webserver should be accessable on the port specified in the docker-compose.yml and will download the file as soon as accessed.
 
 **HAVE FUN**
