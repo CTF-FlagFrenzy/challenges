@@ -24,21 +24,18 @@ def dashboard(request):
     #! This is the flag that you need to get from the environment variables
     teamflag = os.environ.get("TEAMKEY")
     challengeflag = "R^@LgvG5QD"
-    if not request.session.get("is_authenticated"):
-        return redirect("index")
+    
+    combined_flag = challengeflag + teamflag
+    hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
 
-    else:
-        combined_flag = challengeflag + teamflag
-        hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
+    logging.info(f"Hashed Flag: {hashed_flag}")
 
-        logging.info(f"Hashed Flag: {hashed_flag}")
+    response = render(request, "Solana/dashboard.html")
+    for cookie in request.COOKIES:
+        response.delete_cookie(cookie)
+    response.set_cookie("Flag", f"FF{{{hashed_flag}}}", max_age=7 * 24 * 60 * 60)
 
-        response = render(request, "Solana/dashboard.html")
-        for cookie in request.COOKIES:
-            response.delete_cookie(cookie)
-        response.set_cookie("Flag", f"FF{{{hashed_flag}}}", max_age=7 * 24 * 60 * 60)
-
-        return response
+    return response
 
 
 def news(request):
@@ -51,10 +48,8 @@ def login_view(request):
         username = request.POST["username"]
         password = request.POST["password"]
         if username == "Andreas" and password == "GoodPassw0rd123":
-            request.session["is_authenticated"] = True
             return redirect("dashboard")
         if username == "Leon" and password == "Admin123":
-            request.session["is_authenticated"] = True
             return redirect("wrong")
         else:
             messages.error(request, "Invalid username or password")
