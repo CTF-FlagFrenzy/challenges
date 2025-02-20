@@ -24,7 +24,7 @@ def dashboard(request):
     #! This is the flag that you need to get from the environment variables
     teamflag = os.environ.get("TEAMKEY")
     challengeflag = "R^@LgvG5QD"
-    
+
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
 
