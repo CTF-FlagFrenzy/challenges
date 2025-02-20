@@ -50,6 +50,12 @@ CSRF_TRUSTED_ORIGINS = ["https://*.web.ctf.htl-villach.at"]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_AGE = 1209600
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
 # Application definition
 
 INSTALLED_APPS = [
