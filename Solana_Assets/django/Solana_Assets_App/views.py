@@ -4,6 +4,7 @@ import os
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
@@ -43,7 +44,7 @@ def dashboard(request):
 def news(request):
     return render(request, "Solana/news.html")
 
-
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
