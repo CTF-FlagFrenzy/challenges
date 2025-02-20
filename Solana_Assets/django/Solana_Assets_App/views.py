@@ -44,6 +44,7 @@ def dashboard(request):
 def news(request):
     return render(request, "Solana/news.html")
 
+
 @csrf_exempt
 def login_view(request):
     if request.method == "POST":
