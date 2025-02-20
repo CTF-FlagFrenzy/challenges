@@ -1,4 +1,3 @@
 PySSTV
 pillow
-python-zbase32
 qrcode

@@ -2,12 +2,11 @@ import PIL.Image
 import qrcode
 import os
 import hashlib
-import zbase32
 
 challengekey = os.getenv('CHALLANGEKEY')
 teamkey = os.getenv('TEAMKEY')
 
-flaghash = zbase32.encode(hashlib.sha256(('%s%s' % (teamkey, challengekey)).encode()).digest())
+flaghash = hashlib.sha256(('%s%s' % (teamkey, challengekey)).encode()).hexdigest()
 print (flaghash)
 flag = 'FF{%s}' % flaghash
 
@@ -20,5 +19,5 @@ im = code.make_image()
 fgimage = im.get_image()
 bgimage = PIL.Image.open('bg.png')
 
-bgimage.paste(fgimage, (90,96))
+bgimage.paste(fgimage, (82, 67))
 bgimage.save('placed.png')
