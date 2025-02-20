@@ -6,4 +6,6 @@ COPY . app
 WORKDIR /app
 RUN ls -l /app
 
+EXPOSE 80
+
 CMD ["python", "script.py"]
