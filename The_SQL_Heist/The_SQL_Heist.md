@@ -40,7 +40,6 @@ services:
       
     environment:
       - TEAMKEY=XXXXXXX
-      - CHALLENGEKEY=NQ^D@zd$q6
 ```
 
 ### Web Application:
