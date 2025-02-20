@@ -3,8 +3,9 @@ import hashlib
 import logging
 import os
 import subprocess
-# from Crypto.Cipher import AES
-# from Crypto.Util.Padding import pad
+import binascii
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
 
 logging.basicConfig(
     level=logging.INFO,
@@ -14,6 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
+    # Flag creation
     challenge_flag = "j3L2k3'sz\\"
     challenge_flag_two = "4j*3$9r0Sv"
     team_flag = os.getenv("TEAMKEY")
@@ -27,6 +29,16 @@ if __name__ == "__main__":
     hashed_flag_two = ("FF{" + hashlib.sha256(combined_flag_two.encode()).hexdigest() + "}")
     logger.info(f"Flag for AES encryption successfully created and hashed {hashed_flag_two}")
 
-    # cipher = AES.new(hashed_flag.encode('utf-8'), AES.MODE_CBC)
-    # ct_bytes = cipher.encrypt(pad(hashed_flag_two.encode('utf-8'), AES.block_size))
-    
+    # AES-128 Encryption (CBC mode)
+    aes_key =  hashed_flag[:16].encode('utf-8') # 16-byte key
+    iv = os.urandom(16) # random IV    
+
+    # Create the cipher object and encrypt the data
+    cipher = AES.new(aes_key, AES.MODE_CBC, iv)
+    ciphertext = cipher.encrypt(pad(hashed_flag_two.encode('utf-8'), AES.block_size))
+
+    # Convert the ciphertext and IV to hexadecimal format
+    hex_ciphertext = ciphertext.hex()
+    hex_iv = iv.hex()
+    logger.info(f"IV = {str((binascii.hexlify(iv)), "utf-8")}")
+    logger.info(f"Ciphertext = {str((binascii.hexlify(ciphertext)), "utf-8")}")
