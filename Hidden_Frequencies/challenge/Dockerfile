@@ -5,7 +5,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy necessary files
-COPY server.py .
+COPY script.py .
 COPY hidden_frequencies.bmp .
 
 # Install dependencies
@@ -15,4 +15,4 @@ RUN pip install flask
 EXPOSE 80
 
 # Run the server
-CMD ["python", "server.py"]
+CMD ["python", "script.py"]
