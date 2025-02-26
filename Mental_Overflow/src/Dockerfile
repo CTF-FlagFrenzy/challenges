@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire codebase into the container
 COPY . /code
 WORKDIR /code
-
+EXPOSE 80
 # Ensure the script is executable
 RUN chmod +x src/script.py
 

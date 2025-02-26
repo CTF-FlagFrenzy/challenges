@@ -8,5 +8,6 @@
 > | Behind_The_Pixels | Fileserver | 8006 |
 > | Shadow_File | Webserver | 8007 |
 > | Pixel_Spy | Webserver | 8008 |
-> | Mental_overflow | Fileserver | 8009 |
+> | Mental_Overflow | Fileserver | 8009 |
+> | Hidden_Job| Webserver | 8010 |
 
