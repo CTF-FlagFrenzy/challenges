@@ -11,7 +11,7 @@ if os.environ.get("TEAMKEY") is None:
 team_key = os.getenv("TEAMKEY")
 challenge_key = "VeryLongUnpredictableStringWithNoMeaningWhatsoeverItsTheChallengeKey"
 combined_flag = challenge_key + team_key
-hashed_flag = f"FF{{{hashlib.md5(combined_flag.encode()).hexdigest()}}}"
+hashed_flag = f"FF{{{hashlib.sha256(combined_flag.encode()).hexdigest()}}}"
 print(f"Team Key: {team_key}")
 print(f"Challenge Key: {challenge_key}")
 print(f"Flag: {hashed_flag}")
