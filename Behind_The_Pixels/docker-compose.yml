@@ -12,3 +12,5 @@ services:
     build: challenge/
     ports:
       - "80:80"
+    environment:
+      - TEAMKEY=XXXXXXX
