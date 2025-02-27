@@ -1,7 +1,7 @@
+import hashlib
+import os
 import shutil
 import subprocess
-import os
-import hashlib
 
 from flask import Flask, send_from_directory
 
@@ -10,6 +10,7 @@ app = Flask(__name__)
 original_file = "nice_holiday.JPG"
 output_file = "holiday.JPG"
 teamflag = os.environ.get("TEAMKEY")
+
 
 def extract_original_flag(file):
     result = subprocess.run(
@@ -21,6 +22,7 @@ def extract_original_flag(file):
             return line.split(":")[1].strip()
     return None
 
+
 def embed_combined_flag(file, flag):
     result = subprocess.run(
         ["exiftool", f"-Comment={flag}", file],
@@ -30,8 +32,10 @@ def embed_combined_flag(file, flag):
     )
     print(result.stdout)
 
+
 def copy_file(source, destination):
     shutil.copy(source, destination)
+
 
 original_flag = extract_original_flag(original_file)
 
@@ -49,12 +53,16 @@ if combined_flag:
     embed_combined_flag(output_file, hashed_flag)
     print(f"Kombinierte, gehashte Flag in {output_file} eingebettet.")
 else:
-    print("Fehler beim Erstellen der Flag. Stellen Sie sicher, dass TEAMKEY und CHALLENGEKEY in den Umgebungsvariablen festgelegt sind.")
+    print(
+        "Fehler beim Erstellen der Flag. Stellen Sie sicher, dass TEAMKEY und CHALLENGEKEY in den Umgebungsvariablen festgelegt sind."
+    )
     hashed_flag = "FLAG_NOT_DEFINED"
+
 
 @app.route("/")
 def server_image():
     return send_from_directory(".", output_file, as_attachment=True)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
