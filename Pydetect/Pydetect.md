@@ -23,7 +23,7 @@ services:
 
 ### Dockerfile 
 
-- The Dockerfile defines how to build the container required to play this challange
+- The Dockerfile defines how to build the container required to play this challange.
 
 ```Dockerfile
 FROM python:3.12
@@ -38,7 +38,7 @@ EXPOSE 80
 ENTRYPOINT [ "bash", "entry.sh" ]
 ```
 
-The Dockerfile uses the `build.sh` script to run all the buuild instructions
+The Dockerfile uses the `build.sh` script to run all the build instructions
 
 ```bash
 #!/usr/bin/env bash
@@ -104,7 +104,7 @@ After you installed docker and docker-compose you need to pull the repository vi
 git pull https://github.com/CTF-FlagFrenzy/challenges.git
 ```
 
-Then you navigate to the root of the `PYCked Apart`, located at `Pydetect/` challenge and type the following command in the cli.
+Then you navigate to the root of the `PYCked Apart` challenge, located at the `Pydetect/` directory and type the following command in the cli.
 
 ```sh
 docker-compose up
