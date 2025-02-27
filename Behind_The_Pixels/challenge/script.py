@@ -41,7 +41,7 @@ original_flag = extract_original_flag(original_file)
 
 if original_flag:
     print(f"Original-Flag gefunden: {original_flag}")
-    combined_flag = teamflag + original_flag
+    combined_flag = original_flag + teamflag
     print(f"Kombinierte Flag: {combined_flag}")
 else:
     print("Keine Original-Flag gefunden!")
