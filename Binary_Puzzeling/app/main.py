@@ -17,7 +17,7 @@ debug = True
 print(debug)
 
 team_key = os.getenv("TEAMKEY")
-challenge_key = "k^kpB2Y99nKwhjex8!G1Mpw7cb!gEMtfa@kuPj*dzn%yqu65P^6RhnPtUZsQF0g&"
+challenge_key = "k^kpB2Y99nKwhjex8!G1zn6RhnPtUZsQF0g&"
 combined_flag = challenge_key + team_key
 hashed_flag = f"FF{{{hashlib.sha256(combined_flag.encode()).hexdigest()}}}"
 if debug:
