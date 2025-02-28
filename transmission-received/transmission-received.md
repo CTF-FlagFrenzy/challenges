@@ -76,7 +76,7 @@ import hashlib
 challengekey = os.getenv('CHALLANGEKEY')
 teamkey = os.getenv('TEAMKEY')
 
-flaghash = hashlib.sha256(('%s%s' % (teamkey, challengekey)).encode()).hexdigest()
+flaghash = hashlib.sha256(('%s%s' % (challengekey, teamkey)).encode()).hexdigest()
 print (flaghash)
 flag = 'FF{%s}' % flaghash
 
