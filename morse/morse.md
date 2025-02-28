@@ -76,7 +76,7 @@ import hashlib
 challengekey = os.getenv('CHALLANGEKEY')
 teamkey = os.getenv('TEAMKEY')
 
-flaghash = hashlib.sha256(('%s%s' % (teamkey, challengekey)).encode()).hexdigest()
+flaghash = hashlib.sha256(('%s%s' % (challengekey, teamkey)).encode()).hexdigest()
 flag = 'FF{%s}' % flaghash
 
 pycw.output_wave('tones.wav', flaghash, 24, 20000)
