@@ -69,9 +69,9 @@ python3 -m http.server 80
 import hashlib, os, zlib, base64, pickle
 
 teamkey = os.getenv("TEAMKEY")
-challenge = os.getenv("CHALLENGEKEY")
+challengekey = '01JEB55RPNPJW08X1GB5SR03DF'
 
-flag = "%s%s" % (challenge, teamkey)
+flag = "%s%s" % (challengekey, teamkey)
 flaghash = (hashlib.sha256(flag.encode()).hexdigest())
 hashed_flag = "FF{%s}" % flaghash
 
