@@ -73,7 +73,7 @@ import qrcode
 import os
 import hashlib
 
-challengekey = os.getenv('CHALLANGEKEY')
+challengekey = '01JN3EADQF59H8SQ2KDC51V5HW'
 teamkey = os.getenv('TEAMKEY')
 
 flaghash = hashlib.sha256(('%s%s' % (challengekey, teamkey)).encode()).hexdigest()
