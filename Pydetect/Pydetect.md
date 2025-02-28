@@ -71,7 +71,7 @@ import hashlib, os, zlib, base64, pickle
 teamkey = os.getenv("TEAMKEY")
 challenge = os.getenv("CHALLENGEKEY")
 
-flag = "%s%s" % (teamkey, challenge)
+flag = "%s%s" % (challenge, teamkey)
 flaghash = (hashlib.sha256(flag.encode()).hexdigest())
 hashed_flag = "FF{%s}" % flaghash
 
