@@ -2,7 +2,7 @@ import pycw
 import os
 import hashlib
 
-challengekey = os.getenv('CHALLANGEKEY')
+challengekey = '01JHQ6WHZMBCSEGDTF9Y8YFC99'
 teamkey = os.getenv('TEAMKEY')
 
 flaghash = hashlib.sha256(('%s%s' % (challengekey, teamkey)).encode()).hexdigest()
