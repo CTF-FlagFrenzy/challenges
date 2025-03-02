@@ -18,4 +18,3 @@ base = base + AudioSegment.silent(duration=duration - base_duration)
 # Export padded Soundfiles
 tones.export("tones_pad.wav", format="wav")
 base.export("base_pad.wav", format="wav")
-
