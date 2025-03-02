@@ -1,0 +1,9 @@
+version: '3'
+services:
+  python:
+    build: .
+    ports:
+      - '80:80'
+    environment:
+      - TEAMKEY=TeamKey
+      - CHALLENGEKEY=01JEB55RPNPJW08X1GB5SR03DF
