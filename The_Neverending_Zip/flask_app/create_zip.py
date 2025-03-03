@@ -56,24 +56,28 @@ def create_recursive_zip(status_file=None):
             readme.write("Can you reach the center to find the flag?\n")
             readme.write("Good luck! You're going to need it.\n")
         
+        # Use consistent ZIP filename for all layers
+        zip_filename = "HaveFun.zip"
+        
         # Start with the flag file in a zip
-        current_zip = os.path.join(temp_dir, "layer_0.zip")
-        with zipfile.ZipFile(current_zip, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
+        inner_zip_path = os.path.join(temp_dir, "inner.zip")
+        with zipfile.ZipFile(inner_zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
             zipf.write(flag_file_path, arcname="flag.txt")
+        
+        current_zip = inner_zip_path
         max_layers = 11111
         batch_size = 1000
         
         for layer in range(1, max_layers + 1):
             prev_zip = current_zip
-            current_zip = os.path.join(temp_dir, f"layer_{layer}.zip")
+            current_zip = os.path.join(temp_dir, f"temp_layer_{layer}.zip")
             
-            # Simple zip creation - no progress file
+            # Simple zip creation - always use the same name for the inner zip
             with zipfile.ZipFile(current_zip, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
-                zipf.write(prev_zip, arcname=f"layer_{layer-1}.zip")
+                zipf.write(prev_zip, arcname=zip_filename)
             
             # Delete the previous zip to save space
-            if layer > 1:  # Keep layer_0.zip for reference
-                os.remove(prev_zip)
+            os.remove(prev_zip)
             
             # Add some performance optimization - flush log handler periodically
             if layer % batch_size == 0:
@@ -107,9 +111,9 @@ def create_recursive_zip(status_file=None):
                            f"Progress: {layer/max_layers*100:.2f}%")
         
         # Create the final zip with the deepest nested zip and the README
-        final_layer_path = os.path.join(hidden_dir, "HaveFun.zip")
+        final_layer_path = os.path.join(hidden_dir, zip_filename)
         with zipfile.ZipFile(final_layer_path, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
-            zipf.write(current_zip, arcname="HaveFun.zip")
+            zipf.write(current_zip, arcname=zip_filename)
             zipf.write(readme_path, arcname="README.txt")
         
         end_time = time.time()
