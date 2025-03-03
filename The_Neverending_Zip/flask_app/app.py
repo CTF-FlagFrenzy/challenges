@@ -35,7 +35,7 @@ def create_zip_file():
         }, f)
     
     # Zip-Erstellungsprozess starten und Statusdatei übergeben
-    subprocess.run(["python", "create_zip.py", "--status-file", status_file_path])
+    subprocess.run(["python", "flask_app/create_zip.py", "--status-file", status_file_path])
     
     zip_creation_in_progress = False
     zip_creation_complete = True
@@ -212,10 +212,7 @@ def stream():
 
 @app.route("/flag.zip")
 def download_zip():
-    if os.path.exists(os.path.join(app.root_path, "zip", "HaveFun.zip")):
-        return send_from_directory(os.path.join(app.root_path, "zip"), "HaveFun.zip", as_attachment=True)
-    else:
-        return "Zip file not found", 404
+     return send_from_directory(os.path.join(app.root_path, "zip"), "HaveFun.zip")
 
 if __name__ == "__main__":
     # Ensure we don't use caching
