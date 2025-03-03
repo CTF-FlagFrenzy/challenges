@@ -212,6 +212,7 @@ def stream():
 
 @app.route("/flag.zip")
 def download_zip():
+     import os
      return send_from_directory(os.path.join(app.root_path, "zip"), "HaveFun.zip")
 
 if __name__ == "__main__":
