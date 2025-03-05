@@ -1,89 +1,126 @@
-import scapy.all as scapy
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import padding
+import hashlib
 import logging
 import os
+import shutil
+import subprocess
+from scapy.all import rdpcap, wrpcap, Raw, IP, TCP
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Generate an RSA key
-private_key = rsa.generate_private_key(
-    public_exponent=65537,
-    key_size=2048
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
-public_key = private_key.public_key()
+logger = logging.getLogger(__name__)
 
-# Serialize the keys
-private_pem = private_key.private_bytes(
-    encoding=serialization.Encoding.PEM,
-    format=serialization.PrivateFormat.PKCS8,
-    encryption_algorithm=serialization.NoEncryption()
-)
+def create_flag():
+    """Create a flag using environment variables."""
+    challengekey = os.environ.get("CHALLENGEKEY", "CaptureTheBytes")
+    teamkey = os.environ.get("TEAMKEY")
+    
+    if not teamkey:
+        logger.warning("TEAMKEY environment variable not set, using default")
+        teamkey = "default_key"
+    
+    combined_flag = challengekey + teamkey
+    hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
+    
+    logger.info(f"Flag created: {hashed_flag}")
+    return hashed_flag
 
-public_pem = public_key.public_bytes(
-    encoding=serialization.Encoding.PEM,
-    format=serialization.PublicFormat.SubjectPublicKeyInfo
-)
+def insert_flag_into_pcap(input_pcap, output_pcap, flag):
+    """Insert the flag into a specific packet in the PCAP file."""
+    try:
+        # Read the original PCAP file
+        packets = rdpcap(input_pcap)
+        logger.info(f"Loaded {len(packets)} packets from {input_pcap}")
+        
+        if len(packets) < 1000:
+            logger.warning("PCAP file has fewer packets than expected")
+        
+        # Choose specific packets to modify
+        # We'll modify an HTTP packet (TCP port 80) to contain our flag
+        flag_inserted = False
+        
+        # Try to find a suitable HTTP packet
+        for i, packet in enumerate(packets):
+            if IP in packet and TCP in packet and packet[TCP].dport == 80 and Raw in packet:
+                # Get the original payload
+                original_payload = bytes(packet[Raw])
+                
+                # Create a new payload with our flag
+                if b"HTTP" in original_payload:
+                    flag_comment = f"<!-- {flag} -->".encode()
+                    if b"</html>" in original_payload:
+                        # Insert before closing HTML tag
+                        new_payload = original_payload.replace(b"</html>", flag_comment + b"</html>")
+                    else:
+                        # Append to the end
+                        new_payload = original_payload + flag_comment
+                    
+                    # Replace the packet payload
+                    packet[Raw].load = new_payload
+                    flag_inserted = True
+                    logger.info(f"Flag inserted into packet {i}")
+                    break
+        
+        # If no suitable HTTP packet was found, insert the flag into another packet type
+        if not flag_inserted:
+            logger.info("No suitable HTTP packet found, inserting flag into another packet")
+            
+            # Choose a packet in the middle of the capture
+            target_index = len(packets) // 2
+            target_packet = packets[target_index]
+            
+            # If the packet has a Raw layer, modify it
+            if Raw in target_packet:
+                original_payload = bytes(target_packet[Raw])
+                target_packet[Raw].load = original_payload + f"\n{flag}\n".encode()
+            else:
+                # Add a Raw layer with the flag
+                target_packet = target_packet / Raw(load=f"FLAG:{flag}".encode())
+                packets[target_index] = target_packet
+            
+            logger.info(f"Flag inserted into packet {target_index}")
+        
+        # Write the modified packets to the output file
+        wrpcap(output_pcap, packets)
+        logger.info(f"Modified PCAP saved to {output_pcap}")
+        return True
+    
+    except Exception as e:
+        logger.error(f"Error processing PCAP file: {e}")
+        return False
 
-logging.info("Generated RSA key pair")
+def main():
+    """Main function to create and modify the PCAP file."""
+    # Define paths
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    source_pcap = os.path.join(base_dir, "CTF-capture.pcap")
+    capture_dir = os.path.join(base_dir, "capture")
+    output_pcap = os.path.join(capture_dir, "capture.pcap")
+    
+    # Ensure the output directory exists
+    os.makedirs(capture_dir, exist_ok=True)
+    
+    # Check if the source PCAP exists
+    if not os.path.exists(source_pcap):
+        logger.error(f"Source PCAP file not found at {source_pcap}")
+        return False
+    
+    # Generate the flag
+    flag = create_flag()
+    
+    # Insert the flag into the PCAP
+    success = insert_flag_into_pcap(source_pcap, output_pcap, flag)
+    
+    # If insertion failed, just copy the original file
+    if not success:
+        logger.warning("Flag insertion failed, copying original PCAP file")
+        shutil.copy(source_pcap, output_pcap)
+    
+    logger.info("PCAP file processing complete")
+    return True
 
-# Save the private key to a file
-key_dir = "key"
-if not os.path.exists(key_dir):
-    os.makedirs(key_dir)
-
-private_key_file = os.path.join(key_dir, "private_key.pem")
-with open(private_key_file, "wb") as f:
-    f.write(private_pem)
-
-logging.info(f"Private key saved to {private_key_file}")
-
-# Load the pcap file
-try:
-    packets = scapy.rdpcap("CTF-Capture.pcap")
-    logging.info("Successfully loaded CTF-Capture.pcap")
-except FileNotFoundError:
-    logging.error("Error: CTF-Capture.pcap not found.")
-    exit()
-
-# Craft the HTTPS packet with the challenge
-challenge_data = b"This is the CTF challenge data!"
-
-# Encrypt the challenge data with the public key
-encrypted_data = public_key.encrypt(
-    challenge_data,
-    padding.OAEP(
-        mgf=padding.MGF1(algorithm=hashes.SHA256()),
-        algorithm=hashes.SHA256(),
-        label=None
-    )
-)
-logging.info("Challenge data encrypted with RSA public key")
-
-# Create a TLS/SSL record with the encrypted data as application data
-tls_record = scapy.TLS(version="TLS_1_2", content_type="application_data", length=len(encrypted_data), data=encrypted_data)
-
-# Create a TCP layer
-tcp_layer = scapy.TCP(dport=443, sport=12345)  # Standard HTTPS port is 443
-
-# Create an IP layer
-ip_layer = scapy.IP(dst="10.0.0.1", src="10.0.0.2")  # Replace with appropriate IP addresses
-
-# Create an Ethernet layer
-ethernet_layer = scapy.Ether(dst="00:11:22:33:44:55", src="66:77:88:99:aa:bb")  # Replace with appropriate MAC addresses
-
-# Combine the layers to form the packet
-https_packet = ethernet_layer / ip_layer / tcp_layer / tls_record
-logging.info("HTTPS packet crafted")
-
-# Add the crafted packet to the list of packets
-packets.append(https_packet)
-packet_number = len(packets)
-logging.info(f"HTTPS packet appended to packet list as packet number: {packet_number}")
-
-# Write the modified packet list back to a new pcap file
-scapy.wrpcap("capture/modified_capture.pcap", packets)
-logging.info("Modified packet list written to modified_capture.pcap")
+if __name__ == "__main__":
+    main()
