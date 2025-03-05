@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 import logging
 import hashlib
@@ -19,9 +18,6 @@ from scapy.all import (
     IP, TCP, UDP, ICMP, Ether, DNS, DNSQR, DNSRR, Raw,
     wrpcap, RandShort, Padding
 )
-from scapy.layers.tls.record import TLS
-from scapy.layers.tls.handshake import TLSClientHello, TLSServerHello
-from scapy.layers.http import HTTP, HTTPRequest, HTTPResponse
 
 # Set up logging
 logging.basicConfig(
@@ -131,6 +127,7 @@ def generate_random_mac():
     mac[0] = (mac[0] & 0xfe) | 0x02
     return ':'.join(map(lambda x: f"{x:02x}", mac))
 
+# First, modify the external_servers list to add a unique flag server
 def create_network_config():
     """Create network configuration for the PCAP."""
     home_net = ipaddress.IPv4Network("192.168.1.0/24")
@@ -193,12 +190,17 @@ def create_network_config():
         {"name": "Spotify", "domain": "www.spotify.com", "ip": "35.186.224.25", "services": ["https"]},
     ]
     
-    return home_net, devices, external_servers
+    #! Flag server
+    flag_server = {"name": "Samsung", "domain": "www.samsung.com", "ip": "43.16.227.1", "services": ["https"]}
+
+
+
+    return home_net, devices, external_servers, flag_server
 
 def create_pcap_with_scapy(flag, private_key_path):
     """Create a PCAP file with Scapy."""
     # Get network configuration
-    home_net, devices, external_servers = create_network_config()
+    home_net, devices, external_servers, flag_server = create_network_config()
     
     # Create directory for output
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -343,7 +345,7 @@ def create_pcap_with_scapy(flag, private_key_path):
     
     # Choose a specific device and server for flag
     target_device = next(d for d in devices if d["name"] == "Desktop_PC")
-    target_server = next(s for s in external_servers if s["name"] == "Target_Server")
+    target_server = flag_server
     
     # HTTPS traffic with flag (12 packets)
     syn = (
@@ -398,15 +400,46 @@ def create_pcap_with_scapy(flag, private_key_path):
         TCP(sport=syn[TCP].sport, dport=443, flags="PA", seq=client_key_exchange[TCP].seq + len(client_key_exchange[Raw]), ack=server_finished[TCP].seq + len(server_finished[Raw])) /
         Raw(load=b"\x17\x03\x03" + os.urandom(200))
     )
+
+    unique_identifier = "R3@&hs0§"
     
+    # Create a realistic HTTP response with the flag
+    http_content = f"""HTTP/1.1 200 OK
+Server: nginx/1.19.0
+Date: {datetime.datetime.now().strftime('%a, %d %b %Y %H:%M:%S GMT')}
+Content-Type: text/html
+Content-Length: 256
+Connection: close
+
+<html>
+<head><title>Secret Flag Page</title></head>
+<body>
+<!-- The flag is: {flag} -->
+<h1>Welcome to the Secret Page</h1>
+<p>This page contains sensitive information.</p>
+</body>
+</html>
+"""
+
+    # Properly simulate TLS encryption by only showing encrypted bytes
+    unique_identifier = "R3@&hs0"
+
+    encrypted_data = b"\x17\x03\x03" + b"\x00\xFF" + unique_identifier.encode() + b" " + os.urandom(len(http_content) + 50)
+
     encrypted_response = (
         Ether(src="00:11:22:33:44:55", dst=target_device["mac"]) /
         IP(src=target_server["ip"], dst=target_device["ip"]) /
         TCP(sport=443, dport=encrypted_request[TCP].sport, flags="PA", seq=server_finished[TCP].seq + len(server_finished[Raw]), ack=encrypted_request[TCP].seq + len(encrypted_request[Raw])) /
-        Raw(load=b"\x17\x03\x03" + os.urandom(50) + flag.encode() + os.urandom(500))
+        Raw(load=encrypted_data)
     )
     
-    flag_packet_ref = encrypted_response  # Save reference to flag packet
+    flag_identifier = {
+        "server_ip": target_server["ip"],
+        "client_ip": target_device["ip"],
+        "server_port": 443,
+        "client_port": encrypted_request[TCP].sport,
+        "seq_num": encrypted_response[TCP].seq
+    }
     
     fin_ack = (
         Ether(src=target_device["mac"], dst="00:11:22:33:44:55") /
@@ -510,13 +543,13 @@ def create_pcap_with_scapy(flag, private_key_path):
         
         packets.extend([echo_request, echo_reply])
     
-    # Entferne die Key-Pakete aus dem ursprünglichen Paket-Set
+    # Remove the key packets from the original packet set
     all_packets = []
     for p in packets:
         if p != key_query_ref and p != key_response_ref:
             all_packets.append(p)
     
-    # Füge die Key-Pakete an fester Position ein
+    # Insert the key packets at a fixed position
     key_position = random.randint(20, 80)
     logger.info(f"Inserting key DNS packets at positions {key_position} and {key_position+1}")
     all_packets = all_packets[:key_position] + [key_query_ref, key_response_ref] + all_packets[key_position:]
@@ -524,23 +557,23 @@ def create_pcap_with_scapy(flag, private_key_path):
     # Shuffle all packets 
     random.shuffle(all_packets)
     
-    # Finde die genauen Positionen nach dem Shuffling
+    # Find the exact positions after shuffling
     key_packet_position = None
     key_response_position = None
     flag_packet_position = None
     
     for i, packet in enumerate(all_packets):
-        # Finde das DNS query packet
+        # Find the DNS query packet
         if UDP in packet and DNS in packet and packet.haslayer(DNSQR):
             if hasattr(packet[DNSQR], 'qname'):
                 qname = packet[DNSQR].qname
                 if isinstance(qname, bytes):
                     qname = qname.decode('utf-8', errors='ignore')
                 if "HereIsTheKey.local" in qname:
-                    key_packet_position = i
-                    logger.info(f"Found DNS query for key at packet #{i}")
+                    key_packet_position = i + 1  # Add +1 to the position for logging
+                    logger.info(f"Found DNS query for key at packet #{i+1}")
         
-        # Finde das DNS response packet
+        # Find the DNS response packet
         if UDP in packet and DNS in packet and packet.haslayer(DNSRR):
             for j in range(len(packet[DNS].an)):
                 if hasattr(packet[DNS].an[j], 'rrname'):
@@ -548,15 +581,16 @@ def create_pcap_with_scapy(flag, private_key_path):
                     if isinstance(rrname, bytes):
                         rrname = rrname.decode('utf-8', errors='ignore')
                     if "HereIsTheKey.local" in rrname:
-                        key_response_position = i
-                        logger.info(f"Found DNS response with {len(packet[DNS].an)} TXT records at packet #{i}")
+                        key_response_position = i + 1  # Add +1 to the position for logging
+                        logger.info(f"Found DNS response with {len(packet[DNS].an)} TXT records at packet #{i+1}")
                         break
         
-        # Finde das Flag-Paket
-        if Raw in packet and flag.encode() in bytes(packet[Raw]):
-            flag_packet_position = i
-            logger.info(f"Found flag in packet #{i}")
+        if IP in packet and TCP in packet and Raw in packet:
+                if packet[Raw].load.startswith(b"\x17\x03\x03") and unique_identifier.encode() in packet[Raw].load: flag_packet_position = i + 1
+                logger.info(f"Found TLS packet with flag at packet #{i+1}")
+                break
     
+
     # Write the packets to the PCAP file
     total_packets = len(all_packets)
     logger.info(f"Writing {total_packets} packets to PCAP file...")
@@ -568,7 +602,6 @@ def create_pcap_with_scapy(flag, private_key_path):
     logger.info(f"- Flag is embedded in HTTPS traffic at packet #{flag_packet_position}")
     
     return output_pcap
-
 
 def create_pcap_with_flag():
     """Main function to create the PCAP file with embedded flag."""
