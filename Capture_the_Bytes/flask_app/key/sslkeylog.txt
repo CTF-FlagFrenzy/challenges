@@ -1,0 +1,2 @@
+# TLS Pre-Master Secret for Wireshark
+RSA Session-ID:00000000000000000000000000000000 Master-Key:dde8361b22d47fdee192a2826d55aa3014e2f7cda4c5b45c2ca93a4d1dc952814af8a39320a885ba2c5cde5fde97069d
