@@ -241,4 +241,4 @@ def download_zip():
 if __name__ == "__main__":
     # Ensure we don't use caching
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
-    app.run(host="0.0.0.0", port=80, debug=True, threaded=True)
+    app.run(host="0.0.0.0", port=80, threaded=True)
