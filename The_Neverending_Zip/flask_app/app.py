@@ -39,9 +39,7 @@ def create_zip_file():
         )
 
     # Zip-Erstellungsprozess starten und Statusdatei übergeben
-    subprocess.run(
-        ["python", "flask_app/create_zip.py"]
-    )
+    subprocess.run(["python", "flask_app/create_zip.py"])
 
     zip_creation_in_progress = False
     zip_creation_complete = True
