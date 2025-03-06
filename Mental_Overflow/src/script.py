@@ -20,7 +20,10 @@ hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
 logger.info(f"Generated hashed flag: {hashed_flag}")
 
 # Create a modified version of the flag with random characters instead of curly braces
-random_chars = [f'"{char}"' for char in random.sample(string.ascii_letters + string.digits + "!@#$%^&*()", 2)]
+random_chars = [
+    f'"{char}"'
+    for char in random.sample(string.ascii_letters + string.digits + "!@#$%^&*()", 2)
+]
 brainfuck_flag = hashed_flag.replace("{", random_chars[0]).replace("}", random_chars[1])
 logger.info(f"Modified flag for Brainfuck script: {brainfuck_flag}")
 
