@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Neverending Zip Challenge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            text-align: center;
+        }
+        .container {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #61dafb;
+            margin-top: 0;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .warning {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .download-btn {
+            display: block;
+            background-color: #61dafb;
+            color: #1e1e1e;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 30px auto;
+            max-width: 200px;
+            transition: background-color 0.2s;
+        }
+        .download-btn:hover {
+            background-color: #4fa3e3;
+        }
+        .download-btn.disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .time-notice {
+            font-style: italic;
+            color: #e74c3c;
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #e74c3c;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+        #status-message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .spinner {
+            display: inline-block;
+            border: 3px solid #3c3c3c;
+            border-radius: 50%;
+            border-top: 3px solid #61dafb;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #3c3c3c;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #61dafb;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 1s ease;
+            text-align: center;
+            line-height: 20px;
+            color: #1e1e1e;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .est-time {
+            color: #61dafb;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Funny Challenge</h1>
+                
+        <p class="time-notice">⚠️ The download may take up to 15 minutes to be prepared. Please be patient.</p>
+        
+        <p>Your mission, should you choose to accept it:</p>
+        <ol style="text-align: left;">
+            <li>Find the flag... :D</li>
+        </ol>
+        
+        <div id="status-section">
+            {% if zip_ready %}
+                <a href="/flag.zip" id="download-link" class="download-btn">Download Challenge</a>
+            {% else %}
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar">0%</div>
+                </div>
+                <div id="est-time" class="est-time">Estimating time remaining...</div>
+                <a href="#" id="download-link" class="download-btn disabled">Preparing Download...</a>
+                <div id="status-message"><div class="spinner"></div> Creating zip file, please wait...</div>
+            {% endif %}
+        </div>
+        
+        <p>Good luck, you'll need it!</p>
+    </div>
+    
+    {% if not zip_ready %}
+    <script>
+        // Create event source for Server-Sent Events for the continuous stream
+        let eventSource = new EventSource('/stream');
+        
+        eventSource.onmessage = function(event) {
+            try {
+                console.log("Received data:", event.data);
+                const data = JSON.parse(event.data);
+                
+                if (data.ready) {
+                    console.log("Download is ready");
+                    // Enable download button and update status
+                    const downloadBtn = document.getElementById('download-link');
+                    downloadBtn.href = '/flag.zip';
+                    downloadBtn.classList.remove('disabled');
+                    downloadBtn.innerText = 'Download Challenge';
+                    
+                    // Update status message
+                    document.getElementById('status-message').innerHTML = 'Zip file is ready!';
+                    
+                    // Update progress bar to 100%
+                    const progressBar = document.getElementById('progress-bar');
+                    progressBar.style.width = '100%';
+                    progressBar.innerText = '100%';
+                    
+                    // Update estimated time
+                    document.getElementById('est-time').innerText = 'Download ready!';
+                    
+                    // Auto download
+                    window.location.href = '/flag.zip';
+                    
+                    // Close the event source
+                    eventSource.close();
+                } else {
+                    // Update progress bar
+                    if (data.progress !== undefined) {
+                        const progressBar = document.getElementById('progress-bar');
+                        const progress = Math.round(data.progress * 100);
+                        console.log("Setting progress to:", progress + "%");
+                        progressBar.style.width = progress + '%';
+                        progressBar.innerText = progress + '%';
+                        
+                        // Update estimated time remaining
+                        if (data.est_time_remaining !== undefined) {
+                            let timeString = '';
+                            const minutes = Math.floor(data.est_time_remaining / 60);
+                            const seconds = Math.floor(data.est_time_remaining % 60);
+                            
+                            if (minutes > 0) {
+                                timeString += minutes + ' minute' + (minutes !== 1 ? 's' : '') + ' ';
+                            }
+                            timeString += seconds + ' second' + (seconds !== 1 ? 's' : '');
+                            
+                            console.log("Setting time to:", timeString);
+                            document.getElementById('est-time').innerText = 'Estimated time remaining: ' + timeString;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error processing event:", error, event.data);
+            }
+        };
+        
+        eventSource.onerror = function(error) {
+            console.error("EventSource error:", error);
+            // Reconnect on error
+            eventSource.close();
+            setTimeout(() => {
+                console.log("Reconnecting...");
+                eventSource = new EventSource('/stream');
+            }, 5000);
+        };
+    </script>
+    {% endif %}
+</body>
+</html>
