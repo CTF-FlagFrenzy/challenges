@@ -19,7 +19,11 @@ logger = logging.getLogger(__name__)
 
 def create_recursive_zip(status_file=None):
     start_time = time.time()
-    hidden_dir = "zip"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(script_dir)  # Go up one level from flask_app/
+    hidden_dir = os.path.join(parent_dir, "zip")
+    
+    logger.info(f"Creating zip directory at: {hidden_dir}")
     os.makedirs(hidden_dir, exist_ok=True)
 
     # Generate flag based on challenge and team key
