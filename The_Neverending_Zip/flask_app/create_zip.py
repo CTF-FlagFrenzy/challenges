@@ -127,7 +127,7 @@ def create_recursive_zip(status_file=None):
                 )
 
         # Create the final zip with the deepest nested zip and the README
-        final_layer_path = os.path.join(hidden_dir, zip_filename)
+        final_layer_path = os.path.join("flask_app/zip", "HaveFun.zip")
         with zipfile.ZipFile(
             final_layer_path, "w", compression=zipfile.ZIP_DEFLATED
         ) as zipf:
