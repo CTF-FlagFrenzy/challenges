@@ -9,7 +9,7 @@
 1. Navigate to the root directory of the challenge.
 2. Open the challenge on the webapp.
 3. Check the output to ensure the Flask service starts without errors.
-4. Open a web browser and navigate to `http://localhost:8003`.
+4. Open a web browser and navigate to `http://localhost:80`.
 5. Verify that the main page is displayed.
 
 ## 2. Basic Functionality Tests
@@ -18,7 +18,7 @@
 **Description**: Ensure the Flask application serves the main page correctly.
 
 **Steps**:
-1. Open a web browser and navigate to `http://localhost:8003`.
+1. Open a web browser and navigate to `http://localhost:80`.
 2. Verify that the main page is displayed.
 3. Check the browser console for any errors.
 
@@ -26,7 +26,7 @@
 **Description**: Ensure the Flask application serves the hidden file correctly.
 
 **Steps**:
-1. Open a web browser and navigate to `http://localhost:8003/robots.txt`.
+1. Open a web browser and navigate to `http://localhost:80/robots.txt`.
 2. Verify that the hidden file is displayed.
 3. Check the content of the hidden file to ensure it matches the expected text.
 
@@ -34,7 +34,7 @@
 **Description**: Ensure the Flask application renders the HTML template correctly.
 
 **Steps**:
-1. Open a web browser and navigate to `http://localhost:8003`.
+1. Open a web browser and navigate to `http://localhost:80`.
 2. Verify that the main page is displayed with the correct HTML structure.
 3. Check the browser console for any errors related to template rendering.
 
@@ -54,7 +54,7 @@
 
 **Steps**:
 1. Delete the `robots.txt` file from the `flask_app/hidden` directory if it exists.
-2. Open a web browser and navigate to `http://localhost:8003`.
+2. Open a web browser and navigate to `http://localhost:80`.
 3. Verify that the main page is displayed.
 4. Check the `flask_app/hidden` directory for the `robots.txt` file.
 5. Open the `robots.txt` file and verify that it contains the expected text.
@@ -75,7 +75,7 @@
 **Description**: Ensure the challenge flag can be submitted successfully on the webapp.
 
 **Steps**:
-1. Access the main page at `http://localhost:8003`.
+1. Access the main page at `http://localhost:80`.
 2. Locate the flag submission form on the webapp.
 3. Enter the challenge flag into the submission form.
 4. Submit the flag.
