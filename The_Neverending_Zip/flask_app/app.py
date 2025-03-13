@@ -21,6 +21,7 @@ estimated_total_time = 900  # Standardwert
 status_file_path = os.path.join(tempfile.gettempdir(), "zip_creation_status.json")
 
 
+# In app.py
 def create_zip_file():
     global zip_creation_in_progress, zip_creation_complete, zip_creation_start_time, estimated_total_time
     zip_creation_in_progress = True
@@ -39,7 +40,7 @@ def create_zip_file():
         )
 
     # Zip-Erstellungsprozess starten und Statusdatei übergeben
-    subprocess.run(["python", "flask_app/create_zip.py"])
+    subprocess.run(["python", "flask_app/create_zip.py", "--status-file", status_file_path])
 
     zip_creation_in_progress = False
     zip_creation_complete = True
