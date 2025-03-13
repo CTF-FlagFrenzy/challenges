@@ -12,4 +12,4 @@ EXPOSE 80
 RUN chmod +x src/script.py
 
 # Set the entrypoint to run script.py
-ENTRYPOINT ["python", "src/script.py"]
+ENTRYPOINT ["python", "src/file_server.py"]
