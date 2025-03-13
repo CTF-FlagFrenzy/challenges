@@ -24,7 +24,7 @@ if debug:
     print(f"Team Key: {team_key}")
     print(f"Challenge Key: {challenge_key}")
     print(f"Flag: {hashed_flag}")
-mask = "What might this string be doing?????"
+mask = "What might this string be doing? Maybe it is a hint or something.lol"
 # convert the mask and hashed_flag to binary for debugging purposes
 binary_mask = " ".join(format(ord(c), "b") for c in mask)
 binary_hashed_flag = " ".join(format(ord(c), "b") for c in hashed_flag)
