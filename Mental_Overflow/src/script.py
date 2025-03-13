@@ -49,7 +49,7 @@ if current_length + len(reset_code) > line_length:
 brainfuck_script += reset_code
 
 # Ensure the download directory exists
-download_dir = os.path.join("download")
+download_dir = os.environ.get("DOWNLOAD_DIR", os.path.join("download"))
 os.makedirs(download_dir, exist_ok=True)
 
 # Save Brainfuck script to a file in the download directory
