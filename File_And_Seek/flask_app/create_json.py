@@ -14,8 +14,8 @@ with open(os.path.join(os.path.dirname(__file__), "products.json"), "r") as json
     data = json.load(json_file)
     products = data["products"]
 
-challengeflag = os.environ.get("CHALLENGEKEY")
-teamflag = "#74q$j&zcB"
+challengeflag = "#74q$j&zcB"
+teamflag = os.environ.get("TEAMKEY")
 combined_flag = challengeflag + teamflag
 
 if combined_flag:
