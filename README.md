@@ -1,4 +1,4 @@
-# CTF-FlagFrenzy | challenges
+# CTF-FlagFrenzy | challenge
 
 ## Rules for commiting
 
