@@ -1,8 +1,9 @@
 import logging
 import os
 import subprocess
+import time
 
-from flask import Flask, abort, send_from_directory
+from flask import Flask, abort, send_from_directory, redirect, url_for
 
 app = Flask(__name__)
 
@@ -26,8 +27,9 @@ logger.info(f"Download directory created at: {DIRECTORY}")
 
 
 @app.route("/")
-def serve_brainfuck_file():
-    logger.info("Request received for brainfuck.bf")
+def index():
+    """Root page that triggers script execution and redirects to download page"""
+    logger.info("Request received at root, triggering script execution")
     try:
         # Execute script to ensure file is generated
         logger.info(f"Executing script at: {SCRIPT_PATH}")
@@ -41,10 +43,24 @@ def serve_brainfuck_file():
         
         if result.returncode != 0:
             logger.error(f"Script execution failed: {result.stderr}")
-            abort(500, description="Internal server error")
+            return "Script execution failed. Please check server logs.", 500
         else:
             logger.info("Script executed successfully")
-        
+            # Give a short delay to ensure file is written completely
+            time.sleep(0.5)
+            # Redirect to the download endpoint
+            return redirect(url_for('serve_brainfuck_file'))
+    
+    except Exception as e:
+        logger.exception(f"Error in index: {str(e)}")
+        return "An error occurred. Please check server logs.", 500
+
+
+@app.route("/brainfuck.bf")
+def serve_brainfuck_file():
+    """Endpoint to download the generated brainfuck.bf file"""
+    logger.info("Request received for brainfuck.bf download")
+    try:
         # Verify the file exists before attempting to serve it
         file_path = os.path.join(DIRECTORY, "brainfuck.bf")
         if not os.path.exists(file_path):
@@ -57,13 +73,20 @@ def serve_brainfuck_file():
                     logger.info(f"Found alternate file location: {alternate_path}")
                     return send_from_directory(root, "brainfuck.bf")
             
-            abort(404, description="File not found")
+            # Also check for the file in the current working directory
+            cwd_path = os.path.join(os.getcwd(), "download", "brainfuck.bf")
+            if os.path.exists(cwd_path):
+                logger.info(f"Found file in current working directory: {cwd_path}")
+                return send_from_directory(os.path.join(os.getcwd(), "download"), "brainfuck.bf")
+            
+            return "Brainfuck file not found. Please visit the root page first to generate it.", 404
         
         logger.info(f"Serving file: {file_path}")
         return send_from_directory(DIRECTORY, "brainfuck.bf")
+    
     except Exception as e:
         logger.exception(f"Error in serve_brainfuck_file: {str(e)}")
-        abort(500, description="Internal server error")
+        return "An error occurred while attempting to serve the file.", 500
 
 
 @app.errorhandler(404)
