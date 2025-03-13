@@ -3,6 +3,7 @@ import logging
 import os
 import random
 import string
+import base64
 
 # Configure logging
 logging.basicConfig(
@@ -14,8 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Generate flag
 challengeflag = "#8W@3fp5#Y"
-# teamflag = os.environ.get("TEAMKEY")
-teamflag = "3x@mpl3_t34m_k3y"
+teamflag = os.environ.get("TEAMKEY")
 combined_flag = challengeflag + teamflag
 hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
 logger.info(f"Generated hashed flag: {hashed_flag}")
@@ -48,13 +48,18 @@ if current_length + len(reset_code) > line_length:
     brainfuck_script += "\n"
 brainfuck_script += reset_code
 
+# Encrypt the Brainfuck script with Base64
+brainfuck_script_bytes = brainfuck_script.encode('utf-8')
+encrypted_brainfuck_script = base64.b64encode(brainfuck_script_bytes).decode('utf-8')
+logger.info("Brainfuck script encrypted with Base64")
+
 # Ensure the download directory exists
 download_dir = os.environ.get("DOWNLOAD_DIR", os.path.join("download"))
 os.makedirs(download_dir, exist_ok=True)
 
-# Save Brainfuck script to a file in the download directory
+# Save encrypted Brainfuck script to a file in the download directory
 brainfuck_file_path = os.path.join(download_dir, "challenge.bin")
 with open(brainfuck_file_path, "w") as bf_file:
-    bf_file.write(brainfuck_script)
+    bf_file.write(encrypted_brainfuck_script)
 
-logger.info(f"Brainfuck script saved to '{brainfuck_file_path}'")
+logger.info(f"Base64 encrypted Brainfuck script saved to '{brainfuck_file_path}'")
