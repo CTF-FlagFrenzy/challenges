@@ -8,7 +8,8 @@ app = Flask(__name__)
 
 # Use absolute paths based on the script's location for container compatibility
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-DIRECTORY = os.path.join(CURRENT_DIR, "download")  # Changed to create download inside src folder
+PROJECT_ROOT = os.path.dirname(CURRENT_DIR)  # Go up one level from src to project root
+DIRECTORY = os.path.join(PROJECT_ROOT, "download")  # Create download folder outside src
 SCRIPT_PATH = os.path.join(CURRENT_DIR, "script.py")
 
 # Configure logging
@@ -25,33 +26,43 @@ logger.info(f"Download directory created at: {DIRECTORY}")
 
 
 @app.route("/")
-def download_file():
-    logger.info("Request received for file download")
+def serve_brainfuck_file():
+    logger.info("Request received for brainfuck.bf")
     try:
-        # Execute script with appropriate error handling
+        # Execute script to ensure file is generated
         logger.info(f"Executing script at: {SCRIPT_PATH}")
-        result = subprocess.run(["python", SCRIPT_PATH], 
-                                capture_output=True, 
-                                text=True, 
-                                check=False,
-                                env=dict(os.environ, **{"DOWNLOAD_DIR": DIRECTORY}))  # Pass download directory to script
+        result = subprocess.run(
+            ["python", SCRIPT_PATH], 
+            capture_output=True, 
+            text=True, 
+            check=False,
+            env=dict(os.environ, **{"DOWNLOAD_DIR": DIRECTORY})
+        )
         
         if result.returncode != 0:
             logger.error(f"Script execution failed: {result.stderr}")
             abort(500, description="Internal server error")
         else:
             logger.info("Script executed successfully")
-            
+        
         # Verify the file exists before attempting to serve it
         file_path = os.path.join(DIRECTORY, "brainfuck.bf")
         if not os.path.exists(file_path):
             logger.error(f"File not found: {file_path}")
-            abort(404, description="File not found")
             
+            # Try to locate the file in the current directory structure
+            for root, _, files in os.walk(PROJECT_ROOT):
+                if "brainfuck.bf" in files:
+                    alternate_path = os.path.join(root, "brainfuck.bf")
+                    logger.info(f"Found alternate file location: {alternate_path}")
+                    return send_from_directory(root, "brainfuck.bf")
+            
+            abort(404, description="File not found")
+        
         logger.info(f"Serving file: {file_path}")
         return send_from_directory(DIRECTORY, "brainfuck.bf")
     except Exception as e:
-        logger.exception(f"Error in download_file: {str(e)}")
+        logger.exception(f"Error in serve_brainfuck_file: {str(e)}")
         abort(500, description="Internal server error")
 
 
