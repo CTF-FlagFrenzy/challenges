@@ -56,33 +56,33 @@ def index():
         return "An error occurred. Please check server logs.", 500
 
 
-@app.route("/brainfuck.bf")
+@app.route("/challenge.bin")
 def serve_brainfuck_file():
-    """Endpoint to download the generated brainfuck.bf file"""
-    logger.info("Request received for brainfuck.bf download")
+    """Endpoint to download the generated bchallenge.bin file"""
+    logger.info("Request received for challenge.bin download")
     try:
         # Verify the file exists before attempting to serve it
-        file_path = os.path.join(DIRECTORY, "brainfuck.bf")
+        file_path = os.path.join(DIRECTORY, "challenge.bin")
         if not os.path.exists(file_path):
             logger.error(f"File not found: {file_path}")
             
             # Try to locate the file in the current directory structure
             for root, _, files in os.walk(PROJECT_ROOT):
-                if "brainfuck.bf" in files:
-                    alternate_path = os.path.join(root, "brainfuck.bf")
+                if "challenge.bin" in files:
+                    alternate_path = os.path.join(root, "challenge.bin")
                     logger.info(f"Found alternate file location: {alternate_path}")
-                    return send_from_directory(root, "brainfuck.bf")
+                    return send_from_directory(root, "challenge.bin")
             
             # Also check for the file in the current working directory
-            cwd_path = os.path.join(os.getcwd(), "download", "brainfuck.bf")
+            cwd_path = os.path.join(os.getcwd(), "download", "challenge.bin")
             if os.path.exists(cwd_path):
                 logger.info(f"Found file in current working directory: {cwd_path}")
-                return send_from_directory(os.path.join(os.getcwd(), "download"), "brainfuck.bf")
+                return send_from_directory(os.path.join(os.getcwd(), "download"), "challenge.bin")
             
             return "Brainfuck file not found. Please visit the root page first to generate it.", 404
         
         logger.info(f"Serving file: {file_path}")
-        return send_from_directory(DIRECTORY, "brainfuck.bf")
+        return send_from_directory(DIRECTORY, "challenge.bin")
     
     except Exception as e:
         logger.exception(f"Error in serve_brainfuck_file: {str(e)}")

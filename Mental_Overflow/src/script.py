@@ -53,7 +53,7 @@ download_dir = os.environ.get("DOWNLOAD_DIR", os.path.join("download"))
 os.makedirs(download_dir, exist_ok=True)
 
 # Save Brainfuck script to a file in the download directory
-brainfuck_file_path = os.path.join(download_dir, "brainfuck.bf")
+brainfuck_file_path = os.path.join(download_dir, "challenge.bin")
 with open(brainfuck_file_path, "w") as bf_file:
     bf_file.write(brainfuck_script)
 
