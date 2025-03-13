@@ -2,7 +2,7 @@
 
 ## Challenge Overview
 
-    In this challenge a broken link to an old website, that no longer exists, is provided. Participants must use the Wayback Machine or another archival tool to retrieve a past snapshot of the website www.faketimemachine.rf.gd, where a hint to the real website is hidden. This challenge is split into three parts.
+In this challenge a broken link to an old website, that no longer exists, is provided. Participants must use the Wayback Machine or another archival tool to retrieve a past snapshot of the website www.faketimemachine.rf.gd, where a hint to the real website is hidden. This challenge is split into three parts.
 
 ## Steps to Solve
 
@@ -50,7 +50,7 @@
 
 **2. Solving a Puzzle**
 
-  - After getting the images from the link, they have to be put together like this:
+  - After downloading the images, they have to be put together like this:
 
     ![alt text](media/fullQRcode.png)
 

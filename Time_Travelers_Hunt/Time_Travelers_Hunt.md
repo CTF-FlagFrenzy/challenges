@@ -1,12 +1,12 @@
 # Time_Travelers_Hunt
 
 OSINT-Challenge where you have to get 3 flags. The challenge is split into three parts.
-**Level**:Easy - Medium
 
+**Level**:Easy - Medium
 
 ## Challenge Overview:
 
-    In this challenge, we were tasked to find the flag using OSINT methods. 
+In this challenge, we were tasked to find the flags using OSINT methods. 
 
 ---
 
@@ -14,8 +14,9 @@ OSINT-Challenge where you have to get 3 flags. The challenge is split into three
 
 The time traveler’s first clue is hidden in plain sight on their old blog. The blog was hosted at www.faketimemachine.rf.gd, but it has since vanished. Use your time machine (hint: archive.org) to recover their lost notes and find the first piece of the time capsule.
 
-- Hint 1: Your time machine is named archive.org ...
-
+- Hint 1: Maybe you can find any kind archive in the internet?
+- Hint 2: Your time machine is named archive.org ...
+- Hint 3: Have a better look at the source.
 
 ### Part 2
 
@@ -25,14 +26,13 @@ Great work, traveler! You’ve found the first piece of the time capsule. But th
 - Hint 2: Have a look at the hidden directories.
 - Hint 3: dirbuster is a great tool.
 
-
 ### Part 3
 
 You’re almost there! The third and final piece of the time capsule requires your problem-solving skills.
 
 - Hint 1: There should be other files than images.
-- Hint 2: Everyone knows Jack the Ripper
-
+- Hint 2: Everyone knows Jack the Ripper.
+- Hint 3: There are a lot of simple tools to find something.
 
 ## Technical guideline
 

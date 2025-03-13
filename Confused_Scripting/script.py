@@ -8,9 +8,9 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 team_key = os.getenv("TEAMKEY")
-challenge_key = os.getenv("CHALLENGEKEY")
+challenge_key = "1378z4eq3hnfiuaudnsdmasdys.-,."
 combined_flag = challenge_key + team_key
-hashed_flag = f"FF{{{hashlib.md5(combined_flag.encode()).hexdigest()}}}"
+hashed_flag = f"FF{{{hashlib.sha256(combined_flag.encode()).hexdigest()}}}"
 
 print(f"Flag: {hashed_flag}")
 

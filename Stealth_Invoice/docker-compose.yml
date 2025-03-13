@@ -8,6 +8,4 @@ services:
       - '80:80'
 
     environment:
-      - TEAMKEY=XXXXXX1
-      - CHALLENGEKEY=#oLq3j&ZcF
-      - CHALLENGEKEY2=M9LQXpX^Us
+      - TEAMKEY=XXXXXX

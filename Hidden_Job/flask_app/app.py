@@ -30,7 +30,7 @@ def index():
     client_ip = request.remote_addr
     logger.info("Index page accessed by IP: %s", client_ip)
     subprocess.run(["python", "flask_app/create_txt.py"])
-    challengeflag = os.environ.get("CHALLENGEKEY")
+    challengeflag = "#74q$j&zcB"
     teamflag = os.environ.get("TEAMKEY")
     combined_flag = challengeflag + teamflag
     if combined_flag:

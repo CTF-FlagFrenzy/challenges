@@ -42,14 +42,11 @@ SECRET_KEY = "django-insecure-+r4^t++!&gsoz!pw28pke4a^emiw228ne4@cd3&i3hzk8gjrf-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-+r4^t++!&gsoz!pw28pke4a^emiw228ne4@cd3&i3hzk8gjrf-"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#! SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
-CSRF_TRUSTED_ORIGINS = [
-    f"https://{i}-solana-assets.webapp-flagfrenzy.at" for i in range(1, 101)
-]
+CSRF_TRUSTED_ORIGINS = ["https://*.web.ctf.htl-villach.at"]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 

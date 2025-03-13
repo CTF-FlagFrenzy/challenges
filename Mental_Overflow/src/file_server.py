@@ -30,5 +30,4 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-    logger.info(f"Serving at port 127.0.0.1:{PORT}")
-    app.run(host="0.0.0.0", port=PORT)
+    app.run(host="0.0.0.0", port=80)

@@ -16,7 +16,7 @@ def index(request):
     query = request.GET.get("q")
     flag = None
     teamflag = os.environ.get("TEAMKEY")
-    challengeflag = os.environ.get("CHALLENGEKEY")
+    challengeflag = "NQ^D@zd$q6"
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
     flag_value = f"FF{{{hashed_flag}}}"

@@ -11,9 +11,9 @@ print("Running startup script...")
 load_dotenv()
 
 team_key = os.getenv("TEAMKEY")
-challenge_key = os.getenv("CHALLENGE")
+challenge_key = "CeaserusCipherusRichtigus"
 combined_flag = challenge_key + team_key
-hashed_flag = f"FF{{{hashlib.md5(combined_flag.encode()).hexdigest()}}}"
+hashed_flag = f"FF{{{hashlib.sha256(combined_flag.encode()).hexdigest()}}}"
 print(f"Team Key: {team_key}")
 print(f"Challenge Key: {challenge_key}")
 print(f"Flag: {hashed_flag}")

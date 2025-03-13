@@ -26,8 +26,6 @@ services:
     environment:
       - TEAMKEY=XXXXXXX
       - TEAM_ID=XXXXXXX
-      - CHALLENGEKEY=#74q$j&zcB
-      - CHALLENGEKEY2=R2LQXpy^Us
 ```
 
 ### Dockerfile
