@@ -27,7 +27,7 @@ def create_recursive_zip(status_file=None):
     os.makedirs(hidden_dir, exist_ok=True)
 
     # Generate flag based on challenge and team key
-    challengekey = "F34rLh3Z1p"
+    challengekey = "M5OQXpXsE^Us"
     teamkey = os.environ.get("TEAMKEY")
     if not teamkey:
         logger.warning("TEAMKEY environment variable not set, using default")
