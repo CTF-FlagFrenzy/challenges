@@ -29,7 +29,7 @@
 > | Shell_Assembly | Medium | Reverse Engineering | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shell_Assembly/Shell_Assembly.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Corrupted_File | Medium | Reverse Engineering | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Corrupted_File/Corrupted_File.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Stealth_Invoice | Medium | Forensics | 2 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Stealth_Invoice/Stealth_Invoice.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
-> | HackTheRack | Expert | Others | 2 | 20% done | [documentation] | [Kingdanxi](https://github.com/kingdanxi) | X |
+> | DecryptionMaster | Hard | Others | 2 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Decryption_Master/Decryption_Master.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | Solana_Bank_Heist | Expert | Blockchain | 1 | Discontinued | [documentation] | [zVSciy](https://github.com/zVSciy) | X |
 > | Hidden_Frequencies | Medium | Steganography/Forensics | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Frequencies/Hidden_Frequencies.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
 > | Capture_the_Bytes | Hard | Network/Forensics | 1 | 70% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Capture_the_Bytes/Capture_the_Bytes.md) | [zVSciy](https://github.com/zVSciy) | X |
