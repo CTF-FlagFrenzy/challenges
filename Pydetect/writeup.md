@@ -7,16 +7,17 @@ In this challange the user is provided a compiled python script and a flag file,
 ## Steps to Solve
 
 1. **Decompilation**\
-  The easiest way to decompile the Python script is to use a website such as [PyLingual](https://pylingual.io/). Using this website you can get the source code of the Python file.
-
+  An easy option to decompile the Python script is [pycdc](https://github.com/zrax/pycdc). Precompiled binaries for Linux and Windows are available to [download here](https://github.com/extremecoders-re/decompyle-builds/releases), use them to decompile the Python script.
+    ```sh
+    chmod +x ./pycdc.x86_64 # Make file executable on Linux
+    ./pycdc.x86_64 encoder.py > decompiled.py
+    ```
     ```py
-    # Decompiled with PyLingual (https://pylingual.io)
-    # Internal filename: encoder.py
-    # Bytecode version: 3.11a7e (3495)
-    # Source timestamp: 2025-01-30 15:10:10 UTC (1738249810)
+    # Source Generated with Decompyle++
+    # File: encoder.pyc (Python 3.7)
 
-    import zlib
     import pickle
+    import zlib
     from base64 import urlsafe_b64encode as b64enc
     flag = open('flag.txt', 'r').read()
     enc = b64enc(zlib.compress(bytes(flag, 'utf-8')))
