@@ -15,9 +15,9 @@ Using the [Morse Code Adaptive Decoder from morsecode.world](https://morsecode.w
 <img src="./docassets/morsedecode.png" width=75% />
 
 3. **Insert into Flag Format**\
-Since Morse Code does not support the brackets used to enclose the flag you will hafe to manually add these and the FF prefix.
+Since Morse Code does not support the brackets used to enclose the flag you will have to manually add these and the FF prefix. If the morse decoder outputs upper-case characters, these will need to be converted to lower-case.
 `AB125151744E30BE8233545BB2CFC7A7E0C0E2945502581875916E63E9BD0B18` becomes the Flag 
-`FF{AB125151744E30BE8233545BB2CFC7A7E0C0E2945502581875916E63E9BD0B18}`
+`FF{ab125151744e30be8233545bb2cfc7a7e0c0e2945502581875916e63e9bd0b18}`
 
 
 
