@@ -3,7 +3,7 @@ FROM ubuntu:latest
 COPY ./create_flags.py /root
 
 RUN apt update && apt install -y openssh-server python3 python3-pip python3-venv
-RUN useradd -m -s /bin/bash j007 && echo 'j007:Pa$$w0rd!' | chpasswd
+RUN useradd -m -s /bin/bash j007 && echo 'j007:'$PASSWORD | chpasswd
 RUN python3 -m venv /env && /env/bin/pip install pycryptodome
 
 EXPOSE 22
