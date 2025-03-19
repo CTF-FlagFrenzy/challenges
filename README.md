@@ -30,9 +30,9 @@
 > | Corrupted_File | Medium | Reverse Engineering | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Corrupted_File/Corrupted_File.md) | [KaveXD](https://github.com/KaveXD) | X |
 > | Stealth_Invoice | Medium | Forensics | 2 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Stealth_Invoice/Stealth_Invoice.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
 > | DecryptionMaster | Hard | Others | 2 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Decryption_Master/Decryption_Master.md) | [Kingdanxi](https://github.com/kingdanxi) | X |
-> | Solana_Bank_Heist | Expert | Blockchain | 1 | Discontinued | [documentation] | [zVSciy](https://github.com/zVSciy) | X |
+> | Solana_Dumb_Contract | Expert | Blockchain | 1 | 100% | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Solana_Dumb_Contract/Solana_Dumb_Contract.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Hidden_Frequencies | Medium | Steganography/Forensics | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Hidden_Frequencies/Hidden_Frequencies.md) | [IlariaBrown](https://github.com/IlariaBrown) | X |
-> | Capture_the_Bytes | Hard | Network/Forensics | 1 | 70% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Capture_the_Bytes/Capture_the_Bytes.md) | [zVSciy](https://github.com/zVSciy) | X |
+> | Capture_the_Bytes | Hard | Network/Forensics | 1 | Discontinued | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Capture_the_Bytes/Capture_the_Bytes.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | The_Neverending_Zip | Easy | Others | 1 | 90% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/The_Neverending_Zip/The_Neverending_Zip.md) | [zVSciy](https://github.com/zVSciy) | X |
 > | Transmission Received | Hard | Forensics | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/transmission-received/transmission-received.md) | [cupels](https://github.com/cupels) | X |
 > | Phantom Frequency | Medium | Forensics | 1 | 100% done | [documentation](https://github.com/CTF-FlagFrenzy/challenges/blob/main/morse/morse.md) | [cupels](https://github.com/cupels) | X |
