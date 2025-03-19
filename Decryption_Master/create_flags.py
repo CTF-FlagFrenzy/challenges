@@ -23,14 +23,15 @@ if __name__ == "__main__":
     combined_flag = challenge_flag + team_flag
     combined_flag_two = challenge_flag_two + team_flag
 
-    hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
-    logger.info(f"Flag for history successfully created and hashed {hashed_flag}")
+    hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
+    hashed_flag_formatted = "FF{" + hashed_flag + "}"
+    logger.info(f"Flag for history successfully created and hashed {hashed_flag_formatted}")
 
     hashed_flag_two = ("FF{" + hashlib.sha256(combined_flag_two.encode()).hexdigest() + "}")
     logger.info(f"Flag for AES encryption successfully created and hashed {hashed_flag_two}")
 
     # AES-128 Encryption (CBC mode)
-    aes_key =  hashed_flag[:16].encode('utf-8') # 16-byte key
+    aes_key =  hashed_flag_formatted[:16].encode('utf-8') # 16-byte key
     iv = os.urandom(16) # random IV    
 
     # Create the cipher object and encrypt the data
@@ -112,7 +113,7 @@ if __name__ == "__main__":
     This flag is crucial for the security of our system. 
     It ensures that all data is encrypted and protected from unauthorized access. 
     By using advanced encryption techniques, we can safeguard sensitive information and maintain the integrity of our operations. 
-    The hashed flag {hashed_flag} is a key component in our encryption process, providing a unique identifier that is used to encrypt and decrypt data. 
+    The hashed flag {hashed_flag}, without its usual layout, is a key component in our encryption process, providing a unique identifier that is used to encrypt and decrypt data. 
     Without this flag, our encryption system would not function properly, leaving our data vulnerable to attacks. 
     Therefore, it is essential to keep the hashed flag secure and confidential at all times.
     """
@@ -160,7 +161,7 @@ if __name__ == "__main__":
     echo "export SystemNothing='{variable_text}'" >> /home/j007/.bashrc
 
     # Part A in /etc/passwd
-    echo "23:x:1002:1002::{part_a}:/clouds/are/wonderful" >> /etc/passwd
+    echo "u23:x:1002:1002::{part_a}:/clouds/are/wonderful" >> /etc/passwd
 
     # Part B in backup files
     mkdir -p /home/j007/confs

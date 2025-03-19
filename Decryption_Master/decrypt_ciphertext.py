@@ -6,7 +6,7 @@ from Crypto.Util.Padding import unpad
 
 # Retrieve the parts from their respective locations
 part_a = "..."  # Retrieve from /etc/passwd
-part_b = "..."  # Retrieve from /home/j007/confs/backup_21.conf
+part_b = "..."  # Retrieve from /home/j007/confs/backup_42.conf
 part_c = "..."  # Retrieve from /home/j007/notes.txt
 part_d = "..."  # Retrieve from /var/log/syslog
 hex_iv = "..."  # Retrieve from /home/j007/notes.txt
