@@ -1,4 +1,4 @@
-# CTF Cryptography | Decryption Master Writeup: Hard Level
+# CTF Cryptography | Decryption Master Writeup: Expert Level
 
 ## Challenge Overview
 This challenge involves finding parts of a ciphertext hidden in various locations, combining them in the correct order, and decrypting them using AES-128 CBC. Below are the steps to solve the challenge:
@@ -23,7 +23,7 @@ This challenge involves finding parts of a ciphertext hidden in various location
             - Specifically, it is inserted into the middle of `backup_42.conf` using the line: `24 rooms are part of: {part_b}`
             - Extract part b.
         - Part C
-            - Found in `/home/j007/notes.txt`
+            - Found in `/usr/share/wordlists/rockyou.txt`
             - Look for a line like: `30 session are needed for: {part_c}`
             - Extract part c.
         - Part D
@@ -37,50 +37,21 @@ This challenge involves finding parts of a ciphertext hidden in various location
     - Order from the lowest to the highest number, so: `ciphertext = part_a + part_b + part_c + part_d`
 
 4. Find the IV used for AES-128-CBC
-    - The Initialization Vector (IV) is stored in `/home/j007/notes.txt`
+    - The Initialization Vector (IV) is stored in `/usr/share/wordlists/rockyou.txt`
     - Look for a line like: `I must not forget my IV, it is: {hex_iv}`
     - Extract the IV.
 
 5. Decrypt the ciphertext using AES-128-CBC
     - Convert the combined ciphertext from hex to bytes.
     - Use the AES key (first 16 byte of the first flag) and IV to decrypt the ciphertext.
+    - The AES key is additionally manipulated with S-boxing before usage. This also applies to the IV, however, not the manipulated one (found on ubuntu system) but the original one, which requires a revert of S-boxing, is used for the AES encryption.
     - Unpad the decrypted data to retrieve the plaintext flag.
-    - In order to achieve this, use the following Python script: 
-        ```py
-        import base64
-        import hashlib
-        import binascii
-        from Crypto.Cipher import AES
-        from Crypto.Util.Padding import unpad
-
-        # Retrieve the parts from their respective locations
-        part_a = "..."  # Retrieve from /etc/passwd
-        part_b = "..."  # Retrieve from /home/j007/confs/backup_21.conf
-        part_c = "..."  # Retrieve from /home/j007/notes.txt
-        part_d = "..."  # Retrieve from /var/log/syslog
-        hex_iv = "..."  # Retrieve from /home/j007/notes.txt
-
-        # Combine all parts to form the original ciphertext
-        hex_ciphertext = part_a + part_b + part_c + part_d
-
-        # Convert the hexadecimal ciphertext and IV to bytes
-        ciphertext = bytes.fromhex(hex_ciphertext)
-        iv = bytes.fromhex(hex_iv)
-
-        # Use the AES key and IV to decrypt the ciphertext
-        hashed_flag = "FF{...}"  # The hashed flag used to generate the AES key
-        aes_key = hashed_flag[:16].encode('utf-8')  # 16-byte key
-
-        cipher = AES.new(aes_key, AES.MODE_CBC, iv)
-        decrypted_padded = cipher.decrypt(ciphertext)
-        decrypted_flag = unpad(decrypted_padded, AES.block_size).decode('utf-8')
-
-        print(f"Decrypted Flag: {decrypted_flag}")
-        ```
+    - In order to achieve this, use the Python script `decrypt_ciphertext.py` to decrypt the ciphertext.
 
 ## Tools Used
     - Basic Linux Commands
     - Python (Hashlib, Binascii, PyCryptodome)
+    - AES knowledge
 
 ## Conclusion
 Decryption Master was an excellent challenge that tested a wide range of cryptographic and analytical skills. It required careful exploration of system files, logical thinking to combine ciphertext parts, and a solid understanding of AES-128-CBC decryption.
