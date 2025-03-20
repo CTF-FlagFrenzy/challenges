@@ -12,7 +12,7 @@ debug = os.getenv("DEBUG", "False") == "True"
 #! COMMENT THIS OUT
 #! COMMENT THIS OUT
 #! COMMENT THIS OUT
-debug = True
+debug = False
 
 print(debug)
 
