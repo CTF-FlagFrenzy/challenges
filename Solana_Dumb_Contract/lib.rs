@@ -73,7 +73,7 @@ pub fn process_instruction(
     if instruction_data.is_empty() {
         msg!("Initializing...");
         flag_state.admin = *signer_account.key;
-        flag_state.flag_hash = hash(b"FF{e7aa71973d5c4703ef39648833eb8c892dfsdf402edc52b7a2944ad9830b22dac}").to_bytes();
+        flag_state.flag_hash = hash(b"RkZ7N2FhNzE5NzNkNWM0NzAzZWYzOTY0ODgzM2ViOGM4OTJkZnNkZjQwMmVkYzUyYjdhMjk0NGFkOTgzMGIyMmRhY30=").to_bytes();
         flag_state.unlocked = false;
         FlagState::pack_into_slice(&flag_state, &mut flag_account.data.borrow_mut());
         return Ok(());
@@ -87,9 +87,29 @@ pub fn process_instruction(
     }
 
     if instruction_data.len() == 1 && instruction_data[0] == 2 && flag_state.unlocked {
-        msg!("FF{e7aa71973d5c4703ef39648833eb8c892dfsdf402edc52b7a2944ad9830b22dac}");
+        msg!("Flag parts:");
+        print_flag_part_1();
+        print_flag_part_2();
+        print_flag_part_3();
+        print_flag_part_4();
         return Ok(());
     }
 
     Err(ProgramError::InvalidInstructionData)
+}
+
+fn print_flag_part_1() {
+    msg!("RkZ7N2FhNzE5NzNk");
+}
+
+fn print_flag_part_2() {
+    msg!("NWM0NzAzZWYzOTY0");
+}
+
+fn print_flag_part_3() {
+    msg!("ODgzM2ViOGM4OTJk");
+}
+
+fn print_flag_part_4() {
+    msg!("ZnNkZjQwMmVkYzUyYjdhMjk0NGFkOTgzMGIyMmRhY30=");
 }
