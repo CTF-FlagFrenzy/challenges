@@ -1,6 +1,6 @@
 # Decryption Master
 Are you the Decryption Master that finds interesting information on the given system?
-**Level**: Hard
+**Level**: Expert
 
 ## Challenge Overview
 The Decryption Master challenge requires knowledge in various issues, such as Linux, Forensics as well as Cryptography. Only people with a clear mind are able to find the information hidden on the Linux system!
