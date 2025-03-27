@@ -1,56 +1,131 @@
-# The Neverending Zip Challenge Writeup
+# CTF Automation | The Neverending Zip Challenge Writeup: Hard Level
 
 ## Challenge Overview
-"The Neverending Zip" is a challenge that involves navigating through a deeply nested ZIP file structure (approximately 11,111 layers deep) to find a flag hidden at the core.
+"The Neverending Zip" is a challenge that tests participants' automation skills by requiring them to navigate through a deeply nested ZIP file structure (approximately 11,111 layers deep) to find a flag hidden at the core.
 
-## Solution Approach
+## Steps to Solve
 
-### Understanding the Challenge
-The challenge presents us with a ZIP file that contains another ZIP file, which contains another ZIP file, and so on - creating a nesting that goes thousands of layers deep. The flag is hidden in a text file at the innermost layer.
+### 1. Download the Initial ZIP File
+- Download the `HaveFun.zip` file from the web interface
+- This is just the beginning of the challenge - there are many layers beneath!
 
-### Method 1: Manual Solution (Not Recommended)
-1. Download the initial ZIP file from the web interface
-2. Extract the ZIP file manually
-3. Find the next ZIP file inside
-4. Repeat steps 2-3 approximately 11,111 times (clearly not practical!)
+### 2. Understand the Challenge Structure
+- Examining the challenge reveals that:
+  - The ZIP contains approximately 11,111 nested layers
+  - Each ZIP file contains another ZIP file inside it
+  - The flag is stored in a `flag.txt` file at the innermost layer
+  - Manual extraction would be extremely impractical
 
-### Method 2: Automated Solution
-Since manual extraction would be extremely time-consuming, we need to write a script to automate the process.
+![Picture could not be loaded](./media/zip_depth_illustration.png)
 
-#### Step 1: Examine the Challenge
-Looking at the challenge structure, we can see from the `create_zip.py` file that:
+### 3. Analyze the Challenge Creation Process
+From the `create_zip.py` file, we can understand how the challenge was constructed:
 - The flag is generated using a challenge key and team key
-- The ZIP nesting is approximately 11,111 layers deep
-- The flag is stored in a file called `flag.txt` at the core
-
-#### Step 2: Create an Automated Extraction Script
-Create a Python script that can:
-1. Accept a path to the initial ZIP file
-2. Extract the contents to a temporary directory
-3. Find the next ZIP file in the extracted contents
-4. Repeat the process until we reach a directory with `flag.txt`
-5. Read and display the flag
-
-#### Step 3: Run the Automated Solution
-1. Start with the initial `HaveFun.zip` file
-2. Run our extraction script against it
-3. Wait for the script to navigate through all nested layers
-4. Retrieve the flag from the final `flag.txt` file
-
-## Key Observations
-- The challenge relies on the impracticality of manual extraction
-- The `create_zip.py` script shows us that the flag is generated using the formula:
-  ```
+- The formula used is:
+  ```python
   combined_flag = challengekey + teamkey
   hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
   ```
-- Based on the extraction process, we can see that the flags are consistent with the format "FF{...}"
+- The ZIP nesting is achieved through a loop that creates approximately 11,111 layers
+
+### 4. Create an Automated Extraction Script
+Since manual extraction would take days, we need to create a Python script that can:
+
+```python
+import os
+import zipfile
+import time
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+def extract_nested_zips(zip_path, extract_dir):
+    """Recursively extract nested zip files until we find the flag."""
+    os.makedirs(extract_dir, exist_ok=True)
+    
+    # Stats tracking
+    start_time = time.time()
+    layer_count = 0
+    
+    current_zip = zip_path
+    
+    try:
+        while True:
+            layer_count += 1
+            current_extract_dir = os.path.join(extract_dir, f"layer_{layer_count}")
+            os.makedirs(current_extract_dir, exist_ok=True)
+            
+            # Report progress every 100 layers
+            if layer_count % 100 == 0:
+                elapsed = time.time() - start_time
+                layers_per_second = layer_count / elapsed if elapsed > 0 else 0
+                logger.info(f"Processed {layer_count} layers. Speed: {layers_per_second:.2f} layers/sec")
+            
+            # Extract the current zip
+            with zipfile.ZipFile(current_zip, "r") as zipf:
+                zipf.extractall(current_extract_dir)
+                
+                # Check if we found the flag
+                if "flag.txt" in zipf.namelist():
+                    flag_path = os.path.join(current_extract_dir, "flag.txt")
+                    logger.info(f"Found flag file at layer {layer_count}!")
+                    with open(flag_path, "r") as f:
+                        flag_content = f.read()
+                        logger.info(f"Flag content:\n{flag_content}")
+                    return flag_content
+                
+                # Find the next zip file
+                next_zip = None
+                for item in zipf.namelist():
+                    if item.lower().endswith(".zip"):
+                        next_zip = os.path.join(current_extract_dir, item)
+                        break
+                
+                if next_zip is None:
+                    logger.error("No zip file found in layer. Extraction complete but no flag found.")
+                    break
+                
+                current_zip = next_zip
+                
+                # Clean up previous layer to save space (optional)
+                # if layer_count > 1:
+                #     prev_layer_dir = os.path.join(extract_dir, f"layer_{layer_count-1}")
+                #     shutil.rmtree(prev_layer_dir, ignore_errors=True)
+                
+    except Exception as e:
+        logger.error(f"Error during extraction: {e}")
+        return None
+
+# Usage
+if __name__ == "__main__":
+    zip_path = "HaveFun.zip"  # Path to the initial zip file
+    extract_dir = "extracted"  # Directory to extract files to
+    
+    logger.info(f"Starting extraction of {zip_path}")
+    extract_nested_zips(zip_path, extract_dir)
+```
+
+### 5. Run the Script and Wait
+- Execute the extraction script against the initial ZIP file
+- The script will navigate through all the nested ZIP layers
+- This could take some time (10-30 minutes depending on system performance)
+- Monitor the progress through the script's logging
+
+### 6. Retrieve the Flag
+Once the script reaches the core, it will find and open `flag.txt` which contains the flag in the format `FF{...}`.
+
+## Tools Used
+- Python 3.x
+- Python's zipfile module
+- Text editor for script creation
 
 ## Flag
-Upon reaching the core and opening `flag.txt`, we find the flag in the format `FF{...}` which is a SHA-256 hash based on the challenge and team keys.
+The final flag is in the format `FF{...}` which is a SHA-256 hash based on the challenge and team keys.
 
 ## Lessons Learned
-1. Automation is essential when dealing with repetitive tasks
-2. Understanding the challenge creation process can provide insights into the solution
-3. Temporary storage management is important when processing many files
-4. The power of scripting allows us to solve problems that would be practically impossible manually
+1. Automation is essential when dealing with repetitive tasks at scale
+2. Understanding the challenge creation process can provide insights for efficient solution development
+3. Memory and storage management are important when processing many nested files
+4. There's a significant difference between theoretically possible manual solutions and practically feasible automated solutions
