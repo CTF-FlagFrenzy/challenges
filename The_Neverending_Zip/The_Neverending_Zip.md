@@ -327,6 +327,60 @@ Providing accurate progress updates for a process that may run for 15+ minutes i
 - **Status File**: Shared between the web app and ZIP creation script
 - **Performance Metrics**: Calculation of layers per second and time remaining
 
+#### Real-time Progress Implementation Details
+
+```python
+# In create_zip.py - Progress reporting logic
+def update_status_file(status_file, start_time, layer, max_layers):
+    current_time = time.time()
+    elapsed = current_time - start_time
+    layers_per_second = layer / elapsed if elapsed > 0 else 0
+    estimated_total = max_layers / layers_per_second if layers_per_second > 0 else 0
+    remaining = estimated_total - elapsed
+    
+    try:
+        with open(status_file, "w") as f:
+            json.dump({
+                "start_time": start_time,
+                "current_time": current_time,
+                "progress": layer / max_layers,
+                "estimated_total_time": estimated_total,
+                "remaining_time": remaining,
+                "layers_per_second": layers_per_second,
+            }, f)
+    except Exception as e:
+        logger.error(f"Error updating status file: {e}")
+
+# In app.py - SSE endpoint implementation
+@app.route("/stream")
+def stream():
+    def generate():
+        while True:
+            # Check if zip file is ready
+            if os.path.exists(zip_path) or zip_creation_complete:
+                data = {"ready": True, "progress": 1.0}
+                yield f"data: {json.dumps(data)}\n\n"
+                break
+                
+            # Read and process status file
+            status = read_status_file()
+            if status and "progress" in status:
+                progress = status["progress"]
+                remaining = status.get("remaining_time", 0)
+                
+                data = {
+                    "ready": False,
+                    "progress": progress,
+                    "est_time_remaining": remaining,
+                    "layers_per_second": status.get("layers_per_second", 0)
+                }
+                yield f"data: {json.dumps(data)}\n\n"
+                
+            time.sleep(1)
+            
+    return Response(generate(), mimetype="text/event-stream")
+```
+
 ### 3. Docker Containerization
 
 Containerization ensures consistent behavior across environments:
@@ -335,12 +389,123 @@ Containerization ensures consistent behavior across environments:
 - **Port Mapping**: Exposing port 80 for easy web access
 - **Resource Limits**: Can be applied to prevent resource exhaustion
 
+#### Dockerfile Implementation
+
+```dockerfile
+# flask_app/Dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY flask_app/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the application files
+COPY flask_app/ ./flask_app/
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV FLASK_APP=flask_app/app.py
+
+# Create necessary directories
+RUN mkdir -p flask_app/zip
+
+# Expose the application port
+EXPOSE 80
+
+# Set script permissions
+RUN chmod +x flask_app/entrypoint.sh
+
+# Start the application with gunicorn
+CMD ["./flask_app/entrypoint.sh"]
+```
+
+#### Docker Compose Configuration
+
+```yaml
+# docker-compose.yml
+version: '3'
+
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: flask_app/Dockerfile
+    ports:
+      - '80:80'
+    environment:
+      - TEAMKEY=XXXXXXX
+    # Optional resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+```
+
+#### Entrypoint Script
+
+```bash
+#!/bin/bash
+# flask_app/entrypoint.sh
+
+# Wait for any system initialization
+sleep 2
+
+# Start Gunicorn with 4 workers
+exec gunicorn --bind 0.0.0.0:80 --workers 4 --timeout 120 flask_app.app:app
+```
+
 ## Security Considerations
 
 1. **Input Validation**: All user inputs are validated to prevent injection attacks
 2. **Resource Limitations**: The application includes timeouts and limits to prevent DoS attacks
 3. **Safe File Handling**: All file operations use secure practices to prevent directory traversal
 4. **Containerization**: Isolates the application from the host system
+
+### Security Implementation Examples
+
+```python
+# Input validation example
+@app.route("/custom_key", methods=["POST"])
+def set_custom_key():
+    key = request.form.get("key", "")
+    
+    # Validate key format
+    if not re.match(r'^[a-zA-Z0-9_-]{4,32}$', key):
+        return jsonify({"error": "Invalid key format"}), 400
+        
+    # Store validated key
+    session["custom_key"] = key
+    return jsonify({"success": True})
+
+# Safe file handling example
+def safe_path_join(base_dir, filename):
+    """Safely join base directory and filename, preventing directory traversal"""
+    # Normalize the path and ensure it stays within base_dir
+    path = os.path.normpath(os.path.join(base_dir, filename))
+    if not path.startswith(base_dir):
+        raise ValueError("Attempted path traversal")
+    return path
+
+# Resource limitation example - limit ZIP file size
+def validate_zip_file(zip_path, max_size_mb=100):
+    """Validate that a ZIP file is safe to extract"""
+    file_size_mb = os.path.getsize(zip_path) / (1024 * 1024)
+    if file_size_mb > max_size_mb:
+        raise ValueError(f"ZIP file too large: {file_size_mb:.2f}MB (max: {max_size_mb}MB)")
+        
+    # Additional validation could include checking number of files,
+    # checking for zip bombs, etc.
+```
 
 ## Conclusion
 
@@ -353,3 +518,8 @@ The challenge balances technical complexity with educational value, teaching con
 - Real-time status reporting
 - Resource management
 - Web application development
+
+**HAVE FUN**
+
+> [!NOTE]
+> If you have any problems solving this challenge, you can find a detailed writeup [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/The_Neverending_Zip/writeup.md)

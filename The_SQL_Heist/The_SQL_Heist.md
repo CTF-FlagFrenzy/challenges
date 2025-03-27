@@ -3,20 +3,18 @@
 Web challenge where you have to exploit a search function to retrieve the flag.  
 **Level**: Easy
 
+## Challenge Overview
 
-
-## Challenge Overview:
-
- The SQL Heist challenge revolves around exploiting a vulnerable search functionality within a web application to retrieve sensitive data. 
- The web app allows users to search for articles using a query, but the query is directly inserted into an SQL statement without proper sanitization, 
- making it susceptible to SQL injection attacks.
- The challenge focuses on understanding and exploiting SQL injection vulnerabilities to gain unauthorized access to the flag stored within the system.
+The SQL Heist challenge revolves around exploiting a vulnerable search functionality within a web application to retrieve sensitive data. 
+The web app allows users to search for articles using a query, but the query is directly inserted into an SQL statement without proper sanitization, 
+making it susceptible to SQL injection attacks.
+The challenge focuses on understanding and exploiting SQL injection vulnerabilities to gain unauthorized access to the flag stored within the system.
 
 ---
 
-### Dockerfile
+### Docker Configuration
 
-Starting off with the docker-compose file, this file start the challenge container to use it for the CTF. 
+Starting off with the docker-compose file, this file starts the challenge container for the CTF. 
 
 ```yml
 version: '3'
@@ -36,16 +34,15 @@ services:
     working_dir: '/code'
 
     ports:
-      - '8000:8000'
+      - '80:80'
       
     environment:
       - TEAMKEY=XXXXXXX
 ```
 
-### Web Application:
+### Web Application Frontend
 
-This HTML code defines a layout for displaying articles and breaking news in a grid format, with a footer that remains fixed at the bottom of the page. If a flag is set, it is displayed in a fixed position at the bottom-right of the screen.
-
+The web application presents a news site with a search functionality. Articles are displayed in a grid layout, with a main section for article listings and a sidebar for breaking news. When the flag is found through exploitation, it appears as a red notification box in the bottom-right corner of the screen.
 
 ```html
     <main class="container mx-auto p-4 grid grid-cols-3 gap-4">
@@ -84,32 +81,52 @@ This HTML code defines a layout for displaying articles and breaking news in a g
     {% endif %}
 ```
 
+### Backend Implementation & Vulnerability
 
-### SQL Injection Backend Overview
-
-The code provided demonstrates a potential vulnerability related to **SQL injection**. It handles a user search query to fetch articles from a database. Here's an analysis of the code and the security concerns:
+The challenge contains a classic SQL injection vulnerability in the search functionality. Here's the actual implementation from the views.py file:
 
 ```python
 def index(request):
     query = request.GET.get("q")  # Retrieves the search query from the GET request
     flag = None
-    # The flag is retrieved from environment variables and is dynamically generated
     teamflag = os.environ.get("TEAMKEY")
-    challengeflag = os.environ.get("CHALLENGEKEY")
+    challengeflag = "NQ^D@zd$q6"
     combined_flag = challengeflag + teamflag
     hashed_flag = hashlib.sha256(combined_flag.encode()).hexdigest()
+    flag_value = f"FF{{{hashed_flag}}}"
+
+    # Creates a special article with the flag
+    existing_article = Article.objects.filter(flag=flag_value).first()
+    if existing_article:
+        existing_article.delete()
+    
+    Article.objects.create(
+        title="Special Article",
+        content="This article contains the flag.",
+        flag=flag_value,
+    )
 
     articles = []
     if query:
+        if "flag" in query.lower():
+            # Blocks direct attempts to search for "flag"
+            popup_script = """
+            <script>
+                alert('Its not that easy buddy 💀');
+                window.location.href='/';
+            </script>
+            """
+            return HttpResponse(popup_script)
+            
         with connection.cursor() as cursor:
-            cursor.execute(
-                f"SELECT * FROM The_SQL_Heist_App_article WHERE title LIKE '%{query}%' OR content LIKE '%{query}%'"
-            )
+            # VULNERABLE CODE: Direct insertion of user input into SQL query
+            sql_query = f"SELECT * FROM The_SQL_Heist_App_article WHERE title LIKE '%{query}%' OR content LIKE '%{query}%'"
+            cursor.execute(sql_query)
             rows = cursor.fetchall()
             for row in rows:
                 articles.append({"title": row[1], "content": row[2]})
-            if "flag" in query:  # If the query contains the word 'flag', it will show the flag
-                flag = f"FF{{{hashed_flag}}}"
+                if row[3]:  # Check if flag is set
+                    flag = row[3]
     else:
         articles = Article.objects.all()
 
@@ -122,8 +139,36 @@ def index(request):
     )
 ```
 
+### Understanding the Vulnerability
 
-## Technical guideline
+The vulnerability exists in the construction of the SQL query, where user input (`query`) is directly concatenated into the SQL string:
+
+```python
+sql_query = f"SELECT * FROM The_SQL_Heist_App_article WHERE title LIKE '%{query}%' OR content LIKE '%{query}%'"
+```
+
+This creates a classic SQL injection point where attackers can escape the string context and inject their own SQL commands. For example, entering a payload like `' OR '1'='1' --` would modify the query to:
+
+```sql
+SELECT * FROM The_SQL_Heist_App_article WHERE title LIKE '%' OR '1'='1' --%' OR content LIKE '%' OR '1'='1' --%'
+```
+
+The `OR '1'='1'` condition is always true, causing the query to return all articles, including the "Special Article" that contains the flag. The `--` syntax comments out the rest of the query, preventing syntax errors.
+
+A more specific payload like `' OR flag IS NOT NULL --` would target only the article containing the flag.
+
+### Database Model
+
+The Article model that stores the flag looks like this:
+
+```python
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    flag = models.CharField(max_length=64, blank=True, null=True)
+```
+
+## Technical Guidelines
 
 ### Installation
 
@@ -133,28 +178,35 @@ def index(request):
 **Linux**
 
 - [Docker Linux installation](https://docs.docker.com/engine/install/ubuntu/)
-
 - [Docker-compose Linux installation](https://docs.docker.com/compose/install/linux/)
 
-**Windwos**
+**Windows**
 
 - [Docker Windows installation](https://docs.docker.com/desktop/setup/install/windows-install/)
-
 - [Docker-compose Windows installation](https://docs.docker.com/compose/install/)
 
 After you installed docker and docker-compose you need to pull the repository via cli using this command.
 
 ```
-git pull https://github.com/CTF-FlagFrenzy/challenges.git
+git clone https://github.com/CTF-FlagFrenzy/challenges.git
 ```
 
-Then you navigate to the root of the `Solana Assests` challenge and type the following command in the cli.
+Then you navigate to the root of the `The_SQL_Heist` challenge and type the following command in the cli.
 
 ```
 docker-compose up
 ```
 
 You can see all running container with `docker ps`.
+
+### Exploitation
+
+To successfully exploit the vulnerability and retrieve the flag:
+
+1. Access the web application at http://localhost (or the deployed URL)
+2. In the search box at the top of the page, enter the SQL injection payload: `' OR flag IS NOT NULL --`
+3. Submit the search query
+4. The flag will appear in a red box in the bottom-right corner of the screen
 
 **HAVE FUN**
 

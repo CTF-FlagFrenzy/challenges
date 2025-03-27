@@ -2,11 +2,21 @@
 
 ## Challenge Overview
 
-In this challenge, a hidden file must be found within a web application by participants. The hidden file contains information about various products, and each product's ID section holds a part of the flag. However, the flag parts are encoded and shuffled. The units field contains the information needed for the correct order. The challenge involves the use of web tools and techniques to locate and assemble the flag.
+In this challenge, participants must find a hidden file within a web application. The hidden file contains information about various cryptocurrency products, and each product's ID section holds a part of the flag. These flag parts are hex-encoded and shuffled, and the "units" field in each product contains the information needed to arrange the parts in the correct order. The challenge involves web reconnaissance techniques to locate the hidden file and cryptographic knowledge to decode and reassemble the flag.
+
+### Challenge Mechanics
+
+1. Participants must discover the hidden endpoint `/security.txt`
+2. The endpoint serves a JSON file with product information
+3. Each product has an ID (hex-encoded part of the flag) and a units value (position indicator)
+4. Participants need to decode each ID and arrange them according to the units values
+5. The assembled text forms the flag in the format `FF{hash}`
+
+## Technical Implementation
 
 ### Docker Compose
 
-- The `docker-compose.yml` file sets up the environment for the challenge by starting the Flask service.
+The `docker-compose.yml` file sets up the environment for the challenge by starting the Flask service on port 80:
 
 ```yaml
 version: '3'
@@ -21,71 +31,96 @@ services:
       dockerfile: flask_app/Dockerfile
 
     ports:
-      - '8007:5000'
+      - '80:80'
 
     environment:
       - TEAMKEY=XXXXXXX
-      - CHALLENGEKEY=t9gE6@W!Nz
 ```
 
 ### Dockerfile
 
-- The Dockerfile sets up the Flask application environment.
+The Dockerfile sets up the Flask application environment:
 
-```yml
+```dockerfile
 FROM python:3
 
-COPY  ./
-RUN pip install --no-cache-dir -r 
+COPY flask_app/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . code
 WORKDIR /code
+EXPOSE 80
 
 ENTRYPOINT ["python", "flask_app/app.py"]
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
+```
+
+### Requirements
+
+The application depends on Flask and Werkzeug:
+
+```
+Flask==2.0.2
+Werkzeug==2.0.3
 ```
 
 ### Flask Application
 
-- The Flask application is defined in `flask_app/app.py`. It serves the main page and the hidden file.
+The Flask application is defined in `flask_app/app.py`. It serves the main page and the hidden file:
 
-```py
+```python
 import subprocess
 
 from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def index():
     subprocess.run(["python", "flask_app/create_json.py"])
     return render_template("index.html")
 
+
 @app.route("/security.txt")
 def hidden_file():
     import os
+
     return send_from_directory(os.path.join(app.root_path, "hidden"), "security.txt")
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=80)
 ```
 
-### JSON File Creation
+### Product Data
 
-- The `create_json.py` script is responsible for generating a JSON file with product information and saving it to a hidden directory. This script performs several key tasks:
+The application uses a JSON file with product information as a base:
 
-- Logging Configuration: Sets up logging to capture and display information about the script's execution.
+```json
+{
+    "products": [
+        {
+            "id": "535551674e444935",
+            "name": "Bitcoin Paper Wallet (pack of 20)",
+            "description": "Securely store your Bitcoin with these paper wallets.",
+            "picture": "/static/img/products/bitcoin_paper_wallet.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 50
+            },
+            "categories": ["crypto", "security"]
+        },
+        // ...more products...
+    ]
+}
+```
 
-- Loading Product Data: Reads product data from a JSON file.
+### Flag Generation Script
 
-- Flag Generation: Combines environment variables to create a flag, hashes it, and splits it into parts.
+The `create_json.py` script is responsible for generating the challenge flag and hiding it within the product data:
 
-- Encoding and Shuffling: Encodes the flag parts to hexadecimal, shuffles them, and assigns them to products.
-
-- Saving the JSON File: Writes the modified product data to a hidden file.
-Here is the detailed code:
-
-```py
+```python
 import hashlib
 import json
 import logging
@@ -103,7 +138,7 @@ with open(os.path.join(os.path.dirname(__file__), "products.json"), "r") as json
     data = json.load(json_file)
     products = data["products"]
 
-challengeflag = os.environ.get("CHALLENGEKEY")
+challengeflag = "t9gE6@W!Nz"
 teamflag = os.environ.get("TEAMKEY")
 combined_flag = challengeflag + teamflag
 
@@ -117,9 +152,9 @@ else:
 
 part_length = len(hashed_flag) // 9
 hashed_flag_parts = [
-    hashed_flag[i: i + part_length] for i in range(0, part_length * 9, part_length)
+    hashed_flag[i: i + part_length] for i in range(0, part_length * 8, part_length)
 ]
-hashed_flag_parts.append(hashed_flag[part_length * 9:])
+hashed_flag_parts.append(hashed_flag[part_length * 8:])
 
 logger.info("Hashed flag parts created: %s", hashed_flag_parts)
 
@@ -160,11 +195,54 @@ with open(output_path, "w") as json_file:
 logger.info("JSON file successfully created at %s", output_path)
 ```
 
-### HTML Template
+The script performs the following key operations:
 
-- The HTML template for the main page is located in `flask_app/templates/index.html`.
+1. **Reads the product data**: Loads the base product information from products.json
+2. **Creates the flag**: Combines the challenge key with the team key and creates a SHA-256 hash
+3. **Splits the flag**: Divides the flag into 9 parts of equal length
+4. **Encodes and shuffles**: Converts each part to hexadecimal and randomly shuffles them
+5. **Embeds the flag parts**: Assigns each encoded part to a product's ID and stores its original position in the units field
+6. **Saves the modified data**: Writes the JSON data to the hidden file location
 
-## Technical guideline
+### Frontend Implementation
+
+The HTML template (`index.html`) creates a financial dashboard as a decoy, showing cryptocurrency charts to maintain the theme while hiding the actual challenge:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Rich</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <style>
+        .bg-solana-dark { background-color: #131722; }
+        .text-solana { color: #00FFA3; }
+        .hover\:text-solana:hover { color: #00FFA3; }
+    </style>
+</head>
+<body class="bg-solana-dark text-white">
+    <!-- Frontend for financial dashboard -->
+    <!-- Contains charts from TradingView -->
+</body>
+</html>
+```
+
+## Solving the Challenge
+
+To solve this challenge, participants need to:
+
+1. **Discover the hidden endpoint**: Use tools like `ffuf` or directory brute-forcing to find `/security.txt`
+2. **Extract the encoded flag parts**: Retrieve each product's ID from the JSON data
+3. **Decode the hex values**: Convert the hex-encoded IDs back to text
+4. **Determine the correct order**: Use the "units" value in each product to determine the position of each part
+5. **Assemble the flag**: Combine all parts in the correct order to form the flag
+
+The final flag will be in the format: `FF{<sha256_hash>}`
+
+## Technical Requirements
 
 ### Installation
 
@@ -174,30 +252,28 @@ logger.info("JSON file successfully created at %s", output_path)
 **Linux**
 
 - [Docker Linux installation](https://docs.docker.com/engine/install/ubuntu/)
-
 - [Docker-compose Linux installation](https://docs.docker.com/compose/install/linux/)
 
-**Windwos**
+**Windows**
 
 - [Docker Windows installation](https://docs.docker.com/desktop/setup/install/windows-install/)
-
 - [Docker-compose Windows installation](https://docs.docker.com/compose/install/)
 
-After you installed docker and docker-compose you need to pull the repository via cli using this command.
+After installing Docker and Docker Compose, you need to clone the repository:
 
 ```
-git pull https://github.com/CTF-FlagFrenzy/challenges.git
+git clone https://github.com/CTF-FlagFrenzy/challenges.git
 ```
 
-Then you navigate to the root of the `Solana Assests` challenge and type the following command in the cli.
+Then navigate to the root of the `Shadow_File` challenge and run:
 
 ```
 docker-compose up
 ```
 
-You can see all running container with `docker ps`.
+You can view running containers with `docker ps`.
 
 **HAVE FUN**
 
 > [!NOTE]
-> If you have any problems solving this challenge you can find a full guide [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/writeup.md)
+> If you have any problems solving this challenge, you can find a detailed writeup [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Shadow_File/writeup.md)

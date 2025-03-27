@@ -277,3 +277,8 @@ For a production version of this contract, consider:
 ## Conclusion
 
 The Solana Dumb Contract demonstrates fundamental concepts in Solana program development, including account management, state serialization, and instruction processing. While simple, it provides a foundation for understanding more complex Solana programs.
+
+**HAVE FUN**
+
+> [!NOTE]
+> If you have any problems solving this challenge, you can find a detailed writeup [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/Solana_Dumb_Contract/writeup.md)
