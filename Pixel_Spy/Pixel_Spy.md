@@ -5,7 +5,9 @@ Web challenge where you have to use tools to find a message in the image.
 
 ## Challenge Overview
 
-In this challenge, participants need to find a hidden message within an image. The hidden message contains the flag, and participants must use image analysis tools to extract it.
+In this challenge, participants need to find a hidden message within an image. The hidden message contains the flag, and participants must use image analysis tools to extract it. The flag is hidden within the EXIF metadata of the image, specifically in the ImageDescription field.
+
+## Technical Details
 
 ### Docker Compose
 
@@ -24,35 +26,45 @@ services:
       dockerfile: flask_app/Dockerfile
 
     ports:
-      - '8008:5000'
+      - '80:80'
 
     environment:
       - TEAMKEY=XXXXXXX
-      - CHALLENGEKEY=T1#mXeG24B
 ```
 
 ### Dockerfile 
 
 - The Dockerfile sets up the Flask application environment.
 
-```yml
+```dockerfile
 FROM python:3
 
-COPY requirements.txt ./
+COPY flask_app/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /code
+COPY . code
 WORKDIR /code
+EXPOSE 80
 
 ENTRYPOINT ["python", "flask_app/app.py"]
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
+```
+
+### Dependencies
+
+The application requires the following Python packages:
+
+```txt
+Flask==2.0.2
+Werkzeug==2.0.3
+piexif==1.1.3
 ```
 
 ### Flask Application
 
 - The Flask application is defined in `app.py`. It serves the main page and processes the image.
 
-```py
+```python
 import logging
 import os
 import subprocess
@@ -63,6 +75,7 @@ app = Flask(__name__)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 @app.route("/")
 def home():
@@ -87,15 +100,16 @@ def home():
 
     return render_template("index.html", image_url=image_url)
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=80)
 ```
 
 ### Image Modification Script
 
-- The `modify_image.py` script modifies the image to include the hidden message.
+- The `modify_image.py` script modifies the image to include the hidden message. It embeds the flag into the EXIF metadata of the image.
 
-```py
+```python
 import hashlib
 import logging
 import os
@@ -109,7 +123,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-challengeflag = os.environ.get("CHALLENGEKEY")
+challengeflag = "T1#mXeG24B"
 teamflag = os.environ.get("TEAMKEY")
 combined_flag = challengeflag + teamflag if challengeflag and teamflag else None
 
@@ -169,7 +183,7 @@ logger.info(
 
 ### HTML Template
 
-- The HTML template for the main page is located in `index.html`.
+- The HTML template for the main page is located in `index.html`. It creates a dramatic "hacker" aesthetic and displays the image that contains the hidden flag.
 
 ```html
 <!DOCTYPE html>
@@ -219,9 +233,24 @@ logger.info(
 </html>
 ```
 
-## Technical guideline
+## Challenge Solution
 
-### Installation
+When a user visits the web page, they will see an image displayed. The goal is to download this image and analyze its metadata to find the hidden flag.
+
+### Solution Steps:
+
+1. **Access the webpage**: Navigate to the provided URL (localhost:80 when running locally)
+2. **Download the image**: Right-click on the image and save it to your computer
+3. **Examine the metadata**: There are several ways to view EXIF metadata:
+   - Use a text editor like Notepad to open the file and search for "FF{"
+   - Use online EXIF viewers (like exif.regex.info or exifdata.com)
+   - Use command-line tools like `exiftool` with the command: `exiftool -ImageDescription image_with_flag.jpg`
+
+The flag will be found in the ImageDescription field in the format `FF{hash}`, where the hash is a SHA-256 hash of the combined challenge flag and team key.
+
+## Setting Up the Challenge
+
+### Installation Requirements
 
 > [!NOTE]
 > Make sure to install docker and docker-compose first
@@ -229,30 +258,44 @@ logger.info(
 **Linux**
 
 - [Docker Linux installation](https://docs.docker.com/engine/install/ubuntu/)
-
 - [Docker-compose Linux installation](https://docs.docker.com/compose/install/linux/)
 
-**Windwos**
+**Windows**
 
 - [Docker Windows installation](https://docs.docker.com/desktop/setup/install/windows-install/)
-
 - [Docker-compose Windows installation](https://docs.docker.com/compose/install/)
 
-After you installed docker and docker-compose you need to pull the repository via cli using this command.
+### Deployment
 
+After installing Docker and Docker Compose, follow these steps:
+
+1. Clone the repository:
 ```
-git pull https://github.com/CTF-FlagFrenzy/challenges.git
+git clone https://github.com/CTF-FlagFrenzy/challenges.git
 ```
 
-Then you navigate to the root of the `Solana Assests` challenge and type the following command in the cli.
+2. Navigate to the challenge directory:
+```
+cd challenges/Pixel_Spy
+```
 
+3. Start the Docker container:
 ```
 docker-compose up
 ```
 
-You can see all running container with `docker ps`.
+4. The challenge will be accessible at `http://localhost:80`
+
+You can see all running containers with `docker ps`.
+
+## Customization
+
+To customize the challenge:
+- Replace the `hacker.jpg` file with a different image
+- Modify the `TEAMKEY` in `docker-compose.yml` to create a unique flag
+- Adjust the HTML template for different visual appearances
 
 **HAVE FUN**
 
 > [!NOTE]
-> If you have any problems solving this challenge you can find a full guide [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/writeup.md)
+> If you have any problems solving this challenge, you can find a full guide in the [writeup.md](./writeup.md) file

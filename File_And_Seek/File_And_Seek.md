@@ -5,11 +5,13 @@ Web challenge where you have to use tools to find a hidden file.
 
 ## Challenge Overview
 
-In this challenge, participants need to find a hidden file within a web application. The hidden file contains information about various products, and each product's ID section contains a part of the flag. The challenge involves using web tools and techniques to locate and assemble the flag.
+In this challenge, participants need to find a hidden file within a web application. The hidden file contains information about various cryptocurrency products, and each product's ID section contains a part of the flag. The challenge involves using web enumeration tools to locate the hidden file and then extracting and assembling the flag from the product IDs.
 
-### Docker Compose
+## Implementation Details
 
-- The `docker-compose.yml` file sets up the environment for the challenge by starting the Flask service.
+### Docker Compose Configuration
+
+The `docker-compose.yml` file sets up the environment for the challenge by building and running the Flask application:
 
 ```yaml
 version: '3'
@@ -24,75 +26,113 @@ services:
       dockerfile: flask_app/Dockerfile
 
     ports:
-      - '8003:5000'
+      - '80:80'
 
     environment:
-      - TEAMKEY=XXXXXXX
-      - CHALLENGEKEY=#74q$j&zcB
+      - TEAMKEY=XXXXXXX  # This value is replaced with a unique team key in the actual challenge
 ```
 
-### Dockerfile
+The TEAMKEY environment variable provides a unique value that is combined with the challenge key to generate a unique flag for each team.
 
-- The Dockerfile sets up the Flask application environment.
+### Dockerfile Implementation
 
-```yaml
+The Dockerfile builds the Python environment for the Flask application:
+
+```dockerfile
 FROM python:3
 
-COPY [requirements.txt](http://_vscodecontentref_/0) ./
-RUN pip install --no-cache-dir -r [requirements.txt](http://_vscodecontentref_/1)
+# Copy and install requirements
+COPY flask_app/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /code
+# Copy application code and set working directory
+COPY . code
 WORKDIR /code
 
+EXPOSE 80
+
+# Run the Flask application
 ENTRYPOINT ["python", "flask_app/app.py"]
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
 ```
 
-### Flask Application
+The Dockerfile:
+1. Uses a Python 3 base image
+2. Installs the required dependencies (Flask and Werkzeug)
+3. Copies the application code to the container
+4. Exposes port 80 for web traffic
+5. Sets up the entrypoint to run the Flask application
 
-- The Flask application is defined in `flask_app/app.py`. It serves the main page and the hidden file.
+### Flask Application Architecture
 
-```py
+The Flask application (`flask_app/app.py`) serves as the main entry point and has two primary routes:
+
+```python
 import subprocess
-
 from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
+    # Generate the hidden file with the flag when the main page is accessed
     subprocess.run(["python", "flask_app/create_json.py"])
     return render_template("index.html")
 
 @app.route("/security.txt")
 def hidden_file():
     import os
+    # Serve the hidden file containing the flag parts
     return send_from_directory(os.path.join(app.root_path, "hidden"), "security.txt")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=80)
 ```
 
-### JSON File Creation
+Key components:
+1. `/` route - Serves the main index page and triggers flag generation
+2. `/security.txt` route - Serves the hidden file containing the flag parts
+3. The Flask application runs on port 80 inside the container
 
-- The `create_json.py` script generates a JSON file with product information and saves it to a hidden directory.
+### Flag Generation Process
 
-```py
-import os
+The heart of the challenge is the `create_json.py` script, which generates a unique flag and embeds it in product IDs:
+
+```python
+import hashlib
 import json
 import logging
+import os
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
-products = [
-    {"name": "Product 1", "description": "Description 1"},
-    {"name": "Product 2", "description": "Description 2"},
-    # Add more products as needed
-]
+# Load the product data from products.json
+with open(os.path.join(os.path.dirname(__file__), "products.json"), "r") as json_file:
+    data = json.load(json_file)
+    products = data["products"]
 
-hashed_flag = "hashed_flag_value"
-part_length = len(hashed_flag) // 8
+# Generate a unique flag by combining challenge key and team key
+challengeflag = "#74q$j&zcB"
+teamflag = os.environ.get("TEAMKEY")
+combined_flag = challengeflag + teamflag
+
+if combined_flag:
+    # Create a SHA-256 hash of the combined flag with the FF{...} format
+    hashed_flag = "FF{" + hashlib.sha256(combined_flag.encode()).hexdigest() + "}"
+    logger.info("Flag successfully created and hashed: %s", hashed_flag)
+else:
+    logger.error(
+        "Failed to create flag. Ensure TEAMKEY and CHALLENGEKEY are set in environment variables."
+    )
+    hashed_flag = "FLAG_NOT_DEFINED"
+
+# Split the flag into 9 parts to assign to each product
+part_length = len(hashed_flag) // 9
 hashed_flag_parts = [
     hashed_flag[i: i + part_length] for i in range(0, part_length * 8, part_length)
 ]
@@ -100,6 +140,7 @@ hashed_flag_parts.append(hashed_flag[part_length * 8:])
 
 logger.info("Hashed flag parts created: %s", hashed_flag_parts)
 
+# Assign each flag part as the ID of a product
 for i, product in enumerate(products):
     try:
         product["id"] = hashed_flag_parts[i]
@@ -110,8 +151,8 @@ for i, product in enumerate(products):
         logger.error("Not enough hashed flag parts to assign to all products")
         break
 
+# Save the updated product data to security.txt in the hidden directory
 data = {"products": products}
-
 output_path = os.path.join("flask_app/hidden", "security.txt")
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
@@ -120,11 +161,81 @@ with open(output_path, "w") as json_file:
 logger.info("JSON file successfully created at %s", output_path)
 ```
 
-### HTML Template
+Key flag generation steps:
+1. Load product data from products.json
+2. Combine the challenge key and team key to create a unique identifier
+3. Generate a SHA-256 hash of the combined key, prefixed with "FF{"
+4. Split the hash into 9 parts
+5. Assign each part to a product as its ID
+6. Save the modified product data to security.txt in the hidden directory
 
-- The HTML template for the main page is located in `flask_app/templates/index.html`.
+### Web Interface
 
-## Technical guideline
+The web interface is a simple cryptocurrency financial dashboard created with HTML, Tailwind CSS, and TradingView widgets:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Rich</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <!-- Additional styling -->
+</head>
+<body class="bg-solana-dark text-white">
+    <!-- Header and main content -->
+    <main class="container mx-auto p-4">
+        <!-- Financial dashboard content -->
+        <!-- Market overview section with TradingView charts -->
+        <!-- Portfolio performance section -->
+    </main>
+    <footer class="bg-gray-800 p-4 text-center rounded-lg mt-4 w-full fixed bottom-0">
+        <p class="text-gray-500">&copy; 2024 Financial Dashboard. All rights reserved.</p>
+    </footer>
+    <!-- TradingView widget initialization scripts -->
+</body>
+</html>
+```
+
+The web interface serves as a distraction, containing no direct hints to the existence of the hidden file.
+
+## Challenge Solution
+
+To solve this challenge, participants need to:
+
+1. Use web enumeration tools like `ffuf`, `gobuster`, or `dirb` to discover the hidden `/security.txt` endpoint
+2. Access the hidden file at `/security.txt`
+3. Extract the product IDs from the JSON data
+4. Concatenate the IDs in order to reconstruct the complete flag
+
+### Data Files
+
+The challenge uses a predefined `products.json` file containing information about 9 cryptocurrency products:
+
+```json
+{
+    "products": [
+        {
+            "id": "535551674e444935",
+            "name": "Bitcoin Paper Wallet (pack of 20)",
+            "description": "Securely store your Bitcoin with these paper wallets.",
+            "picture": "/static/img/products/bitcoin_paper_wallet.png",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 50
+            },
+            "categories": ["crypto", "security"]
+        },
+        // 8 more products...
+    ]
+}
+```
+
+When the challenge runs, these static product IDs are replaced with parts of the generated flag.
+
+## Technical Implementation Guidelines
 
 ### Installation
 
@@ -134,30 +245,38 @@ logger.info("JSON file successfully created at %s", output_path)
 **Linux**
 
 - [Docker Linux installation](https://docs.docker.com/engine/install/ubuntu/)
-
 - [Docker-compose Linux installation](https://docs.docker.com/compose/install/linux/)
 
-**Windwos**
+**Windows**
 
 - [Docker Windows installation](https://docs.docker.com/desktop/setup/install/windows-install/)
-
 - [Docker-compose Windows installation](https://docs.docker.com/compose/install/)
 
-After you installed docker and docker-compose you need to pull the repository via cli using this command.
+After installing Docker and Docker Compose, follow these steps:
 
-```
-git pull https://github.com/CTF-FlagFrenzy/challenges.git
-```
+1. Clone the repository:
+   ```
+   git clone https://github.com/CTF-FlagFrenzy/challenges.git
+   ```
 
-Then you navigate to the root of the `Solana Assests` challenge and type the following command in the cli.
+2. Navigate to the File_And_Seek challenge directory:
+   ```
+   cd challenges/File_And_Seek
+   ```
 
-```
-docker-compose up
-```
+3. Start the challenge:
+   ```
+   docker-compose up
+   ```
 
-You can see all running container with `docker ps`.
+4. Verify the container is running:
+   ```
+   docker ps
+   ```
+
+The challenge will be accessible at http://localhost:80.
 
 **HAVE FUN**
 
 > [!NOTE]
-> If you have any problems solving this challenge you can find a full guide [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/writeup.md)
+> If you have any problems solving this challenge, you can find a full guide [here](https://github.com/CTF-FlagFrenzy/challenges/blob/main/File_And_Seek/writeup.md)
