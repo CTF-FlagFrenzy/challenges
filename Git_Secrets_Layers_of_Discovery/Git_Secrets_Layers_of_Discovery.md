@@ -49,6 +49,6 @@ Someone has been tampering with the repository—an unknown user who shouldn’t
 
 ### Git Repository
 
-Everything needed for this challenge is already set up in the [PhantomCode](https://github.com/ghostcoder0916/PhantomCode.git) repository under PhantomCoer0916. The repository contains all embedded flags, including hidden commit messages, deleted files, Git tags, and a fake user identity. No additional setup is required—participants only need access to the repository to start uncovering the secrets.
+Everything needed for this challenge is already set up in the [PhantomCode](https://github.com/ghostcoder0916/PhantomCode.git) repository under GhostCoder0916. The repository contains all embedded flags, including hidden commit messages, deleted files, Git tags, and a fake user identity. No additional setup is required—participants only need access to the repository to start uncovering the secrets.
 
 **HAVE FUN**
