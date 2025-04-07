@@ -14,7 +14,7 @@ In this challenge, we are given an image file that contains hidden data. The goa
 
     ![alt text](media/image-01.png)
 
-**2. Extracting the Didden File**
+**2. Extracting the Hidden File**
 
   - Now that we have the password, we can use steghide to extract the hidden file. This will extract a compressed archive (.tar.gz).
 
